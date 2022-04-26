@@ -35,7 +35,7 @@
                    </v-img>
                        </v-col>
           </v-row><br>
-           <v-card tile class="mx-4 " color="white">
+          <v-card tile class="mx-4 " color="white">
                  <v-toolbar extended color="lightgray">
                 <h1 style="font-size:20px; "> Record Workout</h1> <br>
                 </v-toolbar>
@@ -50,12 +50,24 @@
                        
                         <v-alert type="error">{{ errorMsg }}</v-alert>
                     </div>
-                          <!-- Form -->
-    <form @submit.prevent="createWorkout" class="flex flex-col gap-y-5 w-full">
-        <v-container>
-                           <!-- Workout Name -->
+                    <v-container>
+
+    <v-card-title class="text-h6 font-weight-regular justify-space-between">
+      <span>{{ currentTitle }}</span>
+      <v-avatar
+        color="primary"
+        size="24"
+        v-text="step"
+      ></v-avatar>
+    </v-card-title>
+  
+    <v-window v-model="step">
+      
+      <v-window-item :value="1">
+          <form action="" @submit.prevent="saveWorkout">
+            <!-- Workout Name -->
                     <div class="flex flex-col">
-                    <label for="workout-name" class="mb-1 text-sm text-at-light-green"
+                    <label for="workout-name" class=" text-sm text-at-light-green"
                         >Workout Name</label
                     >
                         <v-text-field
@@ -67,7 +79,7 @@
                         v-model="workoutName"
                     ></v-text-field>
                     </div>
-                      <!-- Workout Type -->
+                       <!-- Workout Type -->
                     <div class="flex flex-col">
                     <label for="workout-type" class="mb-1 text-sm text-at-light-green"
                         >Workout Type</label
@@ -84,7 +96,22 @@
                             <option value="cardio">Cardio</option>
                  </select>
                     </div><br><br>
-                            <!-- Strength Training Inputs -->
+                      <v-btn
+        v-if="step < 3"
+        color="primary"
+        type="submit"
+        depressed
+        @click="step++"
+      >
+        Next
+      </v-btn>
+     
+                    </form>
+      </v-window-item>
+     <v-container>
+      <v-window-item :value="2" >
+           
+                           <!-- Strength Training Inputs -->
         <div v-if="workoutType === 'strength'" class="flex flex-col gap-y-4">
           <div
             class="flex flex-col gap-x-6 gap-y-2 relative md:flex-row"
@@ -224,18 +251,23 @@
           
            <v-btn flat  color="secondary"  @click="addExercise" type="button" >    Add Exercise </v-btn>
           </div>
-          <br><br>
-             <v-btn
-            flat
-            type="submit"
-            color="secondary"  >
-            Record Workout
-            </v-btn>
-        
-        </v-container>
-           
-                   </form>  
-                </v-card>
+
+          
+
+       
+       
+      </v-window-item>
+      </v-container>
+
+   
+    </v-window>
+
+    <v-divider></v-divider>
+
+  
+  </v-container>
+  </v-card>
+               
         </div> 
          
 
@@ -243,14 +275,18 @@
  
 </template>
 <script>
+import axios from 'axios'
 import { ref } from "vue";
 import { uid } from "uid";
-import NavbarView from '@/components/NavbarView.vue';
-import axios from 'axios';
-export default {
-  components: { NavbarView },
-  
-  
+import NavbarView from '@/components/NavbarView.vue'
+  export default {
+      components: { NavbarView },
+     data: () => ({
+      step: 1,
+      return:{
+        errors:[],
+      }
+    }),
   setup() {
     // Create data
      const workoutName = ref("");
@@ -296,31 +332,7 @@ export default {
     };
     
 
-  /*const createWorkout = async() => {
-      try{
-      const {error} = axios.post("http://localhost:8000/api/auth/SaveWorkout")([
-         {
-            workoutName : workoutName.value,
-            workoutType: workoutType.value,
-            exercises: exercises.value,
-         },
-      ]);
-         if (error) throw error;
-        statusMsg.value = "Succes: Workout Created!";
-        workoutName.value = null;
-        workoutType.value = "select-workout";
-        exercises.value = [];
-          setTimeout(() => {
-          statusMsg.value = false;
-        }, 5000);
-      }catch (error) {
-          errorMsg.value = `Error: ${error.message}`;
-        setTimeout(() => {
-          errorMsg.value = false;
-        }, 5000);
-      }
-     
-    }  */
+ 
  
   
 
@@ -341,29 +353,69 @@ export default {
    };
    
   },
-     methods: {
-      createWorkout(){
-    
+   
+
+  
+    methods:{
+        saveWorkout(){
+            this.errors = [];
+                   if(!this.name){
+                     this.errors.push("Name is required")
+                   }
            axios.post('http://localhost:8000/api/auth/SaveWorkout' ,{
-               workoutName : this.workoutName,
-               workoutType: this.workoutType,
-               exercises: this.exercises,
-             
+             workoutName : this.workoutName,
+             workoutType: this.workoutType,
                 
              } ).then(response => {
                console.log(response);
               
                if(response.status == 200){
-                    alert('success')
+                      this.$toast.success(" success workout saved.", {
+                          position : "top-right"
+                  });
             
+                  
+               }
+          }).catch(
+         error =>{
+             this.$toast.error(" error workout not saved.", {
+                          position : "top-right"
+                          
+                  });
+                  
+           console.log(error);
+         } 
+         
+       )
+        },
+            getWorkout(){
+       axios.get('http://localhost:8000/api/auth/getWorkout')
+        .then (res => {
+         console.log(res.data);
+         this.workouts = res.data;
+       }).catch(
+         error =>{
+           console.log(error);
+         } 
+         
+       )
+     },
+        deleteWorkout(id){
+        axios.delete('http://localhost:8000/api/auth/deleteWorkout/'+ id)
+        .then(response => {
+               console.log(response);
+              
+               if(response.status == 200){
+                
+                      this.$swal('deleted succefuly');
+                   
                }else{
                  alert('error')
                }
           });
-        }, 
-    },
-
-};
+     },
+    }
+  }
 </script>
 <style>
 .workout{
