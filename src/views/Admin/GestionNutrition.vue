@@ -66,7 +66,14 @@
             <v-card class="elevation-6 mt-10"  >
              <v-window v-model="step">
                 <v-window-item :value="1">
-                 <form action="" @submit.prevent="SaveNutrition">  
+                      <div class="alert alert-danger mt-4" v-if="errors.length" > 
+              <ul class="mb-0">
+                <li v-for="(error, index) in errors" :key="index">
+                    {{error}}
+                </li>
+              </ul>
+                  </div>
+                 <form action="" @submit.prevent="SaveNutrition" novalidate>  
                <v-row >
                    
                  
@@ -77,6 +84,11 @@
                         <v-row align="center" justify="center">
                           <v-col cols="12" sm="8">
                            <v-row>
+                               <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="name"  label="name" outline  dense   color="blue"  autocomplete="false"  class="mt-4"
+                          />
+                           </v-col>
                            <v-col cols="12" sm="6">
                             <v-text-field
                             v-model="title"  label="title" outline  dense   color="blue"  autocomplete="false"  class="mt-4"
@@ -168,6 +180,13 @@
             <v-toolbar
               color="primary"
             >Update Nutrition</v-toolbar>
+                  <div class="alert alert-danger mt-4" v-if="errors.length" > 
+              <ul class="mb-0">
+                <li v-for="(error, index) in errors" :key="index">
+                    {{error}}
+                </li>
+              </ul>
+                  </div>
             <v-form
             ref="form"
             v-model="valid"
@@ -278,7 +297,8 @@ export default {
                edittitle:"",
                edittext:"",
                editsubtext:"",
-               editimage:""
+               editimage:"",
+               errors:[],
            
         
         }
@@ -291,8 +311,26 @@ export default {
            console.log("selected file", e.target.files[0])
            this.image = e.target.files[0]; 
          },
-         SaveNutrition(){
-           let fd = new FormData();
+    
+             SaveNutrition(){
+                 this.errors = [];
+                   if(!this.name){
+                     this.errors.push("Name is required")
+                   }
+                    if(!this.text){
+                     this.errors.push("text is required")
+                   }
+                    if(!this.title){
+                     this.errors.push("title is required")
+                   }
+                    if(!this.subtext){
+                     this.errors.push("description is required")
+                   }
+                    if(!this.image){
+                     this.errors.push("photo is required")
+                   }
+                if(!this.errors.lenght){
+                   let fd = new FormData();
            
          
            console.log(FormData)
@@ -301,45 +339,31 @@ export default {
             fd.append('text', this.text);
                  fd.append('title', this.title);
                       fd.append('subtext', this.subtext);
-           
-      
-           axios.post("http://localhost:8000/api/auth/Nutrition" ,fd , { 
+     axios.post("http://localhost:8000/api/auth/Nutrition" ,fd , { 
            
            })
-          
-           .then(res=>{
-             console.log("Response" , res.data);
-               if(res.status == 200){
-                    alert('success');
-                    this.getNutrition();
-                    
-               }else{
-                 alert('error')
-               }
-             
-           })
-         },
+        .then (res => {
+         console.log(res);
+           this.$toast.success(" success Nutrition saved.", {
+                          position : "top-right"
+                  });
+                   this.getNutrition();
+        
+       }).catch(
+         error =>{
+             this.$toast.error(" error Nutrition not saved.", {
+                          position : "top-right"
+                          
+                  });
+                  
+           console.log(error);
+         } 
+         
+       )
+                }
+     },
      
-     /*   saveNutrition(){
     
-           axios.post('http://localhost:8000/api/auth/Nutrition' ,{
-               title : this.title,
-               text: this.text,
-               subtext: this.subtext,
-               image : this.image,
-                
-             } ).then(response => {
-               console.log(response);
-              
-               if(response.status == 200){
-                    alert('success')
-            
-                    this.getNutrition();
-               }else{
-                 alert('error')
-               }
-          });
-        }, */
       
      
           getNutrition(){
@@ -383,6 +407,19 @@ export default {
      }); 
     },
        editNutrition(){
+             if(!this.edittitle){
+                     this.errors.push("Name is required")
+                   }
+                    if(!this.edittext){
+                     this.errors.push("text is required")
+                   }
+                  
+                    if(!this.editsubtext){
+                     this.errors.push("description is required")
+                   }
+                    if(!this.editimage){
+                     this.errors.push("photo is required")
+                   }
            axios.put('http://localhost:8000/api/auth/editNutrition' ,{
                 id : this.id,
                title : this.edittitle,
@@ -395,13 +432,22 @@ export default {
               
                if(response.status == 200){
                   
-                      alert('update succefuly')
+                          this.$toast.success(" update Nutrition succesfuly.", {
+                          position : "top-right"
+                  });
                       this.getNutrition();
                    
-               }else{
-                 alert('error')
                }
-          });
+          }).catch(
+              error =>{
+                  this.$toast.error(" error Nutrition not update.", {
+                                position : "top-right"
+                                
+                        });      
+                console.log(error);
+              } 
+              
+            )
        },
        imagechange(){
          for(let i = 0 ;i<this.$refs.files.files.length; i++){
@@ -409,15 +455,7 @@ export default {
            console.log(this.image);
          }
        },
-    /*   uploadImage(){
-         var self =this;
-         let formData = new FormData();
-         for(let i = 0; this.images.length ; i++){
-         let file = self.images[i];
-         formData.append('files[' + i+ ']',file)
-         }
-         
-       }*/
+
     }
 }
 </script>

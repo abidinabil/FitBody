@@ -1,144 +1,252 @@
 <template>
 <navbar-view />
-<div style="margin-top:150px">
-  
-  <v-container >
-      <v-card flat v-for="project in projects" :key="project.title">
-        <v-layout row wrap :class="`pa-3 project ${project.content}`">
-          <v-col xs="12" md="6">
-            <div class="caption grey--text">PROJECT TITLE</div>
-            <div>{{project.title}}</div>
-          </v-col>
-          <v-col xs="6" sm="4" md="2">
-            <div class="caption grey--text">PERSON</div>
-            <div>{{project.Person}}</div>
-          </v-col>
-          <v-col xs="6" sm="4" md="2">
-            <div class="caption grey--text"> DATE</div>
-            <div>{{project.date}}</div>
-          </v-col>
-          <v-col xs="2" sm="4" md="2">
-            <div>
-             <v-chip small :class="`${project.content} white--text caption my-2`">{{project.content}}</v-chip> 
-             </div>
-          </v-col>
-        </v-layout>
-        <v-divider></v-divider>
-      </v-card>
-    </v-container>
-    
-   
-  
+  <v-card tile class="mx-4 " color="white">
+                 <v-toolbar extended color="lightgray">
+                <h1 style="font-size:20px; "> Record Workout</h1> <br>
+                </v-toolbar>
+                    <!-- Status Message -->
+                    <div
+                    v-if="statusMsg || errorMsg"
+                    class="mb-10 p-4 bg-light-grey rounded-md shadow-lg"
+                    >
+                    <p class="text-at-light-green">
+                        {{ statusMsg }}
+                    </p>
+                       
+                        <v-alert type="error">{{ errorMsg }}</v-alert>
+                    </div>
+                    <v-container>
 
-</div>
-
-  <v-row justify="center">
-    <v-dialog
-      v-model="home"
-      fullscreen
-      :scrim="false"
-      transition="dialog-bottom-transition"
-    >
-      <template v-slot:activator="{ props }">
-        <v-btn
-          color="primary"
-          dark
-          v-bind="props"
-        >
-          Open Dialog
-        </v-btn>
-      </template>
-      <v-card>
-        <v-toolbar
-          dark
-          color="primary"
-        >
-          <v-btn
-            icon
-            dark
-            @click="home = false"
-          >
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-toolbar-title>Settings</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-toolbar-items>
-            <v-btn
-              dark
-              text
-              @click="home = false"
-            >
-              Save
-            </v-btn>
-          </v-toolbar-items>
-        </v-toolbar>
-        <v-list
-          lines="two"
-          subheader
-        >
-          <v-subheader>User Controls</v-subheader>
-          <v-list-item title="Content filtering" subtitle="Set the content filtering level to restrict apps that can be downloaded"></v-list-item>
-          <v-list-item title="Password" subtitle="Require password for purchase or use password to restrict purchase"></v-list-item>
-        </v-list>
-        <v-divider></v-divider>
-        <v-list
-          lines="two"
-          subheader
-        >
-          <v-subheader>General</v-subheader>
-          <v-list-item title="Notifications" subtitle="Notify me about updates to apps or games that I downloaded">
-            <template v-slot:prepend>
-              <v-checkbox v-model="notifications"></v-checkbox>
-            </template>
-          </v-list-item>
-          <v-list-item title="Sound" subtitle="Auto-update apps at any time. Data charges may apply">
-            <template v-slot:prepend>
-              <v-checkbox v-model="sound"></v-checkbox>
-            </template>
-          </v-list-item>
-          <v-list-item title="Auto-add widgets" subtitle="Automatically add home screen widgets">
-            <template v-slot:prepend>
-              <v-checkbox v-model="widgets"></v-checkbox>
-            </template>
-          </v-list-item>
-        </v-list>
-      </v-card>
-    </v-dialog>
-  </v-row>
-  <v-container>
-  <v-row >
-    <v-col cols="12" md="4"  lg="4" v-for="project in projects" :key="project.title">
-   <v-hover v-slot="{ isHovering, props }">
-    <v-card
-      class="mx-auto"
-      color="grey-lighten-4"
-      max-width="600"
-      v-bind="props"
-    >
-      <v-img
-        :aspect-ratio="16/9"
-        cover
-        src="https://cdn.vuetifyjs.com/images/cards/kitchen.png"
+    <v-card-title class="text-h6 font-weight-regular justify-space-between">
+      <span>{{ currentTitle }}</span>
+      <v-avatar
+        color="primary"
+        size="24"
+        v-text="step"
+      ></v-avatar>
+    </v-card-title>
+  
+    <v-window v-model="step">
+      
+      <v-window-item :value="1">
+          <form action="" @submit.prevent="saveWorkout">
+            <!-- Workout Name -->
+                    <div class="flex flex-col">
+                    <label for="workout-name" class=" text-sm text-at-light-green"
+                        >Workout Name</label
+                    >
+                        <v-text-field
+                        color="secondary"
+                        label="Workout Name"
+                        variant="contained"
+                         required
+                        id="workout-name"
+                        v-model="workoutName"
+                    ></v-text-field>
+                    </div>
+                       <!-- Workout Type -->
+                    <div class="flex flex-col">
+                    <label for="workout-type" class="mb-1 text-sm text-at-light-green"
+                        >Workout Type</label
+                    >
+                   <select
+                            id="workout-type"
+                        class="form-select"
+                            required
+                            @change="workoutChange"
+                            v-model="workoutType"
+                    >
+                            <option value="select-workout">Select Workout</option>
+                            <option value="strength">Strength Training</option>
+                            <option value="cardio">Cardio</option>
+                 </select>
+                    </div><br><br>
+                      <v-btn
+        v-if="step < 3"
+        color="primary"
+        type="submit"
+        depressed
+        @click="step++"
       >
-        <v-expand-transition>
+        Next
+      </v-btn>
+     
+                    </form>
+      </v-window-item>
+     <v-container>
+      <v-window-item :value="2" >
+           
+                           <!-- Strength Training Inputs -->
+        <div v-if="workoutType === 'strength'" class="flex flex-col gap-y-4">
           <div
-            v-if="isHovering"
-            class="d-flex transition-fast-in-fast-out bg-blue-darken-2 v-card--reveal "
-            style="height: 100%;"
+            class="flex flex-col gap-x-6 gap-y-2 relative md:flex-row"
+            v-for="(item, index) in exercises"
+            :key="index"
           >
-           <p style="margin-top:100px"> temps de lecture</p> 
+          <v-row>
+              <div>
+                            <v-img
+              @click="deleteExercise(item.id)"
+              src="@/assets/images/trash-light-green.png"
+              width="20" height="20"
+           
+            />
+              </div>
+              <v-col cols="12" md="4">
+           
+                   <label for="exercise-name" class="mb-1 text-sm text-at-light-green"
+                >Exercise
+              </label>
+             
+                        <v-text-field
+                        color="secondary"
+                        label="Exercices"
+                        variant="contained"
+                         required
+                      v-model="item.exercise"
+                    ></v-text-field>
+              </v-col>
+                <v-col cols="12" md="3">
+                           <label for="sets" class="mb-1 text-sm text-at-light-green">Sets </label>
+                        <v-text-field
+                        color="secondary"
+                        label="Sets"
+                        variant="contained"
+                         required
+                         v-model="item.sets"
+                    ></v-text-field>
+              </v-col>
+                <v-col cols="12" md="2">
+                    <label for="reps" class="mb-1 text-sm text-at-light-green">Reps </label>
+                        <v-text-field
+                        color="secondary"
+                        label="Reps"
+                        variant="contained"
+                         required
+                      v-model="item.reps"
+                    ></v-text-field>
+              </v-col>
+                <v-col cols="12" md="2">
+                  <label for="weight" class="mb-1 text-sm text-at-light-green"
+                >Weight (Kg)
+              </label>
+                        <v-text-field
+                        color="secondary"
+                        label="Weight"
+                        variant="contained"
+                         required
+                        v-model="item.weight"
+                    ></v-text-field>
+              </v-col>
+          </v-row>
+          
           </div>
-        </v-expand-transition>
-      </v-img>
+          
+               <v-btn flat  color="secondary"  @click="addExercise" type="button" >    Add Exercise </v-btn>
+          </div>
+                    
+                     <!-- Cardio Inputs -->
+        <div v-if="workoutType === 'cardio'" class="flex flex-col gap-y-4">
+          <div
+            class="flex flex-col gap-x-6 gap-y-2 relative md:flex-row"
+            v-for="(item, index) in exercises"
+            :key="index"
+          >
+          <v-row>
+                <div>
+                 <v-img
+              @click="deleteExercise(item.id)"
+              src="@/assets/images/trash-light-green.png"
+              width="20" height="20"
+           
+            />
+              </div>
+              <v-col cols="12" md="4">
+              
+                  <label for="cardio-type" class="mb-1 text-sm text-at-light-green"
+                >Type
+                
+              </label>
+                        <select
+                        class="form-select" aria-label="Default select example"
+                        v-model="item.cardioType"
+                    >
+                        <option value="#">Select Type</option>
+                        <option value="run">Runs</option>
+                        <option value="walk">Walk</option>
+                    </select>
+              </v-col>
+                <v-col cols="12" md="3">
+                    <label for="distance" class="mb-1 text-sm text-at-light-green"
+                >Distance
+              </label>
+                        <v-text-field
+                        color="secondary"
+                        label="Distance"
+                        variant="contained"
+                         required
+                         v-model="item.distance"
+                    ></v-text-field>
+              </v-col>
+                <v-col cols="12" md="2">
+                     <label for="duration" class="mb-1 text-sm text-at-light-green"
+                >Duration
+              </label>
+                        <v-text-field
+                        color="secondary"
+                        label="Duration"
+                        variant="contained"
+                         required
+                      v-model="item.duration"
+                    ></v-text-field>
+              </v-col>
+                <v-col cols="12" md="2">
+                      <label for="pace" class="mb-1 text-sm text-at-light-green">Pace </label>
+                        <v-text-field
+                        color="secondary"
+                        label="Pace"
+                        variant="contained"
+                         required
+                        v-model="item.pace"
+                    ></v-text-field>
+              </v-col>
+          </v-row>
+           
+          </div>
+          
+           <v-btn flat  color="secondary"  @click="addExercise" type="button" >    Add Exercise </v-btn>
+          </div>
+
+          
+
        
-    </v-card>
-  </v-hover>
-   <h1 >{{project.title}}</h1>
-   <p>{{project.Person}}</p>
-  </v-col>
- 
-  </v-row>
+       
+      </v-window-item>
+      </v-container>
+
+      <v-window-item :value="3">
+        <div class="pa-4 text-center">
+          <v-img
+            class="mb-4"
+            contain
+            height="128"
+            src="https://cdn.vuetifyjs.com/images/logos/v.svg"
+          ></v-img>
+          <h3 class="text-h6 font-weight-light mb-2">
+            Welcome to Vuetify
+          </h3>
+          <span class="text-caption grey--text">Thanks for signing up!</span>
+        </div>
+      </v-window-item>
+    </v-window>
+
+    <v-divider></v-divider>
+
+  
   </v-container>
+  </v-card>
+  
+
   <br>
  
   <form action="" @submit.prevent="submit">
@@ -150,7 +258,7 @@
  
 </template>
 
-<script>
+ <!--<script>
 import { defineComponent } from 'vue';
 // Components
 import NavbarView from '@/components/NavbarView.vue';
@@ -227,6 +335,173 @@ data(){
          
        },
 });
+</script> -->
+<script>
+import axios from 'axios'
+import { ref } from "vue";
+import { uid } from "uid";
+  export default {
+     data: () => ({
+      step: 1,
+    }),
+  setup() {
+    // Create data
+     const workoutName = ref("");
+    const workoutType = ref("select-workout");
+    const exercises = ref([1]);
+    const statusMsg = ref(null);
+    const errorMsg = ref(null);
+    // Add exercise
+      const addExercise = () => {
+      if (workoutType.value === "strength") {
+        exercises.value.push({
+          id: uid(),
+          exercise: "",
+          sets: "",
+          reps: "",
+          weight: "",
+        });
+     
+      }
+      exercises.value.push({
+        id: uid(),
+        cardioType: "",
+        distance: "",
+        duration: "",
+        pace: "",
+      });
+    };
+    // Delete exercise
+       const deleteExercise = (id) => {
+      if (exercises.value.length > 1) {
+        exercises.value = exercises.value.filter((exercise) => exercise.id !== id);
+        return;
+      }
+         errorMsg.value = "Error: Cannot remove, need to at least have one exercise";
+      setTimeout(() => {
+        errorMsg.value = false;
+      }, 5000);
+       }
+    // Listens for chaging of workout type input
+       const workoutChange = () => {
+      exercises.value = [];
+      addExercise();
+    };
+    
+
+  /*const createWorkout = async() => {
+      try{
+      const {error} = axios.post("http://localhost:8000/api/auth/SaveWorkout")([
+         {
+            workoutName : workoutName.value,
+            workoutType: workoutType.value,
+            exercises: exercises.value,
+         },
+      ]);
+         if (error) throw error;
+        statusMsg.value = "Succes: Workout Created!";
+        workoutName.value = null;
+        workoutType.value = "select-workout";
+        exercises.value = [];
+          setTimeout(() => {
+          statusMsg.value = false;
+        }, 5000);
+      }catch (error) {
+          errorMsg.value = `Error: ${error.message}`;
+        setTimeout(() => {
+          errorMsg.value = false;
+        }, 5000);
+      }
+     
+    }  */
+ 
+  
+
+      
+    
+    return {      
+      workoutName,
+      workoutType,
+      exercises,
+      statusMsg,
+      errorMsg,
+     addExercise,
+     workoutChange,
+     deleteExercise,
+     
+ 
+   
+   };
+   
+  },
+   
+
+    computed: {
+      currentTitle () {
+        switch (this.step) {
+          case 1: return 'Sign-up'
+          case 2: return 'Create a password'
+          default: return 'Account created'
+        }
+      },
+    },
+    methods:{
+        saveWorkout(){
+    
+           axios.post('http://localhost:8000/api/auth/SaveWorkout' ,{
+             workoutName : this.workoutName,
+             workoutType: this.workoutType,
+                
+             } ).then(response => {
+               console.log(response);
+              
+               if(response.status == 200){
+                      this.$toast.success(" success workout saved.", {
+                          position : "top-right"
+                  });
+            
+                  
+               }
+          }).catch(
+         error =>{
+             this.$toast.error(" error workout not saved.", {
+                          position : "top-right"
+                          
+                  });
+                  
+           console.log(error);
+         } 
+         
+       )
+        },
+            getWorkout(){
+       axios.get('http://localhost:8000/api/auth/getWorkout')
+        .then (res => {
+         console.log(res.data);
+         this.workouts = res.data;
+       }).catch(
+         error =>{
+           console.log(error);
+         } 
+         
+       )
+     },
+        deleteWorkout(id){
+        axios.delete('http://localhost:8000/api/auth/deleteWorkout/'+ id)
+        .then(response => {
+               console.log(response);
+              
+               if(response.status == 200){
+                
+                      this.$swal('deleted succefuly');
+                   
+               }else{
+                 alert('error')
+               }
+          });
+     },
+    }
+  }
 </script>
 
 <style>

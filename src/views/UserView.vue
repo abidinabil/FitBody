@@ -114,6 +114,9 @@ export default {
         .then((res) => {
           console.log(res);
           this.isLoading = false;
+            this.$toast.success(" You are Logeed In.", {
+                          position : "top-right"
+                  });
           this.$router.push("/ProfileView");
         })
         .catch((err) => {

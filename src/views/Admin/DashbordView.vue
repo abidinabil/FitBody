@@ -73,8 +73,10 @@
                             </div>
                             
                    </v-col> 
+                 
    </v-row>           
-  
+     <v-img style="margin-left:600px"  width="400px" height="500px"  src="https://www.akelys.com/exercices/exercice/Tirage_poule_serre/Tirage_poule_serre.gif" 
+                   cover    ></v-img>
 </template>
 
 <script>

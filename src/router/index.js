@@ -17,7 +17,7 @@ import NutritionView from '@/views/NutritionView.vue'
 import GestionNutrition from '@/views/Admin/GestionNutrition.vue'
 import EditNutrition from '@/views/Admin/EditNutrition.vue'
 import EntrainementView from '@/views/EntrainementView'
-import SignIn1 from '../views/Admin/SignIn1.vue'
+import SignIn1 from '@/views/SignIn1.vue'
 import ArticleNutrition from '../views/ArticleNutrition.vue'
 import BlogView from '@/views/BlogView.vue'
 import GestionExercice from '../views/Admin/GestionExercice.vue'
@@ -29,6 +29,8 @@ import ProfileView from '@/views/ProfileView.vue'
 import GymView from '@/views/GymView.vue'
 import store from '@/store'
 import CreateWorkout from '@/views/CreateWorkout.vue'
+import CalorieView from '@/views/CalorieView.vue'
+
 
 
 
@@ -207,6 +209,12 @@ const routes = [
     path: '/CreateWorkout',
     name: 'CreateWorkout',
     component:CreateWorkout,
+
+  },
+  {
+    path: '/CalorieView',
+    name: 'CalorieView',
+    component:CalorieView,
 
   },
 

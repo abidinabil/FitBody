@@ -63,7 +63,14 @@
             <v-card class="elevation-6 mt-10"  >
              <v-window v-model="step">
                 <v-window-item :value="1">
-                   <form action="" @submit.prevent="SaveNutritionniste">        
+                  <div class="alert alert-danger mt-4" v-if="errors.length" > 
+              <ul class="mb-0">
+                <li v-for="(error, index) in errors" :key="index">
+                    {{error}}
+                </li>
+              </ul>
+                  </div>
+                   <form action="" @submit.prevent="SaveNutritionniste" novalidate>        
                <v-row >
                    
 
@@ -121,7 +128,7 @@
                               <v-file-input
                           accept="image/*" label="File input"    @change="onChange" ></v-file-input>
     
-                       <input type="submit" value="Ajouter">
+                       <v-btn type="submit">Ajouter</v-btn>
                  
                           </v-col>
                         </v-row>  
@@ -193,6 +200,13 @@
             <v-toolbar
                style=" background: linear-gradient(87deg,#2dce89,#2dcecc)!important;"
             >Update Nutritionniste</v-toolbar>
+                  <div class="alert alert-danger mt-4" v-if="errors.length" > 
+              <ul class="mb-0">
+                <li v-for="(error, index) in errors" :key="index">
+                    {{error}}
+                </li>
+              </ul>
+                  </div>
             <v-form
            
              style="width:1500px"
@@ -294,6 +308,7 @@ export default {
                editsubtext:"",
                editadresse:"",
                editphoto:"",
+               errors:[],
         } 
     },
         created(){
@@ -305,12 +320,28 @@ export default {
            console.log("selected file", e.target.files[0])
            this.photo = e.target.files[0]; 
          },
-         SaveNutritionniste(){
-           let fd = new FormData();
-           
-         
+        
+
+                 SaveNutritionniste(){
+                   this.errors = [];
+                   if(!this.nom){
+                     this.errors.push("Name is required")
+                   }
+                    if(!this.text){
+                     this.errors.push("text is required")
+                   }
+                    if(!this.adresse){
+                     this.errors.push("adresse is required")
+                   }
+                    if(!this.subtext){
+                     this.errors.push("description is required")
+                   }
+                    if(!this.photo){
+                     this.errors.push("photo is required")
+                   }
+                   if(!this.errors.lenght){
+                     let fd = new FormData();
            console.log(FormData)
-            
            fd.append('photo', this.photo);
               fd.append('nom', this.nom);
                  fd.append('adresse', this.adresse);
@@ -322,19 +353,26 @@ export default {
            axios.post("http://localhost:8000/api/auth/SaveNutritionniste" ,fd , { 
            
            })
-          
-           .then(res=>{
-             console.log("Response" , res.data);
-               if(res.status == 200){
-                    alert('success');
-                    this.getNutritionniste()
-                    
-               }else{
-                 alert('error')
-               }
-             
-           })
-         },
+             .then (res => {
+         console.log(res);
+           this.$toast.success(" success Nutritionniste saved.", {
+                          position : "top-right"
+                  });
+                  this.getNutritionniste()
+            }).catch(
+              error =>{
+                  this.$toast.error(" error Nutritionniste not saved.", {
+                                position : "top-right"
+                                
+                        });
+                        
+                console.log(error);
+              } 
+              
+            )
+                   }
+         
+              },
          //************************Fin Save Nutritionniste ************************* */
          //******************************Get Nutritionniste*************************** */
           getNutritionniste(){
@@ -382,6 +420,22 @@ export default {
     /****************************Fin Update Nutritionniste */
        /********************* edit Nutritionniste *********************** */
        editNutritionniste(){
+           if(!this.editnom){
+                     this.errors.push("Name is required")
+                   }
+                    if(!this.edittext){
+                     this.errors.push("text is required")
+                   }
+                    if(!this.editadresse){
+                     this.errors.push("specialite is required")
+                   }
+                   
+                    if(!this.editsubtext){
+                     this.errors.push("description is required")
+                   }
+                    if(!this.editphoto){
+                     this.errors.push("photo is required")
+                   }
            axios.put('http://localhost:8000/api/auth/editNutritionniste' ,{
                 id : this.id,
                nom : this.editnom,
@@ -395,13 +449,22 @@ export default {
               
                if(response.status == 200){
                   
-                      alert('update succefuly')
+                      this.$toast.success(" update Nutritionniste succesfuly.", {
+                          position : "top-right"
+                  });
                       this.getNutritionniste();
                    
-               }else{
-                 alert('error')
                }
-          });
+          }).catch(
+              error =>{
+                  this.$toast.error("  Nutrisionniste not update.", {
+                                position : "top-right"
+                                
+                        });      
+                console.log(error);
+              } 
+              
+            )
        },
         /*******************************Fin Edit Nutritionniste */
        mounted() {

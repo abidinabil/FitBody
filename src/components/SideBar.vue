@@ -9,8 +9,8 @@
     </v-toolbar-title>
  
     <v-spacer></v-spacer>
-    <v-btn flat color="grey">
-      <span>sign-out</span>
+    <v-btn flat class="font-weight-light">
+      <span  @click.prevent="performLogout">Logout</span>
       <v-icon>exit_to_app</v-icon>
     </v-btn>
     <br>
@@ -36,7 +36,7 @@
          
         <v-list-item v-for="item in items" :key="item.text" router :to="item.route"  >
           <v-list-item-action style="padding:0.5rem">
-            <v-icon >{{item.icon}}</v-icon>
+            <v-icon style="  color:#2dcecc" >{{item.icon}}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title >{{item.text}}</v-list-item-title>
@@ -66,6 +66,25 @@ export default {
       ],
         }
     },
+     methods: {
+   
+   performLogout() {
+      this.$store
+        .dispatch("performLogoutAction")
+        .then((res) => {
+          console.log(res);
+          this.$router.push("/exampleView");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+    computed: {
+    loggedIn() {
+      return this.$store.getters.get_loggedIn;
+    }
+    }
 }
 </script>
 <style>

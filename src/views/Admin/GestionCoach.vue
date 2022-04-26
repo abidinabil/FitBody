@@ -63,6 +63,13 @@
             <v-card class="elevation-6 mt-10"  >
              <v-window v-model="step">
                 <v-window-item :value="1">
+                       <div class="alert alert-danger mt-4" v-if="errors.length" > 
+              <ul class="mb-0">
+                <li v-for="(error, index) in errors" :key="index">
+                    {{error}}
+                </li>
+              </ul>
+                  </div>
                   <form action="" @submit.prevent="SaveCoach">   
                <v-row >
                    
@@ -160,7 +167,7 @@
                             <table class="table">
         <thead>
           <tr>
-            <th scope="col">id</th>
+           
             <th scope="col">name</th>
             <th scope="col">text</th>
             <th scope="col">specialite</th>
@@ -173,13 +180,15 @@
         </thead>
         <tbody >
           <tr v-for="coach in coaches" :key="coach.id">
-              <td>{{coach.id}}</td>
+     
+           
+             
             <td>{{coach.name}}</td>
             <td>{{coach.text}}</td>
             <td>{{coach.specialite}}</td>
              <td>{{coach.age}}</td>
               <td>{{coach.subtext}}</td>
-              <img :src="'./assets/Coaches/'+coach.photo" :alt="coach.photo"><img>
+            <v-img v-bind:src="'../image/' + coach.photo"></v-img>
              <td>
                <v-btn type="button" @click="deleteCoach(coach.id) " color="error"> delete</v-btn> 
                
@@ -205,6 +214,13 @@
             <v-toolbar
                style=" background: linear-gradient(87deg,#2dce89,#2dcecc)!important;"
             >Update Coach</v-toolbar>
+                      <div class="alert alert-danger mt-4" v-if="errors.length" > 
+              <ul class="mb-0">
+                <li v-for="(error, index) in errors" :key="index">
+                    {{error}}
+                </li>
+              </ul>
+                  </div>
             <v-form
            
              style="width:1500px"
@@ -267,12 +283,8 @@
                             label="subtext"
                           ></v-textarea>
                            </v-col>
-                                    <v-file-input
-                    accept="image/*"
-                    label="File input"
-                    ref="files"
-                    @change="onChange"
-                  ></v-file-input>
+                                   <v-file-input
+                          accept="image/*" label="File input"    @change="onChange" v-model="editphoto"></v-file-input>
                        
                            </v-row> 
                           <v-btn color="black" dark tile  type="submit" @click="editCoach" > Update</v-btn>
@@ -300,10 +312,14 @@
           </tr> 
               
         </tbody>
+              
         </table>
+         
+        
                        
                        </v-card>
         </v-col>
+        
         </v-row>
 </template>
 <script>
@@ -328,10 +344,11 @@ export default {
            editage:"",
            editsubtext:"",
            editphoto:"",
+           errors:[],
           
         } 
     },
-        created(){
+        mounted(){
       this.getCoach();
     },
     methods:{
@@ -340,48 +357,63 @@ export default {
            this.photo = e.target.files[0]; 
          },
          SaveCoach(){
-           let fd = new FormData();
-           
-         
+           this.errors = [];
+                   if(!this.name){
+                     this.errors.push("Name is required")
+                   }
+                    if(!this.age){
+                     this.errors.push("age is required")
+                   }
+                    if(!this.text){
+                     this.errors.push("text is required")
+                   }
+                    if(!this.subtext){
+                     this.errors.push("description is required")
+                   }
+                    if(!this.specialite){
+                     this.errors.push("description is required")
+                   }
+                    if(!this.photo){
+                     this.errors.push("photo is required")
+                   }
+                 if(!this.errors.lenght){
+                     let fd = new FormData(); 
            console.log(FormData)
-            
-           fd.append('photo', this.photo);
-              fd.append('name', this.name);
-                 fd.append('age', this.age);
-            fd.append('text', this.text);
-               fd.append('specialite', this.specialite);
-                
+                fd.append('photo', this.photo);
+               fd.append('name', this.name);
+               fd.append('age', this.age);
+               fd.append('text', this.text);
+               fd.append('specialite', this.specialite); 
                fd.append('subtext', this.subtext);
-           
-      
            axios.post("http://localhost:8000/api/auth/SaveCoach" ,fd , { 
-           
            })
-          
-           .then(res=>{
-             console.log("Response" , res.data);
-               if(res.status == 200){
-                    alert('success');
-                    this.getCoach();
-                    
-               }else{
-                 alert('error')
-               }
-             
-           })
+               .then (res => {
+         console.log(res);
+           this.$toast.success(" success Coach saved.", {
+                          position : "top-right"
+                  });
+                  this.getCoach()
+            }).catch(
+              error =>{
+                  this.$toast.error(" error Coach not saved.", {
+                                position : "top-right"
+                                
+                        });      
+                console.log(error);
+              } 
+              
+            )
+                 }
          },
-              getCoach(){
-       axios.get('http://localhost:8000/api/auth/getCoach')
-        .then (res => {
-         console.log(res.data);
-         this.coaches = res.data;
-       }).catch(
-         error =>{
-           console.log(error);
-         } 
          
-       )
-     },
+    
+          getCoach() {
+            axios.get('http://localhost:8000/api/auth/getCoach')
+                .then(response => {
+                  console.log(response.data)
+                    this.coaches = response.data;
+                });
+        },
     
          deleteCoach(id){
         axios.delete('http://localhost:8000/api/auth/deleteCoach/'+ id)
@@ -407,11 +439,30 @@ export default {
                this.editspecialite = response.data.specialite;
                this.editage = response.data.age;
                this.editsubtext = response.data.subtext;
-               this.editphoto = response.data.photo
+             this.editphoto = response.data.photo;
      }); 
     },
        editCoach(){
+          if(!this.editname){
+                     this.errors.push("Name is required")
+                   }
+                    if(!this.edittext){
+                     this.errors.push("text is required")
+                   }
+                    if(!this.editspecialite){
+                     this.errors.push("specialite is required")
+                   }
+                    if(!this.editage){
+                     this.errors.push("age is required")
+                   }
+                    if(!this.editsubtext){
+                     this.errors.push("description is required")
+                   }
+                    if(!this.editphoto){
+                     this.errors.push("photo is required")
+                   }
            axios.put('http://localhost:8000/api/auth/editCoach' ,{
+             
                 id : this.id,
                name : this.editname,
                text: this.edittext,
@@ -425,13 +476,22 @@ export default {
               
                if(response.status == 200){
                   
-                      alert('update succefuly')
+                        this.$toast.success(" update Coach succesfuly.", {
+                          position : "top-right"
+                  });
                       this.getCoach();
                    
-               }else{
-                 alert('error')
                }
-          });
+          }).catch(
+              error =>{
+                  this.$toast.error(" error Coach not update.", {
+                                position : "top-right"
+                                
+                        });      
+                console.log(error);
+              } 
+              
+            )
        },
     }
    

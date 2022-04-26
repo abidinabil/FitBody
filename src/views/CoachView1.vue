@@ -68,33 +68,40 @@
         </v-row>
     </v-container> <br><br><br>
 
-    <div class="reviews"><br><br><br>
-          <v-row>
-              <v-col cols="12" md="4" lg="4" v-for="coach in coaches" :key="coach.id">
-                   <v-card  class="coach  mx-auto"  max-width="344" style="height:480px" variant="outlined" > <br><br>
-            <div class="text-center">
-                  <v-avatar  size="x-large">  
-                <v-img  src="https://cdn.vuetifyjs.com/images/john.jpg" ></v-img>
-               
-                </v-avatar>
-                 <p>{{coach.name}}</p>
-                  <span  style="color:#61CE70 ">{{coach.specialite}} </span>
-                  <br><br>
-                  <v-icon>mdi-facebook</v-icon> <v-icon>mdi-twitter</v-icon> <v-icon>mdi-youtube</v-icon><v-icon>mdi-cellphone</v-icon> <br><br>
-                      <v-btn
-                    variant="outlined"
-                    color="#61CE70"
-                    >
-                   Contact me
-                    </v-btn>
-                 <p>{{coach.subtext}}</p>
-         
-            </div>
+      <div style="margin-top:100px">
+         <v-row class="mx-4">
+          <v-col cols="12" md="4" lg="4" v-for="coach in coaches" :key="coach.id">
+            <div class="cardNutritionniste">
+         <div class="box">
+            <div class="front-face" >
+               <div class="icon">
+                     <v-img  class="bg-white"   height="380px"  cover v-bind:src="'../image/' + coach.photo"></v-img>
+               </div>
              
-            </v-card>
-              </v-col>
-          </v-row>
-          
+            </div>
+            <div class="back-face">
+               <span>{{coach.text}}</span>
+               <p>
+                 {{coach.subtext}}
+               </p>
+                     <p>
+                 {{coach.age}}
+               </p>
+               
+            </div>
+               <span style="color:dodgerblue">Coach </span>
+                <h5>{{coach.name}}</h5>
+               <h5>{{coach.specialite}}</h5>
+            
+         </div>
+             
+   
+        
+      </div>
+      
+          </v-col>
+        </v-row>
+      
     </div><br><br><br>
 
     <v-container>

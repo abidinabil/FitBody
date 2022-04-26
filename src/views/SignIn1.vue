@@ -39,19 +39,21 @@
             label="Email"
             variant="contained"
             placeholder="Placeholder"
+            v-model="email"
           >
           
           </v-text-field>
                <v-text-field
-                  
+                 v-model="password" 
             color="secondary"
             label="Password"
             variant="contained"
             placeholder="Placeholder"
             type="password"
           ></v-text-field>
+           <div style="color:red" v-if="error">{{error}}</div>
           <div class="text-center">
-          <v-btn flat color="#5e72e4"  > Sign in </v-btn> </div>
+          <v-btn flat color="#5e72e4" @click.prevent="performLogin" > Sign in </v-btn> </div>
                 </v-container>
                   
             </v-form>
@@ -75,9 +77,56 @@
          </v-container>
     </div>
 </template>
+<script>
+export default {
+  
+  
+  data() {
+    return {
+      valid: true,
+      email: "",
+      emailrules: [(v) => !!v || "Email is required"],
+      password: "",
+      error: "",
+      isLoading: false,
+    };
+  },
+  methods: {
+    performLogin() {
+     
+      this.$store
+        .dispatch("performLoginAction", {
+          email: this.email,
+          password: this.password,
+        })
+        .then((res) => {
+          console.log(res);
+        
+        if(res.data.user.role == 'admin'){
+                   this.$router.push("/DashbordView");
+                 
+                    } else if   (res.data.user.role == 'user'){
+                      
+                         this.$router.push("/ProfileView")
+                    }
+                     else{
+                        (res.data.user.role == 'coach')
+                         this.$router.push("/NutritionView")
+                    }
+                   
+               })
+        .catch((err) => {
+          this.isLoading = false;
+          this.error = " Password or email incorrect";
+          console.log(err.message);
+        });
+    },
+  },
+};
+</script>
 <style>
 .si{
-    height:150vh;
+    height:250vh;
     background: linear-gradient(-3deg,#172b4d 50%,#2dcecc 50%, #2dce89);
 }
 </style>

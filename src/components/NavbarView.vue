@@ -32,7 +32,7 @@
        <li><router-link to="">Boutique</router-link></li>
           <li v-if="loggedIn"><router-link to="ProfileView">Profile</router-link></li>
               <li v-if="loggedIn"><router-link to="CreateWorkout">Create Workout</router-link></li>
-      <li>  <v-btn v-if="!loggedIn" to="/SignIn">Se Connecter</v-btn></li>
+      <li>  <v-btn v-if="!loggedIn" to="/SignIn1">Se Connecter</v-btn></li>
        <li>  <v-btn v-if="!loggedIn" to="/SignUp">Commencer dés maintenant</v-btn></li>  
              <li v-if="loggedIn">  <v-btn @click.prevent="performLogout" >Logout</v-btn></li> 
     </ul>
@@ -151,15 +151,9 @@ export default {
     }
     
   },
-  mounted(){
-    this.chekUserStatus();
-  },
+
   methods: {
-    chekUserStatus(){
-      if(localStorage.getItem('token') != null){
-        this.token = localStorage.getItem('token')
-      }
-    },
+   
    performLogout() {
       this.$store
         .dispatch("performLogoutAction")

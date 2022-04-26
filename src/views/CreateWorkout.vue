@@ -246,13 +246,14 @@
 import { ref } from "vue";
 import { uid } from "uid";
 import NavbarView from '@/components/NavbarView.vue';
+import axios from 'axios';
 export default {
   components: { NavbarView },
   
   
   setup() {
     // Create data
-        const workoutName = ref("");
+     const workoutName = ref("");
     const workoutType = ref("select-workout");
     const exercises = ref([1]);
     const statusMsg = ref(null);
@@ -267,7 +268,7 @@ export default {
           reps: "",
           weight: "",
         });
-        return;
+     
       }
       exercises.value.push({
         id: uid(),
@@ -293,8 +294,40 @@ export default {
       exercises.value = [];
       addExercise();
     };
-    // Create workout
-    return {      workoutName,
+    
+
+  /*const createWorkout = async() => {
+      try{
+      const {error} = axios.post("http://localhost:8000/api/auth/SaveWorkout")([
+         {
+            workoutName : workoutName.value,
+            workoutType: workoutType.value,
+            exercises: exercises.value,
+         },
+      ]);
+         if (error) throw error;
+        statusMsg.value = "Succes: Workout Created!";
+        workoutName.value = null;
+        workoutType.value = "select-workout";
+        exercises.value = [];
+          setTimeout(() => {
+          statusMsg.value = false;
+        }, 5000);
+      }catch (error) {
+          errorMsg.value = `Error: ${error.message}`;
+        setTimeout(() => {
+          errorMsg.value = false;
+        }, 5000);
+      }
+     
+    }  */
+ 
+  
+
+      
+    
+    return {      
+      workoutName,
       workoutType,
       exercises,
       statusMsg,
@@ -302,8 +335,34 @@ export default {
      addExercise,
      workoutChange,
      deleteExercise,
+     
+ 
+   
    };
+   
   },
+     methods: {
+      createWorkout(){
+    
+           axios.post('http://localhost:8000/api/auth/SaveWorkout' ,{
+               workoutName : this.workoutName,
+               workoutType: this.workoutType,
+               exercises: this.exercises,
+             
+                
+             } ).then(response => {
+               console.log(response);
+              
+               if(response.status == 200){
+                    alert('success')
+            
+               }else{
+                 alert('error')
+               }
+          });
+        }, 
+    },
+
 };
 </script>
 <style>

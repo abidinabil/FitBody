@@ -71,60 +71,85 @@
                       <v-card-text class="mt-12">
                         <h4
                           class="text-center"
-                        >Ajouter Exercice</h4>
+                        >Ajouter Exercice</h4> <br><br>
                         
                         <v-row align="center" justify="center">
-                          <v-col cols="12" sm="8">
+                          <v-col cols="12" sm="12">
                            <v-row>
                            <v-col cols="12" sm="6">
-                            <v-text-field
-                            v-model="title"
-                            label="title"
-                            outlined
-                            dense
-                            color="blue"
-                            autocomplete="false"
-                           class="mt-4"
-                          />
+                                 <v-text-field
+                            color="secondary"
+                            label="Title"
+                            variant="contained"
+                            required
+                          v-model="title"
+                        ></v-text-field>
                            </v-col>
                            <v-col cols="12" sm="6">
-                            <v-text-field
+                             <v-text-field
+                              color="secondary"
+                              label="Text"
+                              variant="contained"
+                              required
                             v-model="text"
-                            label="text"
-                            outlined
-                            dense
-                            color="blue"
-                            autocomplete="false"
-                           class="mt-4"
-                          />
+                          ></v-text-field>
                            </v-col>
-                            <v-col cols="12" sm="6">
-                              <v-textarea
-                              v-model="subtext"
-                            background-color="grey lighten-2"
-                            color="cyan"
-                            label="Label"
-                          ></v-textarea>
-                           </v-col>
-                            <v-col cols="12" sm="6">
-                            <v-text-field
+                           <v-col cols="12" sm="6">
+                                <label for="workout-type" class="mb-1 text-sm text-at-light-green"
+                        >Catégorie Exercice</label
+                    >
+                            <select
+                            id="Catégorie"
+                            class="form-select"
+                            required
+                           
                             v-model="catégorie"
-                            label="catégorie"
-                            outlined
-                            dense
-                            color="blue"
-                            autocomplete="false"
-                           class="mt-4"
-                          />
+                    >
+                            <option value="select-workout">Select Catégorie</option>
+                            <option value="pectoreaux">pectoreaux</option>
+                            <option value="Dorseaux">Dorseaux</option>
+                            <option value="Biceps">Biceps</option>
+                             <option value="Biceps">Biceps</option>
+                             <option value="Triceps">Triceps</option>
+                             <option value="Jambe">Jambe</option>
+                              <option value="Abdominaux">Abdominaux</option>
+                              <option value="Epaule">Epaule</option>
+                              <option value="Mollets">Mollets</option>
+                 </select>
+                  
+                           </v-col>
+                           <v-col cols="12" sm="6">
+                            <v-file-input
+                          accept="image/*" label="File input" color="secondary" variant="contained" required  @change="onChange"  >
+                          </v-file-input>
                            </v-col>
                            
-                             
-                       
+                            
+                            <v-col cols="12" sm="12">
+                              <v-textarea
+                              v-model="subtext"
+                          color="secondary"
+                              label="Text"
+                              variant="contained"
+                              required
+                          ></v-textarea>
+                           </v-col>
+                           <v-col cols="12" sm="6">
+                            <v-file-input
+                          accept="image/*" label="File input" color="secondary" variant="contained" required  @change="onChange1"  >
+                          </v-file-input>
+                           </v-col>
+
                            </v-row>
-                               <v-file-input
-                          accept="video/*" label="File input"    @change="onChange" ></v-file-input>
+                          <v-btn
+                          class="ma-2"
+                          outlined
+                          color="indigo"
+                          type="submit" value="Ajouter" 
+                        >
+                          Ajouter
+                        </v-btn>
     
-                            <input type="submit" value="Ajouter">
                  
                           </v-col>
                         </v-row>  
@@ -148,6 +173,45 @@
                        </v-toolbar>
                        </v-col>
                        </v-row>
+                          <table class="table">
+        <thead>
+          <tr>
+             <th scope="col">id</th>
+            <th scope="col">title</th>
+            <th scope="col">text</th>
+            <th scope="col">catégories</th>   
+            <th scope="col">description</th>
+            <th scope="col">photo</th>
+            <th> Action</th>
+           
+          </tr>
+        </thead>
+        <tbody >
+          <tr v-for="exercice in Exercices" :key="exercice.id">
+     
+           
+               <td>{{exercice.id}}</td>
+            <td>{{exercice.title}}</td>
+            <td>{{exercice.text}}</td>
+            <td>{{exercice.catégorie}}</td>
+            
+              <td>{{exercice.subtext}}</td>
+            <v-img v-bind:src="'../image/Coaches/' + exercice.image"></v-img>
+                 <v-img v-bind:src="'../image/Coaches/' + exercice.image1"></v-img>
+             <td>
+               <v-btn type="button" @click="deleteCoach(coach.id) " color="error"> delete</v-btn> 
+               
+              
+                 
+               
+             </td>
+             
+          </tr> 
+              
+        </tbody>
+              
+        </table>
+         
                        
                        </v-card>
         </v-col>
@@ -166,23 +230,37 @@ export default {
            text:"",
            subtext :"",
            catégorie:"",
-           video:"",
+           image:"",
+           image1:""
+           
+           
         } 
     },
+       mounted(){
+      this.getExercice();
+    },
     methods:{
-       //************************Save Nutritionniste ************************* */
-                onChange(e){
+       //************************Save Exercice ************************* */
+             onChange(e){
            console.log("selected file", e.target.files[0])
-           this.video = e.target.files[0]; 
+           this.image = e.target.files[0]; 
+         },
+               onChange1(e){
+           console.log("selected file", e.target.files[0])
+           this.image1 = e.target.files[0]; 
          },
          SaveExercice(){
            let fd = new FormData();
            console.log(FormData)
-           fd.append('video', this.video);
-              fd.append('title', this.title);
-                 fd.append('catégorie', this.catégorie);
-            fd.append('text', this.text);  
-               fd.append('subtext', this.subtext);
+     
+             fd.append('title', this.title);
+             fd.append('catégorie', this.catégorie);
+             fd.append('text', this.text);  
+             fd.append('subtext', this.subtext);
+             fd.append('image', this.image);
+              fd.append('image1', this.image1);
+            
+        
            
       
            axios.post("http://localhost:8000/api/auth/SaveExercice" ,fd , { 
@@ -192,16 +270,39 @@ export default {
            .then(res=>{
              console.log("Response" , res.data);
                if(res.status == 200){
-                    alert('success');
+                     this.$toast.success(" success Exercice saved.", {
+                          position : "top-right"
+                  });
                     
                     
-               }else{
-                 alert('error')
                }
              
-           })
+           }).catch(
+         error =>{
+             this.$toast.error(" error Exercice not saved.", {
+                          position : "top-right"
+                          
+                  });
+                  
+           console.log(error);
+         } 
+         
+       )
          },
-         //************************Fin Save Nutritionniste ************************* */
+         //************************Fin Save Exercice ************************* */
+         
+          getExercice(){
+       axios.get('http://localhost:8000/api/auth/getExercice')
+        .then (res => {
+         console.log(res.data);
+         this.Exercices = res.data;
+       }).catch(
+         error =>{
+           console.log(error);
+         } 
+         
+       )
+     },
     }
 }
 </script>
