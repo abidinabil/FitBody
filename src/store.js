@@ -5,7 +5,7 @@ import axios from "axios";
 const store = createStore({
   state: {
     loggedIn: false,
-    loggedCompany: false,
+ 
     user: null,
     token: null,
   },
@@ -20,9 +20,7 @@ const store = createStore({
     SET_loggedIn(state, payload) {
       state.loggedIn = payload;
     },
-    SET_loggedCompany(state, payload) {
-      state.loggedCompany = payload;
-    },
+  
     SET_cv(state, payload) {
       state.cvRegisterAction = payload;
     },
@@ -39,12 +37,8 @@ const store = createStore({
             commit("SET_token", res.data.access_token);
             commit("SET_user", res.data.user);
             commit("SET_loggedIn", true);
-            if (res.data.user.role == "company") {
-              commit("SET_loggedCompany", true);
-            }
-            if (res.data.user.role == "user") {
-              commit("SET_loggedCompany", false);
-            }
+           
+           
             resolve(res);
           })
           .catch((err) => {
@@ -85,7 +79,7 @@ const store = createStore({
             commit("SET_token", res.data.access_token);
             commit("SET_user", res.data.user);
             commit("SET_loggedIn", true);
-            commit("SET_loggedCompany", true);
+            
             resolve(res);
           })
           .catch((err) => {
@@ -105,7 +99,7 @@ const store = createStore({
 
             commit("SET_loggedIn", false);
             commit("SET_user", null);
-            commit("SET_loggedCompany", false);
+         
             resolve(res);
           })
           .catch((err) => {
@@ -120,9 +114,7 @@ const store = createStore({
     get_loggedIn(state) {
       return state.loggedIn;
     },
-    get_loggedCompany(state) {
-      return state.loggedCompany;
-    },
+  
     get_user(state) {
       return state.user;
     },

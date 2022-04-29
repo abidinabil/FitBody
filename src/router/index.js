@@ -30,6 +30,7 @@ import GymView from '@/views/GymView.vue'
 import store from '@/store'
 import CreateWorkout from '@/views/CreateWorkout.vue'
 import CalorieView from '@/views/CalorieView.vue'
+import WorkoutDetails from '@/views/WorkoutDetails.vue'
 
 
 
@@ -217,7 +218,12 @@ const routes = [
     component:CalorieView,
 
   },
+  {
+    path: '/WorkoutDetails/:id?',
+    name: 'WorkoutDetails',
+    component:WorkoutDetails,
 
+  },
 
 ]
 
