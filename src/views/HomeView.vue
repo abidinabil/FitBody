@@ -255,7 +255,7 @@
     <input type="submit" value="upload">
  
   </form>
- 
+   
 </template>
 
  <!--<script>
@@ -523,4 +523,5 @@ import { uid } from "uid";
 .v-chip.finit{
   border-left: 4px solid tomato;
 }
+ 
 </style>
