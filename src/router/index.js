@@ -31,7 +31,8 @@ import store from '@/store'
 import CreateWorkout from '@/views/CreateWorkout.vue'
 import CalorieView from '@/views/CalorieView.vue'
 import WorkoutDetails from '@/views/WorkoutDetails.vue'
-
+import ExerciceView from '@/views/ExerciceView.vue'
+import SideBarExercice from '@/components/SideBarExercice.vue'
 
 
 
@@ -222,6 +223,18 @@ const routes = [
     path: '/WorkoutDetails/:id?',
     name: 'WorkoutDetails',
     component:WorkoutDetails,
+
+  },
+  {
+    path: '/ExerciceView',
+    name: 'ExerciceView',
+    component:ExerciceView,
+
+  },
+  {
+    path: '/SideBarExercice',
+    name: 'SideBarExercice',
+    component:SideBarExercice,
 
   },
 

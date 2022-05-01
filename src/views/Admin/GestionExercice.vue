@@ -272,9 +272,7 @@ export default {
                if(res.status == 200){
                      this.$toast.success(" success Exercice saved.", {
                           position : "top-right"
-                  });
-                    
-                    
+                  });     
                }
              
            }).catch(
