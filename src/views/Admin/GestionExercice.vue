@@ -106,9 +106,9 @@
                             v-model="catégorie"
                     >
                             <option value="select-workout">Select Catégorie</option>
-                            <option value="pectoreaux">pectoreaux</option>
+                            <option value="pectoreaux">Pectoreaux</option>
                             <option value="Dorseaux">Dorseaux</option>
-                            <option value="Biceps">Biceps</option>
+                           
                              <option value="Biceps">Biceps</option>
                              <option value="Triceps">Triceps</option>
                              <option value="Jambe">Jambe</option>

@@ -1,7 +1,7 @@
 <template>
   <navbar-view />
   <div >
-     <v-carousel hide-delimiters  cycle     height="730">
+     <v-carousel hide-delimiters  cycle  height="730">
     <v-carousel-item
       v-for="(item,i) in items"
       :key="i"
@@ -13,49 +13,7 @@
     </v-carousel-item>
   </v-carousel>
   </div><br><br>
-  <div class="shop">
-   <v-container>
-        <br><br><br>
-       
-        <v-row >
-            
-        <v-col cols="12" md="6" lg="6">
-            <br><br><br>
-            
-            <h1 class="test" style="color:white">Reach new heights <br> with my trainings <br> right now...</h1>
-        </v-col>
-        <v-col cols="12" md="6" lg="6">
-              <v-img   width="600px"  height="650px"    src="https://img01.ztat.net/article/spp-media-p1/1e01280c63e4477386a27eab5a8a5ed0/6adde3f7854844ee857a3395036ecf3a.jpg?imwidth=1800" 
-                   cover   > </v-img>
-        </v-col>
-            <v-col cols="12" md="6" lg="6">
-            <br><br><br>
-            <v-img  class="bg-white" width="600px"  height="650px"  style="margin-top:-200px" :aspect-ratio="1"  src="https://tiboinshape.com/shop/modules/jscomposer/uploads/IMG_1516.jpg" 
-                   cover   > </v-img>
-        </v-col>
-        <v-col cols="12" md="6" lg="6">
-         
-            <div style="margin-left:250px ; ">    
-              <h1 class="test" style="color:white">Reach new heights <br> with my trainings <br> right now...</h1>
-            </div>   
-            <v-divider></v-divider>
-        </v-col>
-        <v-col cols="12" md="6" lg="6">
-        
-            <div >    
-               <h1 class="test" style="color:white">Reach new heights <br> with my trainings <br> right now...</h1>
-            </div>   
-            <v-divider></v-divider>
-        </v-col>
-        <v-col cols="12" md="6" lg="6">
-              <v-img  class="work"  width="600px"  height="650px"  style="margin-top:-200px" :aspect-ratio="1"  src="https://tiboinshape.com/shop/modules/jscomposer/uploads/SHAKER001.jpg" 
-                   cover   > </v-img>
-        </v-col>
-
-        </v-row>
-      
-    </v-container> 
-  </div><br><br>
+ 
 
  
     <v-toolbar dark style="background-color:white ;" class="mx-16">
@@ -106,55 +64,160 @@
       </v-col>
     </v-row><br><br>
 
-    <!------------shop 1-->
-   <div class="shop1">
-    
-      <v-col  cols="12" xs="12" sm="6" md="4" lg="4">
-            <h2  style="color:#111">FREE YOUR <br>MOVEMENT</h2>
-            
-            <p style="color:#111 ; font-size:20px"  >in the latest Studio collection</p>
-           <v-btn style="background-color: white ; color:black ; border-radius: 30px;" >SHOP STUDIO</v-btn>    
+    <v-row class="mx-4">
+      <v-col cols="12" md="6">
+        <div class="men">
+               <h2  style="color:white">Voir <br> Les Hommes <br>
+                <v-btn style="background-color: white ; color:black ; border-radius:20px" >Achetez Maintenant</v-btn> 
+               </h2>
+                
+        </div>
       </v-col>
-     
-   </div>
-   <!---------------shop2-->
-
-   <div class="shop2">
-    
-    <v-row >
-      <v-col  cols="12" xs="12" sm="6" md="12" lg="12" class="text-align:center">
-            <h2 class="text-align:center" style="color:white">Welcome to FitBody</h2>
-            
-            <p style="color:aliceblue ; font-size:20px"  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti voluptatem animi eveniet voluptate beatae, facilis vitae 
-              rerum perspiciatis blanditiis porro, unde, sunt optio similique quidem ab. Veniam laudantium tempore dolore.</p>
-           <v-btn to="ArticleNutrition" style="background-color: white ; color:black" >Commencer dés maintenant</v-btn>    
+       <v-col cols="12" md="6">
+        <div class="women">
+          <h2  style="color:white">Voir <br> Les Femmes <br>          
+          <v-btn style="background-color: white ; color:black ; border-radius:20px" >Achetez Maintenant</v-btn> </h2>
+ 
+        </div>
       </v-col>
-      </v-row>
-   
- </div><br><br><br>
+          <v-col cols="12" md="6">
+        <div class="women1">
+          <h2  style="color:white"> Haute Femmes <br></h2>
+        </div>
+      </v-col>
+        <v-col cols="12" md="6">
+        <div class="men1">
+               <h2  style="color:white"> Hautes Hommes <br> </h2>  
+        </div>
+      </v-col>
+    </v-row>
+    <br><br>
+    <h2 class="text-center" style="color:black ; font-family:'Courier New', Courier, monospace">  À LA MODE MAINTENANT</h2>
+        <div class="text-center">
+       <v-chip @click="activecatégorie = 'mens'" :color="activecatégorie === 'mens' ? 'black':''" class="mx-3">Mens </v-chip>
+        <v-chip @click="activecatégorie = 'womens'" :color="activecatégorie === 'womens' ? 'success':''" class="mx-3"> Womens</v-chip>
+        <v-chip @click="activecatégorie = 'accesoires'" :color="activecatégorie === 'accesoires' ? 'black':''" class="mx-3"> accesoires</v-chip>
+        <v-chip @click="activecatégorie = 'proteine'" :color="activecatégorie === 'proteine' ? 'success':''" class="mx-3"> Proteine</v-chip>
+         </div><br><br><br>
 
-    <!--------------------Product 1-->
-    <v-row class="mx-16">
-      <v-col cols="12" md="3" lg="3" v-for="product1 in Products1" :key="product1.title">
-        <v-card 	>
+    <!-------------------------Transition ---------------------->
+    <!----------------- Transition Mens ------------>
+      <v-fade-transition mode="out-in">
+      <v-row>
+         <slot v-if="activecatégorie=='mens'">
+        <v-col cols="12" xs="12" sm="6" md="4" lg="3" v-for="men in mens" :key="men.title">
+          <v-card 	>
         <div class="ui-card">
-          <img :src="product1.img" cover>
+          <img :src="men.img" cover>
           <div class="description">
             <h3><v-card style="background:rgba(255,255,255,.8);">
             <p>Quik Add</p>
-            <a href="#"> Buy Now</a>   
+            <v-row class="mx-4">
+              <v-col cols="12" md="3">
+                <v-card style="background:rgba(255,255,255,.8);" height="30px"> xs </v-card>
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-card style="background:rgba(255,255,255,.8);" height="30px"> s </v-card>
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-card style="background:rgba(255,255,255,.8);" height="30px"> m </v-card>
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-card style="background:rgba(255,255,255,.8);" height="30px"> l </v-card>
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-card style="background:rgba(255,255,255,.8);" height="30px"> xl </v-card>
+              </v-col><br><br>
+            </v-row>
             </v-card></h3>
+
           </div>
-        </div><br><br>
+          
+        </div>
       </v-card>
-      <v-toolbar dark style="background-color:white ;" >
+             <v-toolbar dark style="background-color:white ;" >
         <p style="color: black; font-weight: bold;">NEW</p> 
         <v-spacer></v-spacer>
-        <p style="color: black; font-size: 20px;">{{product1.price}}</p>   
+        <p style="color: black; font-size: 20px;">{{men.price}}</p>   
       </v-toolbar>
-      <p class="mx-2">{{product1.title}}</p>
-      </v-col>
-    </v-row>
+      <p class="mx-2">{{men.title}}</p>
+        </v-col>
+        </slot>
+           <!-----------------Fin Transition Mens ------------>
+
+        <!---------------------Transition Womens --------->
+              <slot v-if="activecatégorie=='womens'">
+        <v-col cols="12" xs="12" sm="6" md="4" lg="3" v-for="women in womens" :key="women.title">
+          <v-card 	>
+        <div class="ui-card">
+          <img :src="women.img" cover>
+          <div class="description">
+            <h3><v-card style="background:rgba(255,255,255,.8);">
+            <p>Quik Add</p>
+            <v-row class="mx-4">
+              <v-col cols="12" md="3">
+                <v-card style="background:rgba(255,255,255,.8);" height="30px"> xs </v-card>
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-card style="background:rgba(255,255,255,.8);" height="30px"> s </v-card>
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-card style="background:rgba(255,255,255,.8);" height="30px"> m </v-card>
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-card style="background:rgba(255,255,255,.8);" height="30px"> l </v-card>
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-card style="background:rgba(255,255,255,.8);" height="30px"> xl </v-card>
+              </v-col><br><br>
+            </v-row>
+            </v-card></h3>
+          </div>
+        </div>
+      </v-card>
+          <v-toolbar dark style="background-color:white ;" >
+        <p style="color: black; font-weight: bold;">NEW</p> 
+        <v-spacer></v-spacer>
+        <p style="color: black; font-size: 20px;">{{women.price}}</p>   
+      </v-toolbar>
+      <p class="mx-2">{{women.title}}</p>
+        </v-col>
+        </slot>
+           <!----------------- Fin Transition Womens ------------>
+        </v-row>
+    </v-fade-transition><br><br><br>
+
+    <!--------------------- Fin Transition ---------------------->
+     <div class="text-center">
+            <h2  style="color:black ; font-family:'Courier New', Courier, monospace">  ACHETEZ SANS COUTURE</h2>
+            <p>Pour une coupe qui vous épouse aux bons endroits.</p>
+              <v-btn style="background-color: #00FFB0 ; color:black ; border-radius:20px" >Achetez Maintenant</v-btn><br><br><br>
+              <v-row class="mx-16">
+                <v-img  style="    min-height: 330px;
+    object-fit: cover;
+    border-radius: 10px;
+    max-height: 600px;"
+                   src="https://cdn.shopify.com/s/files/1/0669/7933/files/blackout-shop-seamless-hp_1_1300x.jpg?v=1637287712" 
+                   cover   > </v-img>
+              </v-row>
+                  
+
+     </div><br><br><br>
+
+
+     <!-------------------Coupe ------------->
+     <div class="coupe" style="   background-color: lightgray ;">
+        <h2  style="color:black ; font-family:'Courier New', Courier, monospace" class="text-center"> TROUVEZ VOTRE COUPE</h2>
+        <p class="text-center">Achetez des leggings, des bas, des chemises, des hauts et plus encore.</p>
+        <v-row>  <v-col cols="12" md="2" lg="2" v-for="coupe in coupes" :key="coupe.img">
+            <img :src="coupe.img" cover >
+        </v-col>
+        </v-row>
+      
+     </div>
+
+
+  
     
    
   
@@ -174,11 +237,14 @@ export default {
             src: 'https://cdn.shopify.com/s/files/1/0156/6146/files/NEW_Power_W_Homepage_Desktop_1900x.jpg?v=1651095808',
           },
             {
-            src: 'https://images.pexels.com/photos/4348627/pexels-photo-4348627.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+            src: 'https://cdn.shopify.com/s/files/1/0669/7933/files/EVOKE_DESKTOP_1900x.jpg?v=1651016977',
           },
            {
-            src: 'https://cdn.shopify.com/s/files/1/0156/6146/files/US_DUAL-GENDER_DESKTOP_3800x1700_0ab9d54d-0cba-4218-bf34-8fb0450c9049_1900x.jpg?v=1651096483',
+            src: 'https://cdn.shopify.com/s/files/1/0669/7933/files/Web_BannerArtboard_1_copy_2_1900x.jpg?v=1648688039',
           },
+          {
+            src:'https://cdn.shopify.com/s/files/1/0669/7933/files/Web_BannerArtboard_1_copy_8_1900x.jpg?v=1648689189'
+          }
 
         ],
         Products:[
@@ -204,48 +270,84 @@ export default {
           },
        
         ],
-        Products1:[
+         activecatégorie:'mens',
+        mens:[
         {
-            img:"https://cdn.shopify.com/s/files/1/0156/6146/products/1.3LWaterBottleBlackI1A2J20-Edit_BK_600x.jpg?v=1638161833",
-            title:"Watter Bottle",
-            price:"14$"
+            img:"https://cdn.shopify.com/s/files/1/0669/7933/products/tri-mark-muscle-tank-black-31212069290170_480x@2x.jpg?v=1649734996",
+            title:"Débardeur Tri-Mark Muscle - Noir",
+            price:"40$"
           },
        
           {
-            img:"https://ld-wp73.template-help.com/tf/demo_biona/biona_demo/wp-content/uploads/2021/05/prod11.png",
-            title:"Creatine",
-            price:"26$"
-          },
-          {
-            img:"https://cdn.shopify.com/s/files/1/0156/6146/products/CrewSocks3pk-Navy-AthleticBlue-LightGreyMarlI1A2F-UBR44_ZH_ZH_600x.jpg?v=1649169628",
-            title:"gs power high rise shorts",
+            img:"https://cdn.shopify.com/s/files/1/0669/7933/products/retro-regular-fit-tee-dusty-blue-31211809505466_480x@2x.jpg?v=1649733857",
+            title:"T-shirt coupe classique rétro - bleu poussiéreux",
             price:"45$"
           },
           {
-            img:"https://ld-wp73.template-help.com/tf/demo_biona/biona_demo/wp-content/uploads/2021/05/prod15.png",
-            title:"Whey Protein",
-            price:"80$"
+            img:"https://cdn.shopify.com/s/files/1/0669/7933/products/compfit-core-tights-navy-29153923956922_480x@2x.jpg?v=1628343438",
+            title:"Collants Compfit Core - Marine",
+            price:"45$"
           },
           {
-            img:"https://cdn.shopify.com/s/files/1/0156/6146/products/GluteBundleFadedLilacMoonstoneBlueCactusGreenI1A6C-PBDF_ZH_ZH_600x.jpg?v=1647949760",
-            title:"Glute set 3pk",
+            img:"https://cdn.shopify.com/s/files/1/0669/7933/products/ultra-running-shorts-black-30111564595386_480x@2x.jpg?v=1636554498",
+            title:"Ultra Running Shorts - Black",
+            price:"35$"
+          },
+          {
+            img:"https://cdn.shopify.com/s/files/1/0669/7933/products/origin-acid-wash-sleeveless-hoodie-black-31061443150010_480x@2x.jpg?v=1648591625",
+            title:"Sweat à capuche sans manches Origin Acid Wash - Noir",
             price:"42$"
           },
+       
+        ],
+          womens:[
+        {
+            img:"https://cdn.shopify.com/s/files/1/0669/7933/products/excel-leggings-jet-black-28961432731834_480x@2x.jpg?v=1628333887",
+            title:"Legging Excel+ - Noir de Jais",
+            price:"40$"
+          },
+       
           {
-            img:"https://ld-wp73.template-help.com/tf/demo_biona/biona_demo/wp-content/uploads/2021/05/prod5.png",
-            title:"BCAA",
-            price:"30$"
+            img:"https://cdn.shopify.com/s/files/1/0669/7933/products/dye-scrunch-seamless-shorts-jet-black-29153573404858_480x@2x.jpg?v=1628341449",
+            title:"DYE Scrunch Short Sans Couture - Noir De Jais",
+            price:"45$"
           },
           {
-            img:"https://ld-wp73.template-help.com/tf/demo_biona/biona_demo/wp-content/uploads/2021/05/prod7.png",
-            title:"Casein",
-            price:"60$"
+            img:"https://cdn.shopify.com/s/files/1/0669/7933/products/ombre-seamless-crop-grey-30190687682746_480x@2x.jpg?v=1637705056",
+            title:"Crop Sans Couture Ombre - Gris",
+            price:"70$"
           },
           {
-            img:"https://cdn.shopify.com/s/files/1/0156/6146/products/AbRollerBlackI1A2W18.D11_GB_EDITTIFF_IS_a15b487d-18a9-4a25-a85b-d5a1c5f60c87_600x.jpg?v=1632255159",
-            title:"Ab Roller",
-            price:"20$"
+            img:"https://cdn.shopify.com/s/files/1/0669/7933/products/dye-scrunch-seamless-crop-grey-marl-14566349045844_480x@2x.jpg?v=1628191521",
+            title:"DYE Scrunch Seamless Crop - Gris Chiné",
+            price:"55$"
           },
+          {
+            img:"https://cdn.shopify.com/s/files/1/0669/7933/products/dye-scrunch-seamless-shorts-bright-white-30743228055738_480x@2x.jpg?v=1645421826",
+            title:"DYE Scrunch Short Sans Couture - Blanc Vif",
+            price:"55$"
+          },
+       
+        ],
+        coupes:[
+          {
+            img:"https://cdn.shopify.com/s/files/1/0669/7933/collections/Shorts_400x@2x.jpg?v=1634620569"
+          },
+            {
+            img:"https://cdn.shopify.com/s/files/1/0669/7933/collections/MensHoodie_1_400x@2x.jpg?v=1634567737"
+          },
+            {
+            img:"https://cdn.shopify.com/s/files/1/0669/7933/collections/leggings_400x@2x.png?v=1634567735"
+          },
+            {
+            img:"https://cdn.shopify.com/s/files/1/0669/7933/collections/MensShorts_400x@2x.jpg?v=1634567736"
+          },
+            {
+            img:"https://cdn.shopify.com/s/files/1/0669/7933/collections/Crops_400x@2x.jpg?v=1634813784"
+          },
+          {
+            img:"https://cdn.shopify.com/s/files/1/0669/7933/collections/MensTee_400x@2x.jpg?v=1634567735"
+          }
         ]
         
     }
@@ -253,38 +355,55 @@ export default {
 }
 </script>
 <style>
-  .shop{
+
+
+.men{
     
-    min-height: 75vh;
+    min-height: 120vh;
     min-width: 57vh;
     background-size: cover !important;
-    background-position: center !important;
-    padding: 2rem 9%;
-    display: flex;
-    align-items: center;
-   background-image: url("https://cdn.shopify.com/s/files/1/0156/6146/files/Black_Texture_Desktop_1900x_194fa131-8b59-4ef1-ae5a-41a0d7180edf_1440x.webp?v=1650656275");
   
-   
+   padding: 7rem 10%;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 20px;
+   background-image: url("https://cdn.shopify.com/s/files/1/0669/7933/files/post_bfcm_shop_mens_2.jpg?v=1638240535"); 
 }
-.shop1{
-    min-height: 85vh;
-    min-width: 57vh;
-    background-size: cover !important;
-    padding: 1rem 5%;
-   background-image: url("https://cdn.shopify.com/s/files/1/0156/6146/files/DESKTOP_4_7ef0e495-01bb-43f8-9065-af6f72996f46_1900x.jpg?v=1650555758");
-}
-.shop2{
+.women{
     
-    min-height: 75vh;
+    min-height: 120vh;
     min-width: 57vh;
     background-size: cover !important;
-    background-position: center !important;
-    padding: 5rem 25%;
-    display: flex;
-    align-items: center;
-   background-image: url("https://cdn.shopify.com/s/files/1/0156/6146/files/Black_Texture_Desktop_1900x_194fa131-8b59-4ef1-ae5a-41a0d7180edf_1440x.webp?v=1650656275");
-  
    
+    padding: 7rem 10%;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 20px;
+   background-image: url("https://cdn.shopify.com/s/files/1/0669/7933/files/post_bfcm_shop_womens.jpg?v=1638238224"); 
+}
+.men1{
+    
+    min-height: 120vh;
+    min-width: 57vh;
+    background-size: cover !important;
+  
+   padding: 7rem 10%;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 20px;
+   background-image: url("https://cdn.shopify.com/s/files/1/0669/7933/files/boxing_day_hp_under_31.jpg?v=1640046439"); 
+}
+.women1{
+    
+    min-height: 120vh;
+    min-width: 57vh;
+    background-size: cover !important;
+   
+    padding: 7rem 10%;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 20px;
+   background-image: url("https://cdn.shopify.com/s/files/1/0669/7933/files/Womens_Crops_Bucket.jpg?v=1643069838"); 
 }
 img{
 	max-width: 100%;
