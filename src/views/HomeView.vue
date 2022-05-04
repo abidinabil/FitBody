@@ -254,8 +254,43 @@
     <input type="file" @change="onChange">
     <input type="submit" value="upload">
  
-  </form>
-   
+  </form><br><br><br>
+      <v-text-field
+                 v-model="name" 
+            color="secondary"
+            label="name"
+            variant="contained"
+            placeholder="Placeholder"
+            
+          ></v-text-field>
+  <h1>selected file </h1>
+  <input @change="imageChange" type="file" class="hidden" name="image" ref="files" multiple>
+   <div>
+     <p v-for="(image,index) in images" :key="index">{{image.name}}</p>
+   </div>
+   <v-btn @click="uploadImages">upload image</v-btn>
+
+   <table>
+     <thead>
+       <tr>
+         <th>id</th>
+         <th>images</th>
+         <th>name</th>
+         <th>action</th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr v-for="picture in pictures" :key="picture.id" >
+        <td>{{picture.id}} </td>
+        <td><img v-for="img in picture.images" :key="img.id" v-bind:src=" '../image/boutique/' + img" width="100px" height="100px" >
+        
+        </td>
+          
+          
+        <td>{{picture.name}}</td>
+       </tr>
+     </tbody>
+   </table>
 </template>
 
  <!--<script>
@@ -336,7 +371,7 @@ data(){
        },
 });
 </script> -->
-<script>
+<!--<script>
 import axios from 'axios'
 import { ref } from "vue";
 import { uid } from "uid";
@@ -502,6 +537,62 @@ import { uid } from "uid";
      },
     }
   }
+</script> -->
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return{
+      images:[],
+      pictures:'',
+      name:'',
+    }
+    
+  },
+  methods:{
+    imageChange(){
+      for(let i=0 ; i< this.$refs.files.files.length; i++){
+        this.images.push(this.$refs.files.files[i]);
+        console.log(this.images)
+      }
+    },
+    uploadImages(){
+      var self = this;
+      let formData = new FormData();
+      for( let i = 0 ; i<this.images.length; i++){
+        let file = self.images[i];
+        formData.append('files['+i+']',file);
+        formData.append('name', this.name);
+      }
+      const config = {
+        headers:{"content-type" : "multipart/form-data"}
+      }
+      axios.post("http://localhost:8000/api/auth/store",formData,config)
+      .then(response => {
+        self.$refs.files.value = '';
+        self.images=[];
+        self.getImages();
+                console.log(response)
+      }).catch(error => {
+        console.log(error)
+      })
+
+    },
+    getImages(){
+      axios.get("http://localhost:8000/api/auth/getImages")
+      .then(response=>{
+        this.pictures = response.data.images;
+
+      }).catch(error=>{
+          console.log(error)
+      })
+    }
+  },
+  created(){
+    this.getImages();
+  }
+}
 </script>
 
 <style>

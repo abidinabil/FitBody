@@ -1,5 +1,34 @@
 <template>
-  <navbar-view />
+  <navbar-view /><br><br>
+  <!--------------------------Shop---------------------->
+  <div class="text-center" >
+        <v-chip  pill v-on="on" to="MensView" >
+            <v-avatar left > 
+              <v-img src="https://cdn.shopify.com/s/files/1/0669/7933/products/origin-acid-wash-sleeveless-hoodie-black-31061443150010_480x@2x.jpg?v=1648591625"></v-img>
+            </v-avatar>
+            MENS
+          </v-chip>
+          <v-chip  pill v-on="on" to="WomensView" >
+            <v-avatar left>
+              <v-img src="https://cdn.shopify.com/s/files/1/0156/6146/products/PowerSportsBraRep-L-A0024CherryBrown-B2A7J-NBD1.A_ZH_ZH_7e432e30-f354-4689-9cf0-5976bd24c331_800x.jpg?v=1650633124"></v-img>
+            </v-avatar>
+            WOMENS
+          </v-chip>
+          <v-chip  pill v-on="on" to="AccesoiresViews" >
+            <v-avatar left>
+              <v-img src="https://cdn.shopify.com/s/files/1/0156/6146/products/GFXBOBSlingBagBlackI1A9U-BBKQ.A_ZH_ZH_600x.jpg?v=1643996301"></v-img>
+            </v-avatar>
+            ACCESOIRES
+          </v-chip>
+          <v-chip  pill v-on="on" to="ProteineViews" >
+            <v-avatar left>
+              <v-img src=""></v-img>
+            </v-avatar>
+            PROTEINES
+          </v-chip>
+        
+         </div><br>
+
   <div >
      <v-carousel hide-delimiters  cycle  height="730">
     <v-carousel-item
@@ -362,7 +391,6 @@ export default {
     min-height: 120vh;
     min-width: 57vh;
     background-size: cover !important;
-  
    padding: 7rem 10%;
     display: flex;
     align-items: flex-end;

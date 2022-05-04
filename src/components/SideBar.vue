@@ -61,6 +61,7 @@ export default {
             { text: 'Nutrition', icon: 'mdi-nutrition' , route:'/GestionNutrition' },
             { text: 'Nutritionniste', icon: 'mdi-account' , route:'/GestionNutritionniste' },
              { text: 'Coach', icon: 'mdi-account' , route:'/GestionCoach' },
+              { text: 'Boutique', icon: 'mdi-shopping' , route:'/GestionBoutique' },
            
         
       ],

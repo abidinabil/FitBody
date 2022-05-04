@@ -33,6 +33,8 @@ import CalorieView from '@/views/CalorieView.vue'
 import WorkoutDetails from '@/views/WorkoutDetails.vue'
 import ExerciceView from '@/views/ExerciceView.vue'
 import SideBarExercice from '@/components/SideBarExercice.vue'
+import MensView from '../views/Boutique/MensView.vue'
+import GestionBoutique from '@/views/Admin/GestionBoutique.vue'
 
 
 
@@ -237,6 +239,18 @@ const routes = [
     component:SideBarExercice,
 
   },
+  {
+    path: '/MensView',
+    name: 'MensView',
+    component:MensView,
+
+  },
+  {
+    path: '/GestionBoutique',
+    name: 'GestionBoutique',
+    component:GestionBoutique,
+  },
+
 
 ]
 

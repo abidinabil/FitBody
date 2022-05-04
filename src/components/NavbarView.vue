@@ -29,7 +29,7 @@
       </v-list>
     </v-menu>
       </li>
-       <li><router-link to="">Boutique</router-link></li>
+       <li><router-link to="BoutiqueView">Boutique</router-link></li>
           <li v-if="loggedIn"><router-link to="ProfileView">Profile</router-link></li>
               <li v-if="loggedIn"><router-link to="CreateWorkout">Create Workout</router-link></li>
       <li>  <v-btn v-if="!loggedIn" to="/SignIn1">Se Connecter</v-btn></li>
