@@ -14,7 +14,7 @@
             </v-avatar>
             WOMENS
           </v-chip>
-          <v-chip  pill v-on="on" to="AccesoiresViews" >
+          <v-chip  pill v-on="on" to="AccessoiresView" >
             <v-avatar left>
               <v-img src="https://cdn.shopify.com/s/files/1/0156/6146/products/GFXBOBSlingBagBlackI1A9U-BBKQ.A_ZH_ZH_600x.jpg?v=1643996301"></v-img>
             </v-avatar>
@@ -57,34 +57,131 @@
         color="deep-purple accent-3"
         group
       >
-        <v-btn value="left">
-          Left
+        <v-btn value="" @click.prevent="getProduitByCategorie(this.Mens)">
+          All Produit
         </v-btn>
-
-        <v-btn value="center">
-          Center
+        <v-btn value="" @click.prevent="getProduitBySousCategorie(this.Tshirt)">
+          t-shirt
         </v-btn>
-
-        <v-btn value="right">
-          Right
+        <v-btn value="" @click.prevent="getProduitBySousCategorie(this.shorts)" >
+          shorts
         </v-btn>
-
-        <v-btn value="justify">
-          Justify
+         <v-btn value="" @click.prevent="getProduitBySousCategorie(this.Tanks)" >
+          Tanks
+        </v-btn>
+         <v-btn value="" @click.prevent="getProduitBySousCategorie(this.Hoodies)">
+          Hoodies
+        </v-btn>
+         <v-btn value="" @click.prevent="getProduitBySousCategorie(this.Jackets)">
+          Jackets
+        </v-btn>
+         <v-btn value="" @click.prevent="getProduitBySousCategorie(this.Stringers)">
+          Stringers
+        </v-btn>
+          <v-btn value="" @click.prevent="getProduitBySousCategorie(this.Joggers)">
+          Joggers
         </v-btn>
       </v-btn-toggle>
     </v-col> 
-    </div> 
+    </div> <br><br><br>
+    <v-row>
+      <v-col cols="12" xs="12" sm="6" md="4" lg="3" v-for="men in ProduitMens" :key="men.name">
+          <v-card 	>
+        <div class="ui-card">
+            <v-img   :aspect-ratio="1"   v-bind:src="'../image/boutique/' + men.image" 
+                   cover    > </v-img>
+          <div class="description">
+            <h3><v-card style="background:rgba(255,255,255,.8);">
+            <p>Quik Add</p>
+            <v-row class="mx-4">
+              <v-col cols="12" md="3">
+                <v-card style="background:rgba(255,255,255,.8);" height="30px"> xs </v-card>
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-card style="background:rgba(255,255,255,.8);" height="30px"> s </v-card>
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-card style="background:rgba(255,255,255,.8);" height="30px"> m </v-card>
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-card style="background:rgba(255,255,255,.8);" height="30px"> l </v-card>
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-card style="background:rgba(255,255,255,.8);" height="30px"> xl </v-card>
+              </v-col><br><br>
+            </v-row>
+            </v-card></h3>
+
+          </div>
+          
+        </div>
+      </v-card>
+             <v-toolbar dark style="background-color:white ;" >
+        <p style="color: black; font-weight: bold;">NEW</p> 
+        <v-spacer></v-spacer>
+        <p style="color: black; font-size: 20px;">{{men.price}}</p>   
+      </v-toolbar>
+         <p class="mx-2">{{men.categorie}}</p>
+      <p class="mx-2">{{men.sous_categorie}}</p>
+        </v-col>
+        </v-row>
 
 
 
 </template>
 <script>
 import NavbarView from '@/components/NavbarView.vue'
+import axios from 'axios'
 export default {
   components: { NavbarView },
-    setup() {
-        
+   data(){
+     return{
+       
+       ProduitMens:{},
+       
+       Mens:'Mens',
+       shorts:'shorts',
+       Tshirt:'T-shirt',
+       Tanks:'Tanks',
+       Hoodies:'Hoodies',
+       Jackets:'Jackets',
+       Stringers:'Stringers',
+       Joggers:'Joggers'
+     }
+    
+   },
+        mounted(){
+      
+      this.getProduitByCategorie();
+      this.getProduitBySousCategorie()
     },
+    methods: {
+         getProduitByCategorie($categorie){
+       axios.get('http://localhost:8000/api/auth/getProduitByCategorie/'+$categorie)
+        .then (res => {
+         console.log(res.data);
+         this.ProduitMens = res.data;
+       }).catch(
+         error =>{
+           console.log(error);
+         } 
+         
+       )
+     },
+        getProduitBySousCategorie($sous_categorie){
+       axios.get('http://localhost:8000/api/auth/getProduitMens/'+$sous_categorie)
+        .then (res => {
+         console.log(res.data);
+         this.ProduitMens = res.data;
+       }).catch(
+         error =>{
+           console.log(error);
+         } 
+         
+       )
+     },
+     
+       
+     },
 }
 </script>

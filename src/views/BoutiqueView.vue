@@ -7,14 +7,14 @@
               <v-img src="https://cdn.shopify.com/s/files/1/0669/7933/products/origin-acid-wash-sleeveless-hoodie-black-31061443150010_480x@2x.jpg?v=1648591625"></v-img>
             </v-avatar>
             MENS
-          </v-chip>
+          </v-chip >
           <v-chip  pill v-on="on" to="WomensView" >
             <v-avatar left>
               <v-img src="https://cdn.shopify.com/s/files/1/0156/6146/products/PowerSportsBraRep-L-A0024CherryBrown-B2A7J-NBD1.A_ZH_ZH_7e432e30-f354-4689-9cf0-5976bd24c331_800x.jpg?v=1650633124"></v-img>
             </v-avatar>
             WOMENS
           </v-chip>
-          <v-chip  pill v-on="on" to="AccesoiresViews" >
+          <v-chip  pill v-on="on" to="AccessoiresView" >
             <v-avatar left>
               <v-img src="https://cdn.shopify.com/s/files/1/0156/6146/products/GFXBOBSlingBagBlackI1A9U-BBKQ.A_ZH_ZH_600x.jpg?v=1643996301"></v-img>
             </v-avatar>

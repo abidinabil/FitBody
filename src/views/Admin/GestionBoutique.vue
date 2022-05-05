@@ -103,7 +103,7 @@
                         class="form-select"
                             required
                             @change="workoutChange"
-                            v-model="catégorieType"
+                            v-model="categorieType"
                            
                     >
                             <option value="select-catégorie">Select Catégorie</option>
@@ -116,7 +116,7 @@
                            </v-col>
      <!------------------------------------------------ Mens Input -------------------------------------->
        <v-col cols="12" sm="12">
-        <div v-if="catégorieType === 'Mens'" >
+        <div v-if="categorieType === 'Mens'" >
           <div
             v-for="(item, index) in exercises"
             :key="index"
@@ -203,7 +203,7 @@
       <!----------------------------------------------Womens Input ----------------------------------------->
      
        <v-col cols="12" sm="12">
-        <div v-if="catégorieType === 'Womens'" >
+        <div v-if="categorieType === 'Womens'" >
           <div
             v-for="(item, index) in exercises"
             :key="index"
@@ -215,7 +215,7 @@
                         >Sous_Catégorie</label
                     >
                             <select
-                            id="Catégorie"
+                            v-model="sous_categorie"
                             class="form-select"
                             required >
                             <option value="select-workout">Select Sous Catégorie</option>
@@ -241,6 +241,7 @@
                         label="Slug"
                         variant="contained"
                          required
+                         v-model="slug"
                       
                     ></v-text-field>
                            </v-col>
@@ -254,7 +255,7 @@
                         label="Price"
                         variant="contained"
                          required
-                        
+                        v-model="price"
                       
                     ></v-text-field>
                            </v-col>
@@ -264,18 +265,19 @@
                           accept="image/*" label="File input" color="secondary" variant="contained" required  @change="onChange"  >
                           </v-file-input>
                            </v-col>
-                           <!------------------Image Details ------------->
+                           <!------------------Image Details ------------
                            <v-col cols="12" sm="6">
                             <v-file-input
                           accept="image/*" label="File input" color="secondary" variant="contained" required  @change="onChange"  >
                           </v-file-input>
-                           </v-col>
+                           </v-col> -->
                            <!---------------description ----------->
                               <v-col cols="12" sm="12">
                               <v-textarea
                                      color="secondary"
                                     label="Description"
                                     variant="contained"
+                                    v-model="description"
                           ></v-textarea>
                            </v-col>
                            </v-row>
@@ -287,7 +289,7 @@
              <!----------------------------------------------Accesoires Input ----------------------------------------->
      
        <v-col cols="12" sm="12">
-        <div v-if="catégorieType === 'Accessoires'" >
+        <div v-if="categorieType === 'Accessoires'" >
           <div
             v-for="(item, index) in exercises"
             :key="index"
@@ -301,6 +303,7 @@
                             <select
                             id="Catégorie"
                             class="form-select"
+                            v-model="sous_categorie"
                             required >
                             <option value="select-workout">Select Sous Catégorie</option>
                             <option value="Bags">Bags</option>
@@ -323,6 +326,7 @@
                         label="Slug"
                         variant="contained"
                          required
+                         v-model="slug"
                       
                     ></v-text-field>
                            </v-col>
@@ -336,7 +340,7 @@
                         label="Price"
                         variant="contained"
                          required
-                        
+                        v-model="price"
                       
                     ></v-text-field>
                            </v-col>
@@ -346,18 +350,19 @@
                           accept="image/*" label="File input" color="secondary" variant="contained" required  @change="onChange"  >
                           </v-file-input>
                            </v-col>
-                           <!------------------Image Details ------------->
+                           <!------------------Image Details ------------
                            <v-col cols="12" sm="6">
                             <v-file-input
                           accept="image/*" label="File input" color="secondary" variant="contained" required  @change="onChange"  >
                           </v-file-input>
-                           </v-col>
+                           </v-col> -->
                            <!---------------description ----------->
                               <v-col cols="12" sm="12">
                               <v-textarea
                                      color="secondary"
                                     label="Description"
                                     variant="contained"
+                                    v-model="description"
                           ></v-textarea>
                            </v-col>
                            </v-row>
@@ -368,7 +373,7 @@
 
     <!-----------------------------------------------------Proteine --------------------------------------------->
        <v-col cols="12" sm="12">
-        <div v-if="catégorieType === 'Proteine'" >
+        <div v-if="categorieType === 'Proteine'" >
           <div
             v-for="(item, index) in exercises"
             :key="index"
@@ -382,6 +387,7 @@
                             <select
                             id="Catégorie"
                             class="form-select"
+                            v-model="sous_categorie"
                             required >
                             <option value="select-workout">Select Sous Catégorie</option>
                             <option value="Amino">Amino</option>
@@ -404,7 +410,7 @@
                         label="Slug"
                         variant="contained"
                          required
-                      
+                      v-model="slug"
                     ></v-text-field>
                            </v-col>
                                <!---------------Price ------------->
@@ -417,7 +423,7 @@
                         label="Price"
                         variant="contained"
                          required
-                        
+                        v-model="price"
                       
                     ></v-text-field>
                            </v-col>
@@ -427,18 +433,19 @@
                           accept="image/*" label="File input" color="secondary" variant="contained" required  @change="onChange"  >
                           </v-file-input>
                            </v-col>
-                           <!------------------Image Details ------------->
+                           <!------------------Image Details ------------
                            <v-col cols="12" sm="6">
                             <v-file-input
                           accept="image/*" label="File input" color="secondary" variant="contained" required  @change="onChange"  >
                           </v-file-input>
-                           </v-col>
+                           </v-col> -->
                            <!---------------description ----------->
                               <v-col cols="12" sm="12">
                               <v-textarea
                                      color="secondary"
                                     label="Description"
                                     variant="contained"
+                                    v-model="description"
                           ></v-textarea>
                            </v-col>
                            </v-row>
@@ -511,15 +518,11 @@ import axios from 'axios'
 export default {
   components: { SideBar },
     data() {
-        return{
-                    dialog:false,  
-        }
-    },
-    setup(){
-           const catégorieType = ref("select-catégorie");
+        const categorieType = ref("select-catégorie");
            const exercises = ref([1]);
-           return{
-               catégorieType,
+        return{
+                    dialog:false, 
+                       categorieType,
                exercises,
                
        
@@ -530,10 +533,17 @@ export default {
                  slug:"",
                  price:"",
                  description:"",
-                 image:"",
+                 image:"", 
+        }
+    },
+    setup(){
+         
+           return{
+            
                  
            }
     },
+  
     methods: {
          onChange(e){
            console.log("selected file", e.target.files[0])
@@ -546,9 +556,9 @@ export default {
            
          
            console.log(FormData)
-            console.log(this.name)
+              fd.append('name', this.name);
            fd.append('image', this.image);
-            fd.append('categorie', this.categorie);
+            fd.append('categorie', this.categorieType);
                  fd.append('sous_categorie', this.sous_categorie);
                       fd.append('slug', this.slug);
                           fd.append('price', this.price);
