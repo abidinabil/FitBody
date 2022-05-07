@@ -128,6 +128,7 @@
       <p class="mx-2">{{women.sous_categorie}}</p>
         </v-col>
         </v-row>
+        <v-img src="https://scontent.ftun16-1.fna.fbcdn.net/v/t45.1600-4/277698946_6285877061793_410141223228836215_n.jpg?stp=cp0_dst-jpg_p526x296_q75_spS444&_nc_cat=111&ccb=1-5&_nc_sid=68ce8d&_nc_ohc=Kp3eXnNmVvgAX9c9Esc&_nc_ht=scontent.ftun16-1.fna&oh=00_AT8mqN13I_tFvmL3Q6r5e_bVpFR9pAbv5_svdKnsL8BabA&oe=62775C0B"></v-img>
 
 
 

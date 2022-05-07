@@ -85,9 +85,9 @@
     </v-col> 
     </div> <br><br><br>
     <v-row>
-      <v-col cols="12" xs="12" sm="6" md="4" lg="3" v-for="men in ProduitMens" :key="men.name">
-          <v-card 	>
-        <div class="ui-card">
+      <v-col cols="12" xs="12" sm="6" md="4" lg="3" v-for="men in ProduitMens" :key="men.name" >
+          <v-card   :to="{name: 'ProductDetails' , params:{id:men.id}}"	>
+        <div class="ui-card" >
             <v-img   :aspect-ratio="1"   v-bind:src="'../image/boutique/' + men.image" 
                    cover    > </v-img>
           <div class="description">

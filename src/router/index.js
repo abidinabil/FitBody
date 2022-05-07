@@ -38,6 +38,7 @@ import GestionBoutique from '@/views/Admin/GestionBoutique.vue'
 import WomensView from '../views/Boutique/WomensView.vue'
 import AccessoiresView from '@/views/Boutique/AccessoiresView.vue'
 import ProteinView from  '@/views/Boutique/ProteinView.vue'
+import ProductDetails from '@/views/Boutique/ProductDetails.vue'
 
 
 const routes = [
@@ -262,6 +263,12 @@ const routes = [
     path: '/ProteinView',
     name: 'ProteinView',
     component:ProteinView,
+
+  },
+  {
+    path: '/ProductDetails/:id?',
+    name: 'ProductDetails',
+    component:ProductDetails,
 
   },
   {
