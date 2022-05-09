@@ -39,6 +39,8 @@ import WomensView from '../views/Boutique/WomensView.vue'
 import AccessoiresView from '@/views/Boutique/AccessoiresView.vue'
 import ProteinView from  '@/views/Boutique/ProteinView.vue'
 import ProductDetails from '@/views/Boutique/ProductDetails.vue'
+import AddToCart from '../views/AddToCart.vue'
+import PanierView from '@/views/PanierView.vue'
 
 
 const routes = [
@@ -275,6 +277,16 @@ const routes = [
     path: '/GestionBoutique',
     name: 'GestionBoutique',
     component:GestionBoutique,
+  },
+  {
+    path: '/AddToCart',
+    name: 'AddToCart',
+    component:AddToCart,
+  },
+  {
+    path: '/PanierView',
+    name: 'PanierView',
+    component:PanierView,
   },
 
 

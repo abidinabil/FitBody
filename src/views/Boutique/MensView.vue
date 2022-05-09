@@ -123,6 +123,8 @@
       </v-toolbar>
          <p class="mx-2">{{men.categorie}}</p>
       <p class="mx-2">{{men.sous_categorie}}</p>
+         <v-btn @click.prevent="addTocart(men.id)" class="mx-16" justify-center style="background-color: rgb(0, 125, 181); ; color:White ; border-radius:15px" >
+               <v-icon>mdi-shopping</v-icon> Achetez Maintenant</v-btn><br><br>
         </v-col>
         </v-row>
 
@@ -132,13 +134,14 @@
 <script>
 import NavbarView from '@/components/NavbarView.vue'
 import axios from 'axios'
+
 export default {
-  components: { NavbarView },
+  components: { NavbarView,  },
    data(){
      return{
        
        ProduitMens:{},
-       
+       id:"",
        Mens:'Mens',
        shorts:'shorts',
        Tshirt:'T-shirt',
@@ -146,7 +149,11 @@ export default {
        Hoodies:'Hoodies',
        Jackets:'Jackets',
        Stringers:'Stringers',
-       Joggers:'Joggers'
+       Joggers:'Joggers',
+       id_user:"",
+       id_produits:"",
+       qty:"",
+      
      }
     
    },
@@ -155,6 +162,11 @@ export default {
       this.getProduitByCategorie();
       this.getProduitBySousCategorie()
     },
+     computed: {
+    user() {
+      return this.$store.getters.get_user;
+    },
+  },
     methods: {
          getProduitByCategorie($categorie){
        axios.get('http://localhost:8000/api/auth/getProduitByCategorie/'+$categorie)
@@ -180,6 +192,28 @@ export default {
          
        )
      },
+      addTocart($id){
+      axios.post('http://localhost:8000/api/auth/addToCart/' +this.user.id+'/'+ $id,{
+        id_user:this.user.id,
+        id_produits:$id,
+        qty:1
+        
+      
+      }) .then (res => {
+         console.log(res.data);
+        
+       }).catch(
+         error =>{
+             this.$toast.error(" error Nutrition not saved.", {
+                          position : "top-right"
+                          
+                  });
+           console.log(error);
+         } 
+         
+       )
+       
+     }
      
        
      },

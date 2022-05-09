@@ -1,8 +1,7 @@
 <template>
   <nav>
       <v-toolbar-title class="text-uppercase " style="color:white">
-      <span class="font-weight-light">Fit</span>
-      <span>Body</span>
+        <li><router-link to="exampleView">FitBody</router-link></li>
    
     </v-toolbar-title>
        
@@ -30,11 +29,29 @@
     </v-menu>
       </li>
        <li><router-link to="BoutiqueView">Boutique</router-link></li>
-          <li v-if="loggedIn"><router-link to="ProfileView">Profile</router-link></li>
-              <li v-if="loggedIn"><router-link to="CreateWorkout">Create Workout</router-link></li>
+
       <li>  <v-btn v-if="!loggedIn" to="/SignIn1">Se Connecter</v-btn></li>
        <li>  <v-btn v-if="!loggedIn" to="/SignUp">Commencer dés maintenant</v-btn></li>  
-             <li v-if="loggedIn">  <v-btn @click.prevent="performLogout" >Logout</v-btn></li> 
+            
+              <v-menu>
+      <template v-slot:activator="{ props }">
+        <v-btn
+         v-if="loggedIn"
+          color="primary"
+          v-bind="props"
+        >
+          {{this.user.name}}
+        </v-btn>
+      </template>
+      <v-list>
+      
+          <v-list-item-title  v-if="loggedIn" ><router-link to="ProfileView">Profile</router-link></v-list-item-title>
+            <v-list-item-title  v-if="loggedIn" ><router-link to="CreateWorkout">Create Workout</router-link></v-list-item-title>
+              <v-list-item-title  v-if="loggedIn" ><v-btn @click.prevent="performLogout" >Logout</v-btn></v-list-item-title>
+     
+      </v-list>
+    </v-menu>
+          
     </ul>
   </nav>
 </template>
@@ -169,7 +186,10 @@ export default {
     computed: {
     loggedIn() {
       return this.$store.getters.get_loggedIn;
-    }
+    },
+     user() {
+      return this.$store.getters.get_user;
+    },
   },
 }
 </script>
