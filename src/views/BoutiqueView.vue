@@ -239,7 +239,7 @@
         <h2  style="color:black ; font-family:'Courier New', Courier, monospace" class="text-center"> TROUVEZ VOTRE COUPE</h2>
         <p class="text-center">Achetez des leggings, des bas, des chemises, des hauts et plus encore.</p>
         <v-row>  <v-col cols="12" md="2" lg="2" v-for="coupe in coupes" :key="coupe.img">
-            <img :src="coupe.img" cover >
+            <img :src="coupe.img" cover style="background-color:transparent" >
         </v-col>
         </v-row>
       

@@ -41,6 +41,7 @@ import ProteinView from  '@/views/Boutique/ProteinView.vue'
 import ProductDetails from '@/views/Boutique/ProductDetails.vue'
 import AddToCart from '../views/AddToCart.vue'
 import PanierView from '@/views/PanierView.vue'
+import ExerciceDetails from '../views/ExerciceDetails.vue'
 
 
 const routes = [
@@ -287,6 +288,11 @@ const routes = [
     path: '/PanierView',
     name: 'PanierView',
     component:PanierView,
+  },
+  {
+    path: '/ExerciceDetails/:id?',
+    name: 'ExerciceDetails',
+    component:ExerciceDetails,
   },
 
 

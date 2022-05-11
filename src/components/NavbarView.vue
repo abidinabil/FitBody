@@ -47,6 +47,7 @@
       
           <v-list-item-title  v-if="loggedIn" ><router-link to="ProfileView">Profile</router-link></v-list-item-title>
             <v-list-item-title  v-if="loggedIn" ><router-link to="CreateWorkout">Create Workout</router-link></v-list-item-title>
+              <v-list-item-title  v-if="loggedIn" ><router-link to="PanierView">Votre Panier</router-link></v-list-item-title>
               <v-list-item-title  v-if="loggedIn" ><v-btn @click.prevent="performLogout" >Logout</v-btn></v-list-item-title>
      
       </v-list>

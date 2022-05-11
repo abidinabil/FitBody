@@ -27,8 +27,9 @@
         color="deep-purple accent-3"
         group
         class="mx-16"
+        required
       >
-        <v-btn value="left">
+        <v-btn value="left" required>
           XS
         </v-btn>
 
@@ -50,7 +51,7 @@
          XXL
         </v-btn>
       </v-btn-toggle><br><br><br>
-           <v-btn class="mx-16" justify-center style="background-color: rgb(0, 125, 181); ; color:White ; border-radius:15px" >
+             <v-btn @click.prevent="addTocart(products.id)" class="mx-16" justify-center style="background-color: rgb(0, 125, 181); ; color:White ; border-radius:15px" >
                <v-icon>mdi-shopping</v-icon> Achetez Maintenant</v-btn><br><br>
                     <div style="  background: rgb(245, 245, 245); padding:2rem "><br><br>
                     <p style="color:black"><v-icon  style="padding: 0% 1.5rem">mdi-refresh</v-icon> Free Returns On All Orders</p>
@@ -74,13 +75,22 @@ export default {
     data() {
       return{
          products:{},
-         categorieType:""
+         categorieType:"",
+            id_user:"",
+       id_produits:"",
+       qty:"",
+       id:"",
       }  
     },
        mounted(){
       this.getProductDetails();
       
     },
+        computed: {
+    user() {
+      return this.$store.getters.get_user;
+    },
+  },
     methods:{
              getProductDetails(){
        axios.get('http://localhost:8000/api/auth/getProductDetails/'+this.$route.params.id)
@@ -94,6 +104,34 @@ export default {
          
        )
      },
+      addTocart($id){
+      axios.post('http://localhost:8000/api/auth/addToCart/' +this.user.id+'/'+ $id,{
+        id_user:this.user.id,
+        id_produits:$id,
+        qty:1
+        
+      
+      }) .then (res => {
+          
+            console.log(res.data)
+                     this.$toast.success(" product saved in baskets.", {
+                          position : "top-right"
+                  });     
+               
+        
+       }).catch(
+         res =>{
+              if(res.status == 100){
+                     this.$toast.error(" product not saved in baskets.", {
+                          position : "top-right"
+                  });     
+               }
+          
+         } 
+         
+       )
+       
+     }
     }
 }
 </script>

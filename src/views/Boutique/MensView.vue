@@ -123,8 +123,7 @@
       </v-toolbar>
          <p class="mx-2">{{men.categorie}}</p>
       <p class="mx-2">{{men.sous_categorie}}</p>
-         <v-btn @click.prevent="addTocart(men.id)" class="mx-16" justify-center style="background-color: rgb(0, 125, 181); ; color:White ; border-radius:15px" >
-               <v-icon>mdi-shopping</v-icon> Achetez Maintenant</v-btn><br><br>
+      
         </v-col>
         </v-row>
 
@@ -200,7 +199,12 @@ export default {
         
       
       }) .then (res => {
-         console.log(res.data);
+           console.log("Response" , res.data);
+              
+                     this.$toast.success(" success product saved.", {
+                          position : "top-right"
+                  });     
+               
         
        }).catch(
          error =>{

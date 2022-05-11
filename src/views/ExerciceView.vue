@@ -7,7 +7,7 @@
   <div>
  <v-app-bar-nav-icon @click="drawer= true"   ></v-app-bar-nav-icon>
    <v-navigation-drawer style="margin-top:80px ; background-color:white ;" flat app v-model="drawer"  >
-      <v-list-item-group  >  
+      <v-list-item-group  >  <br><br>
         <!---------------------- Biceps -------- ------>
         <v-list-item  @click.prevent="getExerciceByCategorie(this.Biceps)">
           <v-list-item-action style="padding:0.5rem">
@@ -97,6 +97,7 @@
       color="grey-lighten-4"
       max-width="800"
       v-bind="props"
+        :to="{name: 'ExerciceDetails' , params:{id:exercice.id}}"
     >
       <v-img   :aspect-ratio="1"   v-bind:src="'../image/Exercice/' + exercice.image" 
                    cover    >
@@ -117,6 +118,7 @@
    <h1 style="font-size:25px ; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">{{exercice.title}}</h1>
    <p>{{exercice.text}}</p>
   </v-col>
+  
     </v-row><br><br>
 </v-container>
   </v-col>
@@ -189,6 +191,7 @@ export default {
          
        )
      },
+    
     }
 }
 </script>
