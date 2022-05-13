@@ -1,15 +1,33 @@
 <template>
 <navbar-view />
 
-<div class="ArticleNutrition">
-   <v-container>
-       <br><br>
-       <span style="color:grey">CATÉGORIE</span><br><br>
-       <h1 style="color:dodgerblue">Nutrition</h1>
-       <br>
-       <v-icon>mdi-nutrition</v-icon> <v-icon>mdi-oar</v-icon>
+<div>
+   <v-container justify-center>
+       <h2 class="text-center" style="color:black ; font-family:'Courier New', Courier, monospace"> Nutrition</h2> <br>
+       <v-container>
+          <v-row class="mx-16">
+        
+             <v-img  class="bg-white" width="150px" height="150px"   src="https://i.gifer.com/origin/3e/3e04f54abbcf57cd43b68702aa9e97dc_w200.gif" 
+                   cover    >
+                        
+                   </v-img>
+       
+             <v-img  class="bg-white" width="150px" height="150px"   src="https://media0.giphy.com/media/xUPGcuomRFMUcsB9nO/200.gif" 
+                   cover    >
+                        
+                   </v-img>
+       
+             <v-img  class="bg-white" width="150px" height="150px"   src="https://c.tenor.com/JCWloO9N0ugAAAAM/%E9%87%91%E5%AD%97%E5%A1%94pyramid-food-pyramid%E9%A3%9F%E7%89%A9%E9%87%91%E5%AD%97%E5%A1%94.giff" 
+                   cover    >
+                        
+                   </v-img>
+       
+       </v-row>
+       </v-container>
+      
    </v-container>
 </div> <br><br>
+<p class="mx-16">Voici Nos Article à Consulter : </p>
 <div>
      <v-container>
   <v-row >
@@ -20,19 +38,19 @@
       color="grey-lighten-4"
       max-width="800"
       v-bind="props"
+       :to="{name: 'ArticleDetails' , params:{id:nutrition.id}}"
     >
-      <v-img  class="bg-white" width="400px" height="300px"  :aspect-ratio="1"  src="https://images.contentstack.io/v3/assets/blt45c082eaf9747747/bltab5c9caf754acec9/618243e74f03d166757380a2/macronutrients_1232x630.jpg?format=pjpg&auto=webp&quality=76&width=1232" 
-                   cover    >
+     <v-img  class="bg-white"   height="380px"  cover v-bind:src="'../image/Nutrition/' + nutrition.image">
         <v-expand-transition>
           <div
             v-if="isHovering"
             class="d-flex transition-fast-in-fast-out bg-blue-darken-2 v-card--reveal "
             style="height: 100%; opacity: .8; "
           > 
-           <p style="margin-top:220px ; margin-left:-150px ; color:white"> <v-icon style="color:white">mdi-av-timer</v-icon> temps de lecture : 10min</p> 
+           <p style="margin-top:320px  ; color:white"> <v-icon style="color:white">mdi-av-timer</v-icon> temps de lecture : 10min</p> 
           </div>
         </v-expand-transition>
-      </v-img>
+    </v-img>
        
     </v-card>
   </v-hover><br>

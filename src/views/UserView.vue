@@ -132,7 +132,7 @@ export default {
 
 <style>
 .si{
-    height:150vh;
+    height:80vh;
     background: linear-gradient(-3deg,#172b4d 50%,#2dcecc 50%, #2dce89);
 }
 </style>

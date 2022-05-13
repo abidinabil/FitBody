@@ -81,6 +81,10 @@
                         
                          </v-col>
                        {{subTotal}} <br><br><br>
+
+                         <v-btn @click.prevent="AddCommande(produit.id)" class="btn btn-danger btn-block" >
+                        Valider Commande
+                      </v-btn>
                       </div>
                              
                              
@@ -88,7 +92,7 @@
                             
                            </v-row>
          
-
+            
 </template>
 <script>
 

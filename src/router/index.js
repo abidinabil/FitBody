@@ -42,6 +42,9 @@ import ProductDetails from '@/views/Boutique/ProductDetails.vue'
 import AddToCart from '../views/AddToCart.vue'
 import PanierView from '@/views/PanierView.vue'
 import ExerciceDetails from '../views/ExerciceDetails.vue'
+import GestionAliment from '@/views/Admin/GestionAliment.vue'
+import CreateRegime from '../views/CreateRegime.vue'
+import ArticleDetails from '../views/ArticleDetails.vue'
 
 
 const routes = [
@@ -293,6 +296,21 @@ const routes = [
     path: '/ExerciceDetails/:id?',
     name: 'ExerciceDetails',
     component:ExerciceDetails,
+  },
+  {
+    path: '/GestionAliment',
+    name: 'GestionAliment',
+    component:GestionAliment,
+  },
+  {
+    path: '/CreateRegime',
+    name: 'CreateRegime',
+    component:CreateRegime,
+  },
+  {
+    path: '/ArticleDetails/:id?',
+    name: 'ArticleDetails',
+    component:ArticleDetails,
   },
 
 
