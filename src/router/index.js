@@ -45,6 +45,7 @@ import ExerciceDetails from '../views/ExerciceDetails.vue'
 import GestionAliment from '@/views/Admin/GestionAliment.vue'
 import CreateRegime from '../views/CreateRegime.vue'
 import ArticleDetails from '../views/ArticleDetails.vue'
+import searchAliment from '../views/searchAliment.vue'
 
 
 const routes = [
@@ -311,6 +312,11 @@ const routes = [
     path: '/ArticleDetails/:id?',
     name: 'ArticleDetails',
     component:ArticleDetails,
+  },
+  {
+    path: '/searchAliment',
+    name: 'searchAliment',
+    component:searchAliment,
   },
 
 

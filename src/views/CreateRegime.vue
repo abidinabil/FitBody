@@ -6,7 +6,7 @@
            <v-col cols="12" md="6">
                <!---------------------Petit Déjuner ------------->
                <p>Petit Déjuner</p>
-      
+          <v-btn to="searchAliment">Ajouter Un aliment</v-btn>
   
 
         <v-divider></v-divider>

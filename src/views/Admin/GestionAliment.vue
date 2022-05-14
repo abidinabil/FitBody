@@ -107,6 +107,26 @@
                             <v-text-field
                             v-model="proteine" label="Proteine" outlined  dense color="blue" autocomplete="false" class="mt-4"  />
                            </v-col>
+                              <v-col cols="12" sm="6">
+                                <label for="workout-type" class="mb-1 text-sm text-at-light-green"
+                        >Grammage</label
+                    >
+                            <select
+                           
+                            class="form-select"
+                            required
+                           
+                            v-model="grammage"
+                    >
+                            <option >Select Grammage</option>
+                            <option value="100">100g</option>
+                            <option value="1">1L</option>
+                               <option value="1">1</option>
+                           
+                          
+                 </select>
+                  
+                           </v-col>
                             
                            </v-row>
                              
@@ -299,6 +319,7 @@ export default {
                carbs:"",
                fat:"",
                proteine:"",
+               grammage:"",
                edittext:"",
                editsubtext:"",
                editimage:"",
@@ -341,6 +362,7 @@ export default {
             fd.append('carbs', this.carbs);
                  fd.append('fat', this.fat);
                       fd.append('proteine', this.proteine);
+                        fd.append('grammage', this.grammage);
      axios.post("http://localhost:8000/api/auth/SaveAliment" ,fd , { 
            
            })
@@ -434,7 +456,7 @@ export default {
               
                if(response.status == 200){
                   
-                          this.$toast.success(" update Nutrition succesfuly.", {
+                          this.$toast.success( " update Nutrition succesfuly.", {
                           position : "top-right"
                   });
                       this.getNutrition();

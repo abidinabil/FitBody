@@ -3,7 +3,7 @@
   <!--------------------------Shop---------------------->
   <div class="text-center" >
         <v-chip  pill v-on="on" to="MensView" >
-            <v-avatar left > 
+            <v-avatar left  > 
               <v-img src="https://cdn.shopify.com/s/files/1/0669/7933/products/origin-acid-wash-sleeveless-hoodie-black-31061443150010_480x@2x.jpg?v=1648591625"></v-img>
             </v-avatar>
             MENS

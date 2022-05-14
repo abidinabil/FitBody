@@ -7,6 +7,9 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import store from './store'
 import Toaster from "@meforma/vue-toaster";
 import LaravelVuePagination from 'laravel-vue-pagination';
+import Toast from "vue-toastification";
+// Import the CSS or use your own!
+import "vue-toastification/dist/index.css";
 
 
 
@@ -39,6 +42,7 @@ createApp(App)
   .use(store)
   .use(Toaster)
   .use(LaravelVuePagination)
+  .use(Toast)
   
 
   
