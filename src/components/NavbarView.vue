@@ -32,7 +32,7 @@
 
       <li>  <v-btn v-if="!loggedIn" to="/SignIn1">Se Connecter</v-btn></li>
        <li>  <v-btn v-if="!loggedIn" to="/SignUp">Commencer dés maintenant</v-btn></li>  
-            
+            <li><router-link to="posteView">Poste</router-link></li>  
               <v-menu>
       <template v-slot:activator="{ props }">
         <v-btn
@@ -47,6 +47,7 @@
       
           <v-list-item-title  v-if="loggedIn" ><router-link to="ProfileView">Profile</router-link></v-list-item-title>
             <v-list-item-title  v-if="loggedIn" ><router-link to="CreateWorkout">Create Workout</router-link></v-list-item-title>
+            <v-list-item-title  v-if="loggedIn" ><router-link to="CreateRegime">Create Regime</router-link></v-list-item-title>
               <v-list-item-title  v-if="loggedIn" ><router-link to="PanierView">Votre Panier</router-link></v-list-item-title>
               <v-list-item-title  v-if="loggedIn" ><v-btn @click.prevent="performLogout" >Logout</v-btn></v-list-item-title>
      

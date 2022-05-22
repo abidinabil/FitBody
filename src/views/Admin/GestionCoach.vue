@@ -95,6 +95,7 @@
                           />
                            </v-col>
                            <v-col cols="12" sm="6">
+                         
                             <v-text-field
                             v-model="text"
                             label="text"
@@ -164,17 +165,19 @@
                        </v-toolbar>
                        </v-col>
                        </v-row>
-                            <table class="table">
-        <thead>
+                            <v-table fixed-header>
+        <thead style="color:lightsteelblue">
           <tr>
-           
+             
+             <th scope="col">id</th>
             <th scope="col">name</th>
             <th scope="col">text</th>
             <th scope="col">specialite</th>
             <th scope="col">age</th>
                 <th scope="col">subtext</th>
                  <th scope="col">photo</th>
-            <th> Action</th>
+            <th> delete</th>
+               <th> update</th>
            
           </tr>
         </thead>
@@ -182,138 +185,129 @@
           <tr v-for="coach in coaches" :key="coach.id">
      
            
-             
+             <td>{{coach.id}}</td>
             <td>{{coach.name}}</td>
             <td>{{coach.text}}</td>
             <td>{{coach.specialite}}</td>
              <td>{{coach.age}}</td>
               <td>{{coach.subtext}}</td>
-            <v-img v-bind:src="'../image/' + coach.photo"></v-img>
-             <td>
-               <v-btn type="button" @click="deleteCoach(coach.id) " color="error"> delete</v-btn> 
-               
-              
-                  <v-container >
+            <td><v-img v-bind:src="'../image/' + coach.photo" style="width:50px ; height: 50px"></v-img></td>
+              <td>
                 
-       
+                 <v-img type="button" @click="deleteCoach(coach.id) " 
+                         src="https://cdn.dribbble.com/users/1914549/screenshots/5346994/day21.gif" style="margin-left:-50px; width: 150px;">
+                        </v-img>
+             </td>
+              <td>      
+             <v-dialog
+      v-model="dialog1"
+      fullscreen
+      :scrim="false"
+      transition="dialog-bottom-transition"
+    >
+      <template v-slot:activator="{ props }">
       
-      <v-dialog
-        transition="dialog-bottom-transition"
-        style="margin-top:-350px"
-     
-      >
-        <template v-slot:activator="{ props }">
+            <v-img type="button" v-bind="props"  @click="updateCoach(coach.id)"
+                         src="https://www.lenovo.com/_ui/desktop/common/images/lsb/lsb-loading.gif" style="color:red ; width: 70px;">
+                        </v-img>
+       
+      </template>
+      <v-card>
+        <v-toolbar
+          dark
+          color="primary"
+        >
           <v-btn
-            color="primary"
-            v-bind="props"
-            @click="updateCoach(coach.id)"
-          >Update</v-btn>
-        </template>
-        <template v-slot:default="{ isActive }">
-          <v-card>
-            <v-toolbar
-               style=" background: linear-gradient(87deg,#2dce89,#2dcecc)!important;"
-            >Update Coach</v-toolbar>
-                      <div class="alert alert-danger mt-4" v-if="errors.length" > 
-              <ul class="mb-0">
-                <li v-for="(error, index) in errors" :key="index">
-                    {{error}}
-                </li>
-              </ul>
-                  </div>
-            <v-form
-           
-             style="width:1500px"
-            ref="form"
-            
-            lazy-validation
+            icon
+            dark
+            @click="dialog1 = false"
           >
-    <v-row >
-                          <v-col cols="12" sm="7">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        
+          <v-spacer></v-spacer>
+          
+        </v-toolbar>
+         <v-container style="margin-top:70px">
+     
+            
+      <v-row align="center" justify="center" >
+          <v-col cols="12" sm="10">
+            <v-card class="elevation-6 mt-10"  >
+             <v-window v-model="step">
+                <v-window-item :value="1">
+                    
+                 <form action="" @submit.prevent="editCoach" novalidate>  
+               <v-row >
+                   
+                 
+                    <v-col cols="12" md="12">
+                      <v-card-text class="mt-12">
+                        <h4
+                          class="text-center" >Modifier Coach</h4>  
+                        <v-row align="center" justify="center">
+                          <v-col cols="12" sm="8">
                            <v-row>
-                           <v-col cols="12" sm="4">
+                               <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="editname"
-                            label="nom"
-                            outlined
-                            dense
-                            color="blue"
-                            autocomplete="false"
-                           class="mt-4"
+                            v-model="editname"  label="Name"  color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
-                           <v-col cols="12" sm="4">
+                           <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="edittext"
-                            label="text"
-                            outlined
-                            dense
-                            color="blue"
-                            autocomplete="false"
-                           class="mt-4"
+                            v-model="edittext"  label="Text"  color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
-                             <v-col cols="12" sm="4">
+                             <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="editspecilaite"
-                            label="text"
-                            outlined
-                            dense
-                            color="blue"
-                            autocomplete="false"
-                           class="mt-4"
+                            v-model="editage"  label="Age"  color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
-                             <v-col cols="12" sm="4">
+                                <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="editage"
-                            label="text"
-                            outlined
-                            dense
-                            color="blue"
-                            autocomplete="false"
-                           class="mt-4"
+                            v-model="editspecialite"  label="specialite"  color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
-                            <v-col cols="12" sm="12">
+                           <v-col>
                               <v-textarea
-                              v-model="editsubtext"
-                            background-color="grey lighten-2"
-                            color="cyan"
-                            label="subtext"
+                              v-model="editsubtext"  label="Description"  color="secondary" variant="contained" placeholder="Placeholder"
                           ></v-textarea>
                            </v-col>
-                                   <v-file-input
-                          accept="image/*" label="File input"    @change="onChange" v-model="editphoto"></v-file-input>
-                       
-                           </v-row> 
-                          <v-btn color="black" dark tile  type="submit" @click="editCoach" > Update</v-btn>
-                 
+                              
+                          
+                           
+                            
+                           </v-row>
+                             
+                           <input type="submit" value="Update">
                           </v-col>
-                        </v-row> 
-  
-  </v-form>
-            <v-card-actions class="justify-end">
-              <v-btn
-              color="blue" dark block tile
-                text
-                @click="isActive.value = false"
-              >Close</v-btn>
-            </v-card-actions>
-          </v-card>
-        </template>
-      </v-dialog>
-    
-   
-               </v-container>
-               
-             </td>
+                        </v-row>  
+                      </v-card-text>
+                    </v-col>
+                     
+                  </v-row>
+                  </form>
+                </v-window-item>
+                <v-window-item :value="2">
+                  
+                </v-window-item>
+              </v-window>
+            </v-card>
+          </v-col>
+      </v-row>
+  </v-container>
+
+
+     
+      </v-card>
+    </v-dialog>   
+                    </td>
              
           </tr> 
               
         </tbody>
               
-        </table>
+        </v-table>
          
         
                        
@@ -330,6 +324,7 @@ export default {
     data() {
         return{
            dialog:false,
+               dialog1:false,
            coaches:{},
            id:"",
            name:"",

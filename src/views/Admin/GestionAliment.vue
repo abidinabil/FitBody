@@ -161,136 +161,192 @@
                  
                  
             </v-row>
-             <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Carbs</th>
-            <th scope="col">Fat</th>
-            <th scope="col">Proteine</th>
-            <th> Action</th>
-           
-          </tr>
-        </thead>
-        <tbody >
-          <tr v-for="aliment in Aliments" :key="aliment.id">
-              <td>{{aliment.id}}</td>
-            <td>{{aliment.name}}</td>
-            <td>{{aliment.calorie}}</td>
-            <td>{{aliment.carbs}}</td>
-             <v-img>{{aliment.fat}}</v-img>
-             <td>
-               <v-btn type="button" @click="deleteNutrtion(nutrition.id) " color="error"> delete</v-btn> 
-               
-              
-                  <v-container >
-                
-       
-      <v-dialog
-        transition="dialog-bottom-transition"
-        style="margin-top:-400px ;"
-     
-      >
-        <template v-slot:activator="{ props }">
-          <v-btn
-            color="primary"
-            v-bind="props"
-            @click="updateNutrition(nutrition.id)"
-          >Update</v-btn>
-        </template>
-        <template v-slot:default="{ isActive }">
-          <v-card>
-            <v-toolbar
-              color="primary"
-            >Update Nutrition</v-toolbar>
-                  <div class="alert alert-danger mt-4" v-if="errors.length" > 
-              <ul class="mb-0">
-                <li v-for="(error, index) in errors" :key="index">
-                    {{error}}
-                </li>
-              </ul>
-                  </div>
-            <v-form
-            ref="form"
-            v-model="valid"
-            lazy-validation
-          >
-    <v-row align="center" justify="center">
-                          <v-col cols="12" sm="12">
-                           <v-row>
-                           <v-col cols="12" sm="12">
-                            <v-text-field
-                            v-model="edittitle"
-                            label="title"
-                            outlined
-                            dense
-                            color="blue"
-                            autocomplete="false"
-                           class="mt-4"
-                          />
-                           </v-col>
-                           <v-col cols="12" sm="12">
-                            <v-text-field
-                            v-model="edittext"
-                            label="text"
-                            outlined
-                            dense
-                            color="blue"
-                            autocomplete="false"
-                           class="mt-4"
-                          />
-                           </v-col>
-                            <v-col cols="12" sm="12">
-                              <v-textarea
-                              v-model="editsubtext"
-                            background-color="grey lighten-2"
-                            color="cyan"
-                            label="Label"
-                          ></v-textarea>
-                           </v-col>
-                       
-                           </v-row>
-                          <v-text-field
-                            v-model="editimage"
-                            label="image"
-                            outlined
-                            dense
-                            color="blue"
-                            autocomplete="false"
-                           class="mt-4"
-                          />
-                               
-                           
-                          <v-btn color="black" dark block tile type="submit" @click="editNutrition" data-dismiss="modal"> Update</v-btn>
-                 
-                          </v-col>
-                        </v-row> 
-
- 
-
-  
-  </v-form>
-            <v-card-actions class="justify-end">
-              <v-btn
-              color="blue" dark block tile
-                text
-                @click="isActive.value = false"
-              >Close</v-btn>
-            </v-card-actions>
-          </v-card>
-        </template>
-      </v-dialog>
-    
+                  <v-table
+    fixed-header
+    height="400px"
    
-               </v-container>
+    class="mx-16"
+  >
+
+
+    <thead style="color:lightsteelblue">
+      <tr>
+        <th class="text-left">
+          id
+        </th>
+        <th class="text-left">
+          name
+        </th>
+        <th class="text-left">
+          calorie
+        </th>
+        <th class="text-left">
+          carbs
+        </th>
+        <th class="text-left">
+          fat
+        </th>
+          <th class="text-left">
+          proteine
+        </th>
+         
+          <th class="text-left" >
+          delete
+        </th>
+                <th class="text-left">
+          update
+        </th>
+        
+        
+     
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        v-for="aliment in Aliments"
+        :key="aliment.id"
+      >
+        <td>{{ aliment.id }}</td>
+        <td>{{ aliment.name }}</td>
+            <td>{{ aliment.calorie }}</td>
+                <td>{{ aliment.carbs }}</td>
+                    <td>{{ aliment.fat }}</td>
+                     <td>{{ aliment.proteine }}</td>
+                      <td>
+                        <v-img type="button" @click="deleteAliment(aliment.id) " 
+                         src="https://cdn.dribbble.com/users/1914549/screenshots/5346994/day21.gif" style="margin-left:-50px; width: 150px;">
+                        </v-img>
+                        
+                      
                
-             </td>
-             
-          </tr> 
-              
-        </tbody>
-      </table>  
+               </td>        
+                    <td>      
+             <v-dialog
+      v-model="dialog1"
+      fullscreen
+      :scrim="false"
+      transition="dialog-bottom-transition"
+    >
+      <template v-slot:activator="{ props }">
+      
+            <v-img type="button" v-bind="props"  @click="updateAliment(aliment.id)"
+                         src="https://www.lenovo.com/_ui/desktop/common/images/lsb/lsb-loading.gif" style="color:red ; width: 70px;">
+                        </v-img>
+       
+      </template>
+      <v-card>
+        <v-toolbar
+          dark
+          color="primary"
+        >
+          <v-btn
+            icon
+            dark
+            @click="dialog1 = false"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        
+          <v-spacer></v-spacer>
+          
+        </v-toolbar>
+         <v-container style="margin-top:70px">
+     
+            
+      <v-row align="center" justify="center" >
+          <v-col cols="12" sm="10">
+            <v-card class="elevation-6 mt-10"  >
+             <v-window v-model="step">
+                <v-window-item :value="1">
+                    
+                 <form action="" @submit.prevent="editAliment" novalidate>  
+               <v-row >
+                   
+                 
+                    <v-col cols="12" md="12">
+                      <v-card-text class="mt-12">
+                        <h4
+                          class="text-center" >Modifier Aliment</h4>  
+                        <v-row align="center" justify="center">
+                          <v-col cols="12" sm="8">
+                           <v-row>
+                               <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="editname"  label="name"  color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                           <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="editcalorie"  label="Calorie"  color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                           <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="editcarbs"  label="Carbs"  color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                           <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="editfat" label="Fat"  color="secondary" variant="contained" placeholder="Placeholder" />
+                           </v-col>
+                            <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="editproteine" label="Proteine"  color="secondary" variant="contained" placeholder="Placeholder"  />
+                           </v-col>
+                              <v-col cols="12" sm="6">
+                                <label for="workout-type" class="mb-1 text-sm text-at-light-green"
+                        >Grammage</label
+                    >
+                            <select
+                           
+                            class="form-select"
+                            required
+                           
+                            v-model="editgrammage"
+                    >
+                            <option >Select Grammage</option>
+                            <option value="100">100g</option>
+                            <option value="1">1L</option>
+                               <option value="1">1</option>
+                           
+                          
+                 </select>
+                  
+                           </v-col>
+                            
+                           </v-row>
+                             
+                           <input type="submit" value="Update">
+                          </v-col>
+                        </v-row>  
+                      </v-card-text>
+                    </v-col>
+                     
+                  </v-row>
+                  </form>
+                </v-window-item>
+                <v-window-item :value="2">
+                  
+                </v-window-item>
+              </v-window>
+            </v-card>
+          </v-col>
+      </v-row>
+  </v-container>
+
+
+     
+      </v-card>
+    </v-dialog>   
+                    </td>
+                  
+                  
+                    
+      </tr> 
+     
+     
+    </tbody>
+  </v-table> 
     </v-card>
     <!-- Button trigger modal -->
 
@@ -309,6 +365,7 @@ export default {
         return{
               test: false,
               dialog:false,
+              dialog1:false,
               
               
                 
@@ -320,9 +377,12 @@ export default {
                fat:"",
                proteine:"",
                grammage:"",
-               edittext:"",
-               editsubtext:"",
-               editimage:"",
+                editname:"",
+               editcalorie:"",
+               editcarbs:"",
+               editfat:"",
+               editproteine:"",
+               editgrammage:"",
                errors:[],
            
         
@@ -402,16 +462,13 @@ export default {
          
        )
      },
-       mounted() {
-       console.log('Nutrition ')
-     },
-     deleteNutrtion(id){
-        axios.delete('http://localhost:8000/api/auth/deleteNutrition/'+ id)
+       deleteAliment(id){
+        axios.delete('http://localhost:8000/api/auth/deleteAliment/'+ id)
         .then(response => {
                console.log(response);
               
                if(response.status == 200){
-                  this.getNutrition();
+                  this.getAliment();
                       this.$swal('deleted succefuly');
                    
                }else{
@@ -419,52 +476,33 @@ export default {
                }
           });
      },
-     updateNutrition(id){
-           axios.get('http://localhost:8000/api/auth/updateNutrition/'+ id)
-        .then(response => {
-               console.log(response);
-                  this.id = response.data.id;
-               this.edittitle = response.data.title;
-               this.edittext = response.data.text;
-               this.editsubtext = response.data.subtext;
-               this.editimage = response.data.image
-     }); 
-    },
-       editNutrition(){
-             if(!this.edittitle){
-                     this.errors.push("Name is required")
-                   }
-                    if(!this.edittext){
-                     this.errors.push("text is required")
-                   }
-                  
-                    if(!this.editsubtext){
-                     this.errors.push("description is required")
-                   }
-                    if(!this.editimage){
-                     this.errors.push("photo is required")
-                   }
-           axios.put('http://localhost:8000/api/auth/editNutrition' ,{
+       editAliment(){
+        
+           axios.put('http://localhost:8000/api/auth/editAliment' ,{
+             
                 id : this.id,
-               title : this.edittitle,
-               text: this.edittext,
-               subtext: this.editsubtext,
-               image : this.editimage,
+               name : this.editname,
+               calorie: this.editcalorie,
+                carbs: this.editcarbs,
+               fat: this.editfat,
+               proteine: this.editproteine,
+               grammage : this.editgrammage,
                 
              })   .then(response => {
                console.log(response);
               
                if(response.status == 200){
                   
-                          this.$toast.success( " update Nutrition succesfuly.", {
+                        this.$toast.success(" update Aliment succesfuly.", {
                           position : "top-right"
                   });
-                      this.getNutrition();
+                  this.$router.go(0);
+                      this.getAliment();
                    
                }
           }).catch(
               error =>{
-                  this.$toast.error(" error Nutrition not update.", {
+                  this.$toast.error(" error Aliment not update.", {
                                 position : "top-right"
                                 
                         });      
@@ -473,12 +511,19 @@ export default {
               
             )
        },
-       imagechange(){
-         for(let i = 0 ;i<this.$refs.files.files.length; i++){
-           this.image.push(this.$refs.files.files[i]);
-           console.log(this.image);
-         }
-       },
+        updateAliment(id){
+           axios.get('http://localhost:8000/api/auth/updateAliment/'+ id)
+        .then(response => {
+               console.log(response);
+               this.id = response.data.id;
+               this.editname = response.data.name;
+               this.editcalorie = response.data.calorie;
+               this.editcarbs = response.data.carbs;
+               this.editfat = response.data.fat;
+               this.editproteine = response.data.proteine;
+             this.editgrammage = response.data.grammage;
+     }); 
+    },
 
     }
 }

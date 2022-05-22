@@ -10,6 +10,10 @@ import LaravelVuePagination from 'laravel-vue-pagination';
 import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
+import VueGoogleMaps from '@fawmi/vue-google-maps'
+
+
+
 
 
 
@@ -43,6 +47,12 @@ createApp(App)
   .use(Toaster)
   .use(LaravelVuePagination)
   .use(Toast)
+  .use(VueGoogleMaps, {
+    load: {
+        key: 'YOUR_API_KEY_COMES_HERE',
+        // language: 'de',
+    },
+}).mount('#app')
   
 
   

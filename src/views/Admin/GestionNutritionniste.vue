@@ -156,8 +156,8 @@
                        </v-col>
                        </v-row>
 
-                        <table class="table">
-        <thead>
+                        <v-table  fixed-header>
+        <thead style="color:lightsteelblue">
           <tr>
             <th scope="col">#</th>
             <th scope="col">Nom</th>
@@ -165,7 +165,8 @@
             <th scope="col">subtext</th>
             <th scope="col">Adresse</th>
              <th scope="col">Photo</th>
-            <th> Action</th>
+            <th> delete</th>
+            <th> update</th>
            
           </tr>
         </thead>
@@ -176,115 +177,115 @@
             <td>{{nutritionniste.text}}</td>
             <td>{{nutritionniste.subtext}}</td>
             <td>{{nutritionniste.adresse}}</td> 
-             <td><v-img>{{nutritionniste.photo}}</v-img></td>  
-             <td>
-               <v-btn type="button" @click="deleteNutrtionniste(nutritionniste.id) " color="error"> delete</v-btn> 
-                       
-                  <v-container>
+             <td> <v-img v-bind:src="'../image/Nutritionniste/' + nutritionniste.photo" style="width:50px ; height: 50px"></v-img></td>  
+                <td>
                 
- 
-      <v-dialog
-        transition="dialog-bottom-transition"
-        style="margin-top:-350px"
-     
-      >
-        <template v-slot:activator="{ props }">
+                 <v-img type="button" @click="deleteNutrtionniste(nutritionniste.id) " 
+                         src="https://cdn.dribbble.com/users/1914549/screenshots/5346994/day21.gif" style="margin-left:-50px; width: 150px;">
+                        </v-img>
+             </td>
+                <td>      
+             <v-dialog
+      v-model="dialog1"
+      fullscreen
+      :scrim="false"
+      transition="dialog-bottom-transition"
+    >
+      <template v-slot:activator="{ props }">
+      
+            <v-img type="button" v-bind="props"  @click="updateNutritionniste(nutritionniste.id)"
+                         src="https://www.lenovo.com/_ui/desktop/common/images/lsb/lsb-loading.gif" style="color:red ; width: 70px;">
+                        </v-img>
+       
+      </template>
+      <v-card>
+        <v-toolbar
+          dark
+          color="primary"
+        >
           <v-btn
-            color="primary"
-            v-bind="props"
-            @click="updateNutritionniste(nutritionniste.id)"
-          >Update</v-btn>
-        </template>
-        <template v-slot:default="{ isActive }">
-          <v-card>
-            <v-toolbar
-               style=" background: linear-gradient(87deg,#2dce89,#2dcecc)!important;"
-            >Update Nutritionniste</v-toolbar>
-                  <div class="alert alert-danger mt-4" v-if="errors.length" > 
-              <ul class="mb-0">
-                <li v-for="(error, index) in errors" :key="index">
-                    {{error}}
-                </li>
-              </ul>
-                  </div>
-            <v-form
-           
-             style="width:1500px"
-            ref="form"
-            v-model="valid"
-            lazy-validation
+            icon
+            dark
+            @click="dialog1 = false"
           >
-    <v-row >
-                          <v-col cols="12" sm="7">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        
+          <v-spacer></v-spacer>
+          
+        </v-toolbar>
+         <v-container style="margin-top:70px">
+     
+            
+      <v-row align="center" justify="center" >
+          <v-col cols="12" sm="10">
+            <v-card class="elevation-6 mt-10"  >
+             <v-window v-model="step">
+                <v-window-item :value="1">
+                    
+                 <form action="" @submit.prevent="editNutritionniste" novalidate>  
+               <v-row >
+                   
+                 
+                    <v-col cols="12" md="12">
+                      <v-card-text class="mt-12">
+                        <h4
+                          class="text-center" >Modifier Nutritionniste</h4>  
+                        <v-row align="center" justify="center">
+                          <v-col cols="12" sm="8">
                            <v-row>
-                           <v-col cols="12" sm="4">
+                               <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="editnom"
-                            label="nom"
-                            outlined
-                            dense
-                            color="blue"
-                            autocomplete="false"
-                           class="mt-4"
+                            v-model="editnom"  label="Title"  color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
-                           <v-col cols="12" sm="4">
+                           <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="edittext"
-                            label="text"
-                            outlined
-                            dense
-                            color="blue"
-                            autocomplete="false"
-                           class="mt-4"
+                            v-model="edittext"  label="Text"  color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
-                            <v-col cols="12" sm="6">
-                              <v-textarea
-                              v-model="editsubtext"
-                            background-color="grey lighten-2"
-                            color="cyan"
-                            label="subtext"
+                             <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="editadresse"  label="Text"  color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                           <v-col cols="12" >
+                               <v-textarea
+                              v-model="editsubtext"  label="Description"  color="secondary" variant="contained" placeholder="Placeholder"
                           ></v-textarea>
                            </v-col>
-                       
-                           </v-row>
-                          <v-text-field
-                            v-model="editadresse"
-                            label="adresse"
-                            outlined
-                            dense
-                            color="blue"
-                            autocomplete="false"
-                           class="mt-4"
-                          />
-                            
-                            
-                               
+                             
+                          
                            
-                          <v-btn color="black" dark tile  type="submit" @click="editNutritionniste" > Update</v-btn>
-                 
+                            
+                           </v-row>
+                             
+                           <input type="submit" value="Update">
                           </v-col>
-                        </v-row> 
+                        </v-row>  
+                      </v-card-text>
+                    </v-col>
+                     
+                  </v-row>
+                  </form>
+                </v-window-item>
+                <v-window-item :value="2">
+                  
+                </v-window-item>
+              </v-window>
+            </v-card>
+          </v-col>
+      </v-row>
+  </v-container>
 
-  </v-form>
-            <v-card-actions class="justify-end">
-              <v-btn
-              color="blue" dark block tile
-                text
-                @click="isActive.value = false"
-              >Close</v-btn>
-            </v-card-actions>
-          </v-card>
-        </template>
-      </v-dialog>
-    
-   
-               </v-container>
-               </td>
+
+     
+      </v-card>
+    </v-dialog>   
+                    </td>
                </tr>
                </tbody>
-               </table>
+               </v-table>
                        </v-card>
         </v-col>
         </v-row>
@@ -297,6 +298,7 @@ export default {
     data() {
         return{
            dialog:false,
+             dialog1:false,
            nutritionnistes:{},
            nom:"",
            text:"",

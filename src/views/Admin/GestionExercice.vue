@@ -194,12 +194,12 @@
             <td>{{exercice.title}}</td>
             <td>{{exercice.text}}</td>
             <td>{{exercice.catégorie}}</td>
-            
+
               <td>{{exercice.subtext}}</td>
-            <v-img v-bind:src="'../image/Coaches/' + exercice.image"></v-img>
-                 <v-img v-bind:src="'../image/Coaches/' + exercice.image1"></v-img>
+            <v-img v-bind:src="'../image/Exercice/' + exercice.image"></v-img>
+                 <v-img v-bind:src="'../image/Exercice/' + exercice.image1"></v-img>
              <td>
-               <v-btn type="button" @click="deleteCoach(coach.id) " color="error"> delete</v-btn> 
+               <v-btn type="button" @click="deleteExercice(exercice.id) " color="error"> delete</v-btn> 
                
               
                  
@@ -272,7 +272,8 @@ export default {
                if(res.status == 200){
                      this.$toast.success(" success Exercice saved.", {
                           position : "top-right"
-                  });     
+                  }); 
+                  this.getExercice();    
                }
              
            }).catch(
@@ -300,6 +301,20 @@ export default {
          } 
          
        )
+     },
+          deleteExercice(id){
+        axios.delete('http://localhost:8000/api/auth/deleteExercice/'+ id)
+        .then(response => {
+               console.log(response);
+              
+               if(response.status == 200){
+                  this.getExercice();
+                      this.$swal('deleted succefuly');
+                   
+               }else{
+                 alert('error')
+               }
+          });
      },
     }
 }

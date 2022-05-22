@@ -46,6 +46,7 @@ import GestionAliment from '@/views/Admin/GestionAliment.vue'
 import CreateRegime from '../views/CreateRegime.vue'
 import ArticleDetails from '../views/ArticleDetails.vue'
 import searchAliment from '../views/searchAliment.vue'
+import posteView from '../views/posteView.vue'
 
 
 const routes = [
@@ -317,6 +318,11 @@ const routes = [
     path: '/searchAliment',
     name: 'searchAliment',
     component:searchAliment,
+  },
+  {
+    path: '/posteView',
+    name: 'posteView',
+    component:posteView,
   },
 
 

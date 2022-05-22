@@ -4,7 +4,8 @@
         <p class="mx-16"  style="color:black ; font-family:'Courier New', Courier, monospace">  Recherche notre base de données alimentaire par nom :</p>
          <v-row class="mx-16">
              <v-col cols="12" md="4">
-                <v-text-field      
+                <v-text-field 
+                   
             color="secondary"
             label="Rechercher Par Nom"
             variant="contained"
@@ -13,7 +14,11 @@
           >
           </v-text-field>
           <v-btn style="color:green" @click.prevent="searchAliment">Search</v-btn>
+            <div v-if="AlimentSearch == '' ">
+                   <h1 class="error">error</h1>
+             </div>
              </v-col>
+            
          </v-row>
          <v-row class="mx-16">
              <v-col cols="12" md="4" sm="4" v-for="index in AlimentSearch " :key="index.id">
@@ -28,8 +33,8 @@
 
               <v-list-item lines="two">
                 <v-list-item-header>
-                  <v-list-item-title>{{index.name}}</v-list-item-title>
-                  <v-list-item-subtitle>{{index.name}}, {{index.grammage}},{{index.calorie}} calorie</v-list-item-subtitle>
+                  <v-list-item-title >{{index.name}}</v-list-item-title>
+                  <v-list-item-subtitle >{{index.name}}, {{index.grammage}},{{index.calorie}} calorie</v-list-item-subtitle>
                 </v-list-item-header>
               </v-list-item>
 
@@ -37,74 +42,100 @@
              </v-col>
          
          </v-row>
-           
-           <v-container>
+        <div>
+           <v-container >
                 <form action="" @submit.prevent="SaveRegime">
-           <v-row  >
-                          <v-col cols="12" sm="12" v-for="i in AlimentById " :key="i.id">
+                  <v-row>
+                          <v-col cols="12" sm="12" >
                            <p>Name :</p>
-                                 <v-chip color="indigo"  text-color="white"  pill v-on="on" style="width:150px" v-model="name" >
-          
-                            {{i.name}} </v-chip>
+                                <v-text-field
+                                 disabled="disabled"
+                              class="quantiteAliment"
+                              color="secondary" v-model="AlimentById.name"  width="50px" > </v-text-field>
+                              
                            <v-row>
                            
                                 <v-col cols="12" sm="2"  md="2">
                                <p>Quantité</p>
                                <v-text-field
-                               
+                               type="float"
                               class="quantiteAliment"
                               color="secondary"
-                              label="Quantité" variant="contained" type="number" required v-model="i.qty"  width="50px" ></v-text-field>
+                             variant="contained"  v-model="AlimentById.qty"  width="50px" ></v-text-field>
                              </v-col>
                              <v-col cols="12" sm="2" md="2">
                                <p>Grammage(g,L,Portion)</p>
-                                <v-chip color="indigo"  text-color="white"  pill v-on="on" style="width:150px" v-model="grammage" >
-          
-                               {{this.Total =i.qty  * i.grammage}} </v-chip>
+                              <v-text-field
+                               disabled="disabled"
+                              class="quantiteAliment"
+                              color="secondary"
+                              variant="contained"  v-bind:label="AlimentById.qty * AlimentById.grammage" width="50px" > </v-text-field>
                              </v-col>
                                <v-col cols="12" sm="2" md="2">
                                  <p>calorie(Kcal)</p>
-                           <v-chip color="indigo"  text-color="white"  pill v-on="on" style="width:150px" v-model="calorie" >
-             <v-avatar left > 
-              <v-img src="https://cdn.ithinkdiff.com/wp-content/uploads/2014/11/Calories2.gif"></v-img>
-            </v-avatar>
-            {{this.Total =i.qty  * i.calorie}} </v-chip>
+                   <v-text-field
+                                 disabled="disabled"
+                              class="quantiteAliment"
+                              color="secondary"
+                             variant="contained" v-bind:label="AlimentById.qty * AlimentById.calorie"  width="50px" > </v-text-field>
                            </v-col>
                            <v-col cols="12" sm="2"  md="2">
                              <p>Carbs(G)</p>
                      <v-text-field
-                               
+                                 disabled="disabled"
                               class="quantiteAliment"
                               color="secondary"
-                              label="Quantité" variant="contained" type="number" required v-model="carbs"  width="50px" > {{this.Total =i.qty  * i.carbs}}</v-text-field>
+                              variant="contained" v-bind:label="AlimentById.qty * AlimentById.carbs"  width="50px" > </v-text-field>
                            </v-col>
                            <v-col cols="12" sm="2"  md="2">
                              <p>Fat</p>
-                           <v-chip color="indigo"  text-color="white" v-model="fat" >
-                    <v-avatar left > 
-              <v-img src="https://cdn-icons.flaticon.com/png/128/1951/premium/1951542.png?token=exp=1652491631~hmac=0df2314b6c6ee5f1c05eab85febaf673"></v-img>
-            </v-avatar>
-                {{this.Total =i.qty  * i.fat}}(G)</v-chip>
+                         <v-text-field
+                                 disabled="disabled"
+                              class="quantiteAliment"
+                              color="secondary"
+                              variant="contained" v-bind:label="AlimentById.qty * AlimentById.fat"  width="50px" ></v-text-field>
                            </v-col>
                            <v-col cols="12" sm="2"  md="2">
                              <p>Proteine(G)</p>
-                             <v-chip color="indigo"  text-color="white" v-model="proteine" >
-                <v-avatar left > 
-              <v-img src="https://cdn-icons-png.flaticon.com/128/2736/2736046.png"></v-img>
-            </v-avatar>
-            {{this.Total =i.qty  * i.proteine}} </v-chip>
+                        <v-text-field
+                                 disabled="disabled"
+                              class="quantiteAliment"
+                              color="secondary"
+                               variant="contained" v-bind:label="AlimentById.qty * AlimentById.proteine" width="50px" > </v-text-field>
                            </v-col>
-                             <v-btn  
+                           <v-col cols="12" sm="2" md="2">
+                               <label  class="mb-1 text-sm text-at-light-green"
+                        >Catégorie Type</label
+                    >
+                   <select
+                          
+                        class="form-select"
+                            required
+                            
+                            v-model="categorieType"
+                           
+                    >
+                            <option value="select-catégorie">Select Catégorie</option>
+                            <option value="PDejuner">Petit Dejuner</option>
+                            <option value="Dejuner">Dejuner</option>
+                               <option value="Dinner">Dinner</option>
+                                  <option value="Snack">Snack</option>
+                 </select>
+                           </v-col>
+                           <v-col cols="12" sm="2" md="2">
+                               <v-btn  
                           color="primary"
                           type="submit"
                           depressed>Add Aliment to Jornal</v-btn>
+                           </v-col>
+                           
                            </v-row>
                            </v-col>
                          
                            </v-row>
                            </form>
            </v-container> 
-   
+          </div>
     </div>
 </template>
 <script>
@@ -125,6 +156,7 @@ export default {
             fat:"",
             proteine:"",
              id_user:"",
+             categorieType:'',
       }  
     },
            computed: {
@@ -151,12 +183,13 @@ export default {
        
            axios.post('http://localhost:8000/api/auth/SaveRegime' ,{
                id_user: this.user.id,
-             name : this.name,
-             grammage:this.grammage,
-             calorie:this.calorie,
-             carbs:this.carbs,
-             fat:this.fat,
-             proteine:this.proteine
+             name : this.AlimentById.name,
+             grammage:this.AlimentById.grammage * this.AlimentById.qty,
+             calorie:this.AlimentById.calorie * this.AlimentById.qty,
+             carbs:this.AlimentById.carbs * this.AlimentById.qty,
+             fat:this.AlimentById.fat * this.AlimentById.qty,
+             proteine:this.AlimentById.proteine * this.AlimentById.qty,
+            categorieType:this.categorieType
            
           
                 
@@ -168,7 +201,7 @@ export default {
                           position : "top-right"
 
                   });
-               this.getWorkout();
+            
                   
                }
           }).catch(
@@ -191,6 +224,8 @@ export default {
        }).catch(
          error =>{
            console.log(error);
+           this.AlimentById = '';
+        
          } 
          
        )
