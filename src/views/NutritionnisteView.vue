@@ -54,13 +54,33 @@
  </v-row>
   </v-container>
     <div style="margin-top:100px">
-         <v-row class="mx-4">
+     <v-row class="mx-16">
+             <v-col cols="12" md="4">
+                <v-text-field 
+                   
+            color="secondary"
+            label="Rechercher Par Nom"
+            variant="contained"
+            placeholder="Rechercher Par Adresse"
+            v-model="search"
+          >
+          </v-text-field>
+          <v-btn style="color:green" @click.prevent="searchNutritionniste">Search</v-btn>
+            <div v-if="nutritionnistes == '' ">
+                   <h1 class="error">error</h1>
+             </div>
+             </v-col>
+            
+         </v-row>
+         <v-row class="mx-16">
+           
           <v-col cols="12" md="4" lg="4" v-for="nutritionniste in nutritionnistes" :key="nutritionniste.id">
+        
             <div class="cardNutritionniste">
          <div class="box">
             <div class="front-face" >
                <div class="icon">
-                    <v-img  class="bg-white"   height="380px" :aspect-ratio="1"  src="https://media.istockphoto.com/photos/beautiful-smiling-nutritionist-looking-at-camera-and-showing-healthy-picture-id1044382612?s=612x612" 
+                    <v-img  class="bg-white"   height="380px" :aspect-ratio="1" v-bind:src="'../image/Nutritionniste/' + nutritionniste.photo" 
                    cover   > </v-img>
                </div>
              
@@ -94,6 +114,7 @@ export default {
   components: { NavbarView },
   data(){
       return{
+         search:'',
                nutritionnistes:{},
        
         
@@ -116,7 +137,21 @@ export default {
        )
      },
       //************************Fin Get Nutritionniste ************************* */
+          searchNutritionniste(){
+            axios.get('http://localhost:8000/api/auth/searchNutritionniste/'+this.search)
+            .then (res => {
+         console.log(res.data);
+         this.nutritionnistes = res.data;
+       }).catch(
+         error =>{
+           console.log(error);
+         } 
+         
+       )
+
+        },
   }
+
     
 }
 </script>

@@ -114,7 +114,7 @@
     
          </v-card><br><br><br>
         
-                  <v-card width="600"   cols="12" v-for="post in Posts" :key="post.id" style="padding: 1em 2em 5em;">
+                  <v-card width="600"  class="postUser" cols="12" sm="6" v-for="post in Posts" :key="post.id" style="padding: 1em 2em 5em;">
     <v-toolbar style="background-color:white">
       <template v-slot:title>
          <v-avatar size="50px" >
@@ -134,6 +134,7 @@
     >
       <template v-slot:activator="{ props }">
         <v-btn
+          v-if="post.id_user == user.id"
           color="indigo"
           v-bind="props"
         >
@@ -151,12 +152,12 @@
 
         <v-divider></v-divider>
 
-        <v-list class="mx-4">
-          <v-list-item>
+        <v-list class="mx-4" >
+          <v-list-item   >
            Modifier
           </v-list-item>
 
-          <v-list-item>
+          <v-list-item  @click="deletePost(post.id) ">
           Supprrimer
           </v-list-item>
         </v-list>
@@ -171,7 +172,47 @@
        
       </v-row> 
            <v-img cover v-bind:src="'../image/Post/' + post.image"></v-img>
+           <v-divider></v-divider>
+           <v-row>
+             <v-col cols="12" md="6">
+                <v-avatar
+              size="50px"
+              style="padding:1rem" >
+                  <v-img  class="bg-white" src="https://cdn-icons.flaticon.com/png/512/2593/premium/2593491.png?token=exp=1653253025~hmac=6959622a62ffdd9a4e55e9e4d7ff85e8" 
+                   cover    >
+                       
+                   </v-img>
+             
+            </v-avatar>
+               <strong >Commentaire</strong> <br>
+             </v-col>
+               <v-col cols="12" md="6">
+                <v-avatar
+              size="50px"
+              style="padding:1rem"
+            >
+                  <v-img  class="bg-white"  src="https://cdn-icons.flaticon.com/png/128/5667/premium/5667029.png?token=exp=1653166454~hmac=8a3c1712902d652270fe64b0e90c1dbf" 
+                   cover    >
+                       
+                   </v-img>
+             
+            </v-avatar>
+               <strong >Enregistrer</strong> <br>
+             </v-col>
+           </v-row><br>
+          
+               <v-text-field
+                  
+            color="secondary"
+            label="Commentaire"
+            variant="contained"
+            v-model="commentaire">   
+          </v-text-field>
+         <v-btn @click.prevent="SaveCommentaire(post.id)">Ajouter Commentaire</v-btn>
+         
+            
   </v-card>
+  <v-divider></v-divider>
           </v-col>
 
 </v-row>
@@ -192,7 +233,11 @@ export default {
             users: {},
              post:"",
              image:"",
-             Posts:{}
+             Posts:{},
+             id:"",
+             commentaire:"",
+             id_post: "",
+             id_user: ""
        }
     },
       mounted(){
@@ -249,6 +294,61 @@ export default {
          
        )
      },
+       deletePost(id){
+        axios.delete('http://localhost:8000/api/auth/deletePost/'+ id)
+        .then(response => {
+               console.log(response);
+              
+               if(response.status == 200){
+                
+                             this.$toast.success(" Deleted Post succesfuly.", {
+                          position : "top-right"
+                  });
+                   this.getPost();
+                   
+               }
+          }).catch(
+              error =>{
+                  this.$toast.error(" Error Post Not Delete.", {
+                                position : "top-right"
+                                
+                        });      
+                console.log(error);
+              } 
+              
+            )
+     },
+       SaveCommentaire($id){
+           
+           axios.post('http://localhost:8000/api/auth/SaveCommentaire' ,{
+             id_post : $id,
+             id_user: this.user.id,
+             commentaire : this.commentaire,
+          
+                
+             } ).then(response => {
+               console.log(response);
+              
+               if(response.status == 200){
+                      this.$toast.success(" success commentaire saved.", {
+                          position : "top-right"
+
+                  });
+              
+                  
+               }
+          }).catch(
+         error =>{
+             this.$toast.error(" error commentaire not saved.", {
+                          position : "top-right"
+                          
+                  });
+                  
+           console.log(error);
+         } 
+         
+       )
+        },
                getUser(){
        axios.get('http://localhost:8000/api/auth/getUser/'+this.user.id)
         .then (res => {
@@ -274,11 +374,13 @@ export default {
    .poste1 {
     margin-left: -120px;
     width: 200px;
- 
-     
-    
+
   }
-   
+    .postUser {
+    margin-left: -220px;
+    text-align: center;
+  
+  }
     .detai {
    width: 100%;
     margin-top:  -600px;
