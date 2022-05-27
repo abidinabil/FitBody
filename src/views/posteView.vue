@@ -256,13 +256,13 @@
                 <v-avatar
               size="50px"
               style="padding:1rem" >
-                  <v-img  class="bg-white" src="https://cdn-icons.flaticon.com/png/512/5410/premium/5410631.png?token=exp=1653656590~hmac=726ea4c9a661d142519b8aceda7bd652" 
+                  <v-img  class="bg-white " src="https://cdn-icons.flaticon.com/png/512/5410/premium/5410631.png?token=exp=1653656590~hmac=726ea4c9a661d142519b8aceda7bd652" 
                    cover    >
                        
                    </v-img>
              
             </v-avatar>
-               <strong @click.prevent="getCommentaire(post.id)">Commentaire</strong> <br>
+               <strong @click.prevent="getCommentaire(post.id)" >Commentaire</strong> <br>
              </v-col>
                <v-col cols="12" md="6">
                 <v-avatar

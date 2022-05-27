@@ -18,7 +18,7 @@
              <v-row>
                  <v-col cols="12" md="12">
                      <v-toolbar extended color="lightgray">
-                <h1 style="font-size:20px; "> List Coach</h1> <br>
+                <h1 style="font-size:20px; "> Listes Coaches</h1> <br>
                 
                 
 
@@ -37,7 +37,7 @@
       color="primary"
       v-bind="props"
     >
-      Ajout Coach
+      Ajouter Coach
     </v-btn>
 
       </template>
@@ -98,7 +98,7 @@
                          
                             <v-text-field
                             v-model="text"
-                            label="text"
+                            label="slug"
                             outlined
                             dense
                             color="blue"
@@ -176,16 +176,35 @@
                        </v-toolbar>
                        </v-col>
                        </v-row>
+                           <v-row class="mx-16">
+             <v-col cols="12" md="4">
+                <v-text-field 
+                   
+            color="secondary"
+            label="Rechercher Par adresse"
+            variant="contained"
+            placeholder="Rechercher Par Adresse"
+            v-model="search"
+          >
+          </v-text-field>
+          <v-btn style="color:green" @click.prevent="searchCoach">Search</v-btn>
+            <v-btn style="color:green" @click.prevent="getCoach">All Coaches</v-btn>
+        <div v-if="coaches == '' ">
+            <v-alert type="error">Dzl Aucune Donneés Pour Le Moment</v-alert>
+             </div>
+             </v-col>
+            
+         </v-row>
                             <v-table fixed-header>
         <thead style="color:lightsteelblue">
           <tr>
              
              <th scope="col">id</th>
             <th scope="col">name</th>
-            <th scope="col">text</th>
+            <th scope="col">slug</th>
             <th scope="col">specialite</th>
             <th scope="col">age</th>
-                <th scope="col">subtext</th>
+                <th scope="col">Description</th>
                   <th scope="col">adresse</th>
                  <th scope="col">photo</th>
             <th> delete</th>
@@ -238,17 +257,17 @@
                            </v-col>
                            <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="edittext"  label="Calorie"  color="secondary" variant="contained" placeholder="Placeholder"
+                            v-model="edittext"  label="slug"  color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
                              <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="editspecialite"  label="Calorie"  color="secondary" variant="contained" placeholder="Placeholder"
+                            v-model="editspecialite"  label="specialiter"  color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
                               <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="editadresse"  label="Calorie"  color="secondary" variant="contained" placeholder="Placeholder"
+                            v-model="editadresse"  label="adresse"  color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
                               <v-col cols="12" sm="12">
@@ -256,6 +275,7 @@
                               v-model="editsubtext"  label="Description"  color="secondary" variant="contained" placeholder="Placeholder"
                           ></v-textarea>
                            </v-col>
+                           
                          
                         
                            </v-row>
@@ -319,6 +339,7 @@ export default {
            editadresse:"",
            editphoto:"",
            errors:[],
+           search:""
           
         } 
     },
@@ -473,6 +494,19 @@ export default {
               
             )
        },
+        searchCoach(){
+            axios.get('http://localhost:8000/api/auth/searchCoach/'+this.search)
+            .then (res => {
+         console.log(res.data);
+         this.coaches = res.data;
+       }).catch(
+         error =>{
+           console.log(error);
+         } 
+         
+       )
+
+        },
     }
    
 }

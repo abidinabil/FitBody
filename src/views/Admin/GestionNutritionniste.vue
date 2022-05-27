@@ -18,7 +18,8 @@
              <v-row>
                  <v-col cols="12" md="12">
                      <v-toolbar extended color="lightgray">
-                <h1 style="font-size:20px; "> List Nutritionniste</h1> <br>
+                <h1 style="font-size:20px; "> Listes Nutritionnistes</h1> <br>
+         
                 
                 
 
@@ -37,7 +38,7 @@
       color="primary"
       v-bind="props"
     >
-      Ajout Nutritionniste
+      Ajouter Nutritionniste
     </v-btn>
 
       </template>
@@ -97,7 +98,7 @@
                            <v-col cols="12" sm="6">
                             <v-text-field
                             v-model="text"
-                            label="Text"
+                            label="slug"
                             outlined
                             dense
                             color="blue"
@@ -111,7 +112,7 @@
                               
                             background-color="grey lighten-2"
                             color="cyan"
-                            label="SubText"
+                            label="Description"
                           ></v-textarea>
                            <v-text-field
                             v-model="adresse"
@@ -126,7 +127,7 @@
                        
                            </v-row>
                               <v-file-input
-                          accept="image/*" label="File input"    @change="onChange" ></v-file-input>
+                          accept="image/*" label="File "    @change="onChange" ></v-file-input>
     
                        <v-btn type="submit">Ajouter</v-btn>
                  
@@ -155,14 +156,32 @@
                        </v-toolbar>
                        </v-col>
                        </v-row>
-
-                        <v-table  fixed-header>
+                 <v-row class="mx-16">
+             <v-col cols="12" md="4">
+                <v-text-field 
+                   
+            color="secondary"
+            label="Rechercher Par Nom"
+            variant="contained"
+            placeholder="Rechercher Par Adresse"
+            v-model="search"
+          >
+          </v-text-field>
+          <v-btn style="color:green" @click.prevent="searchNutritionniste">Rechercher</v-btn>
+            <v-btn style="color:blue" @click.prevent="getNutritionniste">Tous Les Nutritionnistes</v-btn>
+            <div v-if="nutritionnistes == '' ">
+            <v-alert type="error">Dzl Aucune Donneés Pour Le Moment</v-alert>
+             </div>
+             </v-col>
+            
+         </v-row>
+        <v-table  fixed-header>
         <thead style="color:lightsteelblue">
           <tr>
             <th scope="col">#</th>
             <th scope="col">Nom</th>
-            <th scope="col">Text</th>
-            <th scope="col">subtext</th>
+            <th scope="col">slug</th>
+            <th scope="col">Description</th>
             <th scope="col">Adresse</th>
              <th scope="col">Photo</th>
             <th> delete</th>
@@ -197,12 +216,12 @@
           <v-card style=" width: 900px ; margin-top:-130px ; margin-left:-150px" >
             <v-toolbar
               color="primary"
-            >Opening from the top</v-toolbar>
+            >Modifier Nutritionnistes</v-toolbar>
              <v-window v-model="step">
                 <v-window-item :value="1">               
                  <form action="" >  
                         <h4
-                          class="text-center" >Modifier Nutritionniste</h4>  
+                          class="text-center" >Modifier Nutritionnistes</h4>  
                            <v-row class="mx-4">
                                <v-col cols="12" sm="6">
                             <v-text-field
@@ -211,12 +230,12 @@
                            </v-col>
                            <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="edittext"  color="secondary" variant="contained" placeholder="Placeholder"
+                            v-model="edittext" label="slug" color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
                              <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="editadresse"  color="secondary" variant="contained" placeholder="Placeholder"
+                            v-model="editadresse" label="adresse" color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
                             
@@ -242,7 +261,7 @@
               >Close</v-btn>
                 <v-btn
               @click="editNutritionniste(nutritionniste.id)"
-              >Update</v-btn>
+              >Modifier</v-btn>
             </v-card-actions>
           </v-card>
         </template>
@@ -276,6 +295,7 @@ export default {
                editadresse:"",
                editphoto:"",
                errors:[],
+               search:"",
         } 
     },
         created(){
@@ -434,6 +454,19 @@ export default {
             )
        },
         /*******************************Fin Edit Nutritionniste */
+              searchNutritionniste(){
+            axios.get('http://localhost:8000/api/auth/searchNutritionniste/'+this.search)
+            .then (res => {
+         console.log(res.data);
+         this.nutritionnistes = res.data;
+       }).catch(
+         error =>{
+           console.log(error);
+         } 
+         
+       )
+
+        },
        mounted() {
        console.log('Nutritionniste ')
      },

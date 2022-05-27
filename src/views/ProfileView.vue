@@ -29,6 +29,41 @@
                 <v-divider></v-divider>
                 <v-container>
                     <p>User Information</p><br>
+                        <v-col cols="auto">
+          <v-dialog transition="dialog-top-transition">
+            <template v-slot:activator="{ props }">
+              <v-btn flat rounded v-bind="props">
+              <v-img src="https://cdn.dribbble.com/users/186202/screenshots/4921305/lockunlock.gif" cover width="80px" height="80px"></v-img>
+              Modifier Votre Mot de Passe
+              </v-btn>
+            </template>
+            <template v-slot:default="{ isActive }">
+              <v-card  style=" width: 500px ;">
+                <v-toolbar color="red">Modifier votre Password</v-toolbar>
+              
+                <form @submit.prevent="updatePasswordUser">
+                     
+                             <v-text-field
+                                v-model="editPassword"
+                                color="secondary"                         
+                                variant="contained"
+                                label="Modifier votre Password"
+                            >
+                            
+                            </v-text-field>
+                         
+                  <v-card-actions class="justify-end">
+                    <v-btn text rounded @click="isActive.value = false"
+                      >Annuler</v-btn
+                    >
+                    <v-btn text rounded type="submit">ENregistrer</v-btn>
+                  </v-card-actions>
+                </form>
+              </v-card>
+            </template>
+          </v-dialog>
+        </v-col>
+                    
                     <v-form>
                         <v-row >
                           <v-col cols="12" sm="6">
@@ -54,18 +89,7 @@
                             
                             </v-text-field>
                            </v-col>
-                              <v-col cols="12" sm="6">
-                             <v-text-field
-                      v-model="users.password"
-                                color="secondary"
-                              
-                                variant="contained"
-                              
-                               
-                            >
-                            
-                            </v-text-field>
-                           </v-col>
+                         
                             <v-col cols="12" sm="6">
                                    <v-text-field
                       v-if="user.role == 'user'"
@@ -183,6 +207,7 @@ export default {
       weight:"",
       taille:"",
       users: {},
+      editPassword:""
      
       }
   },
@@ -214,6 +239,39 @@ export default {
                if(response.status == 200){
                   
                         this.$toast.success(" update profil succesfuly.", {
+                          position : "top-right"
+                         
+                  });
+                   this.getUser();
+                     
+                   
+               }
+          }).catch(
+              error =>{
+                  this.$toast.error(" error  profil not update.", {
+                                position : "top-right"
+                                
+                        });      
+                console.log(error);
+              } 
+              
+            )
+       },
+        updatePasswordUser(){
+         
+           axios.post('http://localhost:8000/api/auth/updatePasswordUser/'+this.user.id ,{
+             
+                
+               password : this.editPassword,
+               
+               
+                
+             })   .then(response => {
+               console.log(response);
+              
+               if(response.status == 200){
+                  
+                        this.$toast.success(" update password succesfuly.", {
                           position : "top-right"
                          
                   });
