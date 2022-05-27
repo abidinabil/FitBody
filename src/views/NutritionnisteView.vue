@@ -66,8 +66,10 @@
           >
           </v-text-field>
           <v-btn style="color:green" @click.prevent="searchNutritionniste">Search</v-btn>
+            <v-btn style="color:blue" @click.prevent="getNutritionniste">Tous Les Nutritionniste</v-btn>
             <div v-if="nutritionnistes == '' ">
-                   <h1 class="error">error</h1>
+                  
+            <v-alert type="error">Not Found</v-alert>
              </div>
              </v-col>
             

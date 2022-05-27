@@ -12,7 +12,7 @@ import UserView from '@/views/UserView'
 import AddCoach from '@/views/AddCoach'
 import SideBar from '@/components/SideBar.vue'
 import DashbordView from '@/views/Admin/DashbordView.vue'
-import GestionUser from '@/views/Admin/GestionUser'
+
 import NutritionView from '@/views/NutritionView.vue'
 import GestionNutrition from '@/views/Admin/GestionNutrition.vue'
 import EditNutrition from '@/views/Admin/EditNutrition.vue'
@@ -24,6 +24,7 @@ import GestionExercice from '../views/Admin/GestionExercice.vue'
 import NutritionnisteView from '@/views/NutritionnisteView.vue'
 import GestionNutritionniste from '../views/Admin/GestionNutritionniste.vue'
 import GestionCoach from '../views/Admin/GestionCoach.vue'
+import GestionGym from '../views/Admin/GestionGym.vue'
 import CoachView1 from '@/views/CoachView1.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import GymView from '@/views/GymView.vue'
@@ -47,7 +48,8 @@ import CreateRegime from '../views/CreateRegime.vue'
 import ArticleDetails from '../views/ArticleDetails.vue'
 import searchAliment from '../views/searchAliment.vue'
 import posteView from '../views/posteView.vue'
-
+import EnregistrementView from '@/views/EnregistrementView.vue'
+import GestionUser from '@/views/Admin/GestionUser.vue'
 
 const routes = [
   {
@@ -137,16 +139,17 @@ const routes = [
     component:DashbordView
     
   },
-  {
-    path: '/GestionUser',
-    name: 'GestionUser',
-    component:GestionUser
-    
-  },
+
   {
     path: '/GestionNutrition',
     name: 'GestionNutrition',
     component:GestionNutrition
+    
+  },
+  {
+    path: '/GestionGym',
+    name: 'GestionGym',
+    component:GestionGym
     
   },
   {
@@ -324,7 +327,16 @@ const routes = [
     name: 'posteView',
     component:posteView,
   },
-
+  {
+    path: '/EnregistrementView',
+    name: 'EnregistrementView',
+    component:EnregistrementView,
+  },
+  {
+    path: '/GestionUser',
+    name: 'GestionUser',
+    component:GestionUser,
+  },
 
 ]
 

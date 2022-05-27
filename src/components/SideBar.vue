@@ -60,7 +60,9 @@ export default {
         { text: 'Exercice', icon: 'mdi-dumbbell' , route:'/GestionExercice' },
             { text: 'Nutrition', icon: 'mdi-nutrition' , route:'/GestionNutrition' },
             { text: 'Nutritionniste', icon: 'mdi-account' , route:'/GestionNutritionniste' },
+                  { text: 'User', icon: 'mdi-account' , route:'/GestionUser' },
              { text: 'Coach', icon: 'mdi-account' , route:'/GestionCoach' },
+                 { text: 'Gym', icon: 'mdi-dumbbell' , route:'/GestionGym' },
               { text: 'Boutique', icon: 'mdi-shopping' , route:'/GestionBoutique' },
                    { text: 'Aliment', icon: 'mdi-nutrition' , route:'/GestionAliment' },
            

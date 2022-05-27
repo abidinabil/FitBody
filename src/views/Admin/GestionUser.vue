@@ -1,31 +1,29 @@
 <template>
-    <side-bar />
-    
-      <v-card
+   <side-bar />
+       <v-row>
+    <v-col cols="12" md="2"></v-col>
+    <v-col cols="12" md="10">
+              <v-card
       
       height="500px"
       tile
       flat
-     
       class="mx-10"
-      
-      style="background:url(https://images.pexels.com/photos/4498606/pexels-photo-4498606.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940); margin-top:80px"
+      style="background:url(https://images.pexels.com/photos/5646011/pexels-photo-5646011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940); margin-top:80px"
       dark
     >
      
     </v-card>
-        <v-card tile class="mx-16 mt-n10 card1" color="white">
+         <v-card tile class="mx-16 mt-n10 card1" color="white">
              <v-row>
                  <v-col cols="12" md="12">
-                     <v-toolbar extended color="transparent">
-                
-
-                <h1>List Utulisateurs</h1> <br>
+                     <v-toolbar extended color="lightgray">
+                <h1 style="font-size:20px; "> List Utilisateur</h1> <br>
                 
                 
 
                 <v-spacer></v-spacer>
-                   <v-row justify="center">
+                 <v-row justify="center">
     <v-dialog
       v-model="dialog"
       fullscreen
@@ -33,13 +31,15 @@
       transition="dialog-bottom-transition"
     >
       <template v-slot:activator="{ props }">
-        <v-btn
-          color="primary"
-          dark
-          v-bind="props"
-        >
-          Ajout Utulisateurs
-        </v-btn>
+       
+       <v-btn
+      rounded="lg"
+      color="primary"
+      v-bind="props"
+    >
+      Ajout Administrateur
+    </v-btn>
+
       </template>
       <v-card>
         <v-toolbar
@@ -53,11 +53,9 @@
           >
             <v-icon>mdi-close</v-icon>
           </v-btn>
-        
-          <v-spacer></v-spacer>
-          
+  
         </v-toolbar>
-         <v-container style="margin-top:70px">
+          <v-container style="margin-top:-20px">
      
             
       <v-row align="center" justify="center" >
@@ -65,7 +63,14 @@
             <v-card class="elevation-6 mt-10"  >
              <v-window v-model="step">
                 <v-window-item :value="1">
-                       
+                       <div class="alert alert-danger mt-4" v-if="errors.length" > 
+              <ul class="mb-0">
+                <li v-for="(error, index) in errors" :key="index">
+                    {{error}}
+                </li>
+              </ul>
+                  </div>
+                  <form action="" @submit.prevent="SaveAdmin">   
                <v-row >
                    
 
@@ -73,14 +78,15 @@
                       <v-card-text class="mt-12">
                         <h4
                           class="text-center"
-                        >Ajouter Utulisateur</h4>
+                        >Ajouter Administrateur</h4>
                         
                         <v-row align="center" justify="center">
                           <v-col cols="12" sm="8">
                            <v-row>
                            <v-col cols="12" sm="6">
                             <v-text-field
-                            label="First Name"
+                            v-model="name"
+                            label="name"
                             outlined
                             dense
                             color="blue"
@@ -89,17 +95,9 @@
                           />
                            </v-col>
                            <v-col cols="12" sm="6">
+                         
                             <v-text-field
-                            label="Last Name"
-                            outlined
-                            dense
-                            color="blue"
-                            autocomplete="false"
-                           class="mt-4"
-                          />
-                           </v-col>
-                            <v-col cols="12" sm="6">
-                            <v-text-field
+                            v-model="email"
                             label="email"
                             outlined
                             dense
@@ -110,43 +108,31 @@
                            </v-col>
                            <v-col cols="12" sm="6">
                             <v-text-field
-                            label="Password"
+                            v-model="password"
+                            label="password"
                             outlined
                             dense
+                            type="password"
                             color="blue"
                             autocomplete="false"
                            class="mt-4"
-                           type="password"
                           />
                            </v-col>
-                           </v-row>
-                            <v-file-input
-                            multiple
-                            label="Image"
-                        ></v-file-input>
-                               <v-radio-group
-                                    v-model="row"
-                                    row
-                                    >
-                                    <v-radio
-                                        label=" Coach"
-                                        value="radio-1"
-                                        color="primary"
-                                    ></v-radio>
-                                    <v-radio
-                                        label="Adherant"
-                                        value="radio-2"
-                                        color="success"
-                                    ></v-radio>
-                                    </v-radio-group>
+                               <input type="hidden" v-model="role">
                            
-                          <v-btn color="blue" dark block tile>Ajouter</v-btn>
+                         
+      
+                           </v-row>
+                         
+    
+                       <input type="submit" value="Ajouter">
                  
                           </v-col>
                         </v-row>  
                       </v-card-text>
                     </v-col>
                   </v-row>
+                  </form>  
                 </v-window-item>
                 <v-window-item :value="2">
                   
@@ -156,66 +142,267 @@
           </v-col>
       </v-row>
   </v-container>
-
-
-     
+       
       </v-card>
     </v-dialog>
   </v-row>
+                       </v-toolbar>
+                       </v-col>
+                       </v-row>
+                            <v-table fixed-header>
+        <thead style="color:lightsteelblue">
+          <tr>
+             
+             <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">email</th>
+            <th scope="col">role</th>
+            <th scope="col">taille</th>
+                <th scope="col">weight</th>
+                <th>Photo Profile</th>
+                
+            <th> delete</th>
+               <th> update</th>
+           
+          </tr>
+        </thead>
+        <tbody >
+          <tr v-for="user in users" :key="user.id">
+     
+           
+             <td>{{user.id}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.role}}</td>
+             <td>{{user.taille}}</td>
+              <td>{{user.weight}}</td>
+               
+            <td><v-img v-bind:src="'../image/ProfileUser/' + user.photo" style="width:50px ; height: 50px"></v-img></td>
+              <td>
+                
+                 <v-img type="button" @click="deleteUser(user.id) " 
+                         src="https://cdn.dribbble.com/users/1914549/screenshots/5346994/day21.gif" style="margin-left:-50px; width: 150px;">
+                        </v-img>
+             </td>
+              <td>      
+             <v-dialog
+        transition="dialog-top-transition"
+      >
+        <template v-slot:activator="{ props }">
+          <v-img type="button" v-bind="props"  @click="updateAdmin(user.id)" v-if="user.role == 'admin'"
+                         src="https://www.lenovo.com/_ui/desktop/common/images/lsb/lsb-loading.gif" style="color:red ; width: 70px;">
+                        </v-img>
+        </template>
+        <template v-slot:default="{ isActive }">
+          <v-card style=" width: 900px ; margin-top:-130px ; margin-left:-150px" >
+            <v-toolbar
+              color="primary"
+            >Opening from the top</v-toolbar>
+             <v-window v-model="step">
+                <v-window-item :value="1">               
+                 <form action="" >  
+                        <h4
+                          class="text-center" >Modifier Administrateur</h4>  
+                           <v-row class="mx-4">
+                               <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="editname"  label="name"  color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                           <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="editemail"  label="email"  color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                             <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="editpassword"  label="password"  color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                           
+                         
+                        
+                           </v-row>
+ 
+                           </form>
+                           </v-window-item>
+                           </v-window>
+                           
+                      
+                          
+            <v-card-actions class="justify-center">
+              <v-btn
+                text
+                @click="isActive.value = false"
+              >Close</v-btn>
+                <v-btn
+              @click="editAdmin(user.id)"
+              >Update</v-btn>
+            </v-card-actions>
+          </v-card>
+        </template>
+      </v-dialog>  
+                    </td>
+             
+          </tr> 
+              
+        </tbody>
+              
+        </v-table>
          
-
-                </v-toolbar>
-
-                 </v-col>
-                 
-            </v-row>
-            <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-      <th scope="col">Action</th>
-      
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-            
-    </v-card>
-   
+        
+                       
+                       </v-card>
+        </v-col>
+        
+        </v-row>
 </template>
 <script>
-import SideBar from "@/components/SideBar.vue"
-
-
+import SideBar from '@/components/SideBar.vue'
+import axios from 'axios';
 export default {
   components: { SideBar },
-    data(){
+    data() {
         return{
-               dialog: false,
-        
-        }
+           dialog:false,
+           dialog1:false,
+           users:{},
+           id:"",
+           name:"",
+           email:"",
+           password:"",
+          role:"admin",
+           editname:"",
+           editemail:"",
+           editpassword:"",
+       
+           errors:[],
+          
+        } 
     },
+        mounted(){
+      this.getAllUser();
+    },
+    methods:{
+               SaveAdmin(){
+           this.errors = [];
+                   if(!this.name){
+                     this.errors.push("Name is required")
+                   }
+                    if(!this.email){
+                     this.errors.push("email is required")
+                   }
+                    if(!this.password){
+                     this.errors.push("password is required")
+                   }
+                  
+                 if(!this.errors.lenght){
+                     let fd = new FormData(); 
+           console.log(FormData)
+               
+               fd.append('name', this.name);
+               fd.append('email', this.email);
+               fd.append('password', this.password);
+                       fd.append('role', this.role);
+            
+           axios.post("http://localhost:8000/api/auth/SaveAdmin" ,fd , { 
+           })
+               .then (res => {
+         console.log(res);
+           this.$toast.success(" success administrateur saved.", {
+                          position : "top-right"
+                  });
+                  this.getAllUser()
+            }).catch(
+              error =>{
+                  this.$toast.error(" error administrateur not saved.", {
+                                position : "top-right"
+                                
+                        });      
+                console.log(error);
+              } 
+              
+            )
+                 }
+         },
+
+         
     
+          getAllUser() {
+            axios.get('http://localhost:8000/api/auth/getAllUser')
+                .then(response => {
+                  console.log(response.data)
+                    this.users = response.data;
+                });
+        },
+    
+         deleteUser(id){
+        axios.delete('http://localhost:8000/api/auth/deleteUser/'+ id)
+        .then(response => {
+               console.log(response);
+              
+               if(response.status == 200){
+                  this.getAllUser();
+                      this.$swal('deleted succefuly');
+                   
+               }else{
+                 alert('error')
+               }
+          });
+     },
+      updateAdmin(id){
+           axios.get('http://localhost:8000/api/auth/updateAdmin/'+ id)
+        .then(response => {
+               console.log(response);
+               this.id = response.data.id;
+               this.editname = response.data.name;
+               this.editemail = response.data.email;
+                   this.editpassword = response.data.password;
+            
+     }); 
+    },
+       editAdmin(){
+          if(!this.editname){
+                     this.errors.push("Name is required")
+                   }
+                    if(!this.editemail){
+                     this.errors.push("text is email")
+                   }
+                    if(!this.editpassword){
+                     this.errors.push("password is required")
+                   }
+                
+           axios.put('http://localhost:8000/api/auth/editAdmin' ,{
+             
+                id : this.id,
+               name : this.editname,
+               email: this.editemail,
+                password: this.editpassword,
+               
+                
+             })   .then(response => {
+               console.log(response);
+              
+               if(response.status == 200){
+                  
+                        this.$toast.success(" update admin succesfuly.", {
+                          position : "top-right"
+                  });
+                      this.getAllUser();
+                   
+               }
+          }).catch(
+              error =>{
+                  this.$toast.error(" error admin not update.", {
+                                position : "top-right"
+                                
+                        });      
+                console.log(error);
+              } 
+              
+            )
+       },
+    }
+   
 }
 </script>

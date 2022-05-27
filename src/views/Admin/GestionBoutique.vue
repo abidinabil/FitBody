@@ -547,150 +547,72 @@
                         </v-img>         
                     </td>
                         <td>      
-             <v-dialog
-      v-model="dialog1"
-      fullscreen
-      :scrim="false"
-      transition="dialog-bottom-transition"
-    >
-      <template v-slot:activator="{ props }">
-      
-            <v-img type="button" v-bind="props"  @click="updateAliment(aliment.id)"
+                <v-dialog
+        transition="dialog-top-transition"
+      >
+        <template v-slot:activator="{ props }">
+          <v-img type="button" v-bind="props"  @click="updateProduit(produit.id)"
                          src="https://www.lenovo.com/_ui/desktop/common/images/lsb/lsb-loading.gif" style="color:red ; width: 70px;">
                         </v-img>
-       
-      </template>
-      <v-card>
-        <v-toolbar
-          dark
-          color="primary"
-        >
-          <v-btn
-            icon
-            dark
-            @click="dialog1 = false"
-          >
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        
-          <v-spacer></v-spacer>
-          
-        </v-toolbar>
-         <v-container style="margin-top:70px">
-     
-            
-      <v-row align="center" justify="center" >
-          <v-col cols="12" sm="10">
-            <v-card class="elevation-6 mt-10"  >
+        </template>
+        <template v-slot:default="{ isActive }">
+          <v-card style=" width: 900px ; margin-top:-130px ; margin-left:-150px" >
+            <v-toolbar
+              color="primary"
+            >Opening from the top</v-toolbar>
              <v-window v-model="step">
-                <v-window-item :value="1">
-                    
-                 <form action="" @submit.prevent="editProduit" novalidate>  
-               <v-row >
-                   
-                 
-                    <v-col cols="12" md="12">
-                      <v-card-text class="mt-12">
+                <v-window-item :value="1">               
+                 <form action="" >  
                         <h4
-                          class="text-center" >Modifier Produit</h4>  
-                        <v-row align="center" justify="center">
-                          <v-col cols="12" sm="8">
-                           <v-row>
+                          class="text-center" >Modifier Coach</h4>  
+                           <v-row class="mx-4">
                                <v-col cols="12" sm="6">
                             <v-text-field
-                             color="secondary" label="Name" variant="contained" placeholder="Placeholder" v-model="editname"/>
-                           </v-col>
-                           <v-col cols="12" sm="6">
-                                <label class="mb-1 text-sm text-at-light-green"
-                        >Sous_Catégorie</label
-                    >
-                            <select
-                            id="Catégorie"
-                            class="form-select"
-                            v-model="edit_sous_categorie"
-                            required >
-                            <option value="select-workout">Select Sous Catégorie</option>
-                            <option value="Bags">Bags</option>
-                            <option value="HeadWear">HeadWear</option>
-                             <option value="Socks">Socks</option>
-                               <option value="Equipement">Equipement</option>
-                             <option value="Bootles">Bootles</option>
-                           
-                              
-                 </select>
-                           </v-col>
-                           <v-col cols="12" sm="6">
-                             <label  class="mb-1 text-sm text-at-light-green"
-                        >Catégorie Type</label
-                    >
-                   <select
-                          
-                        class="form-select"
-                            required
-                       
-                            v-model="categorie"
-                           
-                    >
-                            <option value="select-catégorie">Select Catégorie</option>
-                            <option value="Mens">Mens</option>
-                            <option value="Womens">Womens</option>
-                               <option value="Accessoires">Accessoires</option>
-                                  <option value="Proteine">Proteine</option>
-                 </select>
+                            v-model="editname"  label="name"  color="secondary" variant="contained" placeholder="Placeholder"
+                          />
                            </v-col>
                            <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="editfat" label="Fat" outlined  dense color="blue" autocomplete="false" class="mt-4"  />
+                            v-model="editsouscategorie"  label="Calorie"  color="secondary" variant="contained" placeholder="Placeholder"
+                          />
                            </v-col>
-                            <v-col cols="12" sm="6">
+                             <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="editproteine" label="Proteine" outlined  dense color="blue" autocomplete="false" class="mt-4"  />
+                            v-model="editslug"  label="Calorie"  color="secondary" variant="contained" placeholder="Placeholder"
+                          />
                            </v-col>
                               <v-col cols="12" sm="6">
-                                <label for="workout-type" class="mb-1 text-sm text-at-light-green"
-                        >Grammage</label
-                    >
-                            <select
-                           
-                            class="form-select"
-                            required
-                           
-                            v-model="editgrammage"
-                    >
-                            <option >Select Grammage</option>
-                            <option value="100">100g</option>
-                            <option value="1">1L</option>
-                               <option value="1">1</option>
-                           
-                          
-                 </select>
-                  
+                            <v-text-field
+                            v-model="editdescription"  label="Calorie"  color="secondary" variant="contained" placeholder="Placeholder"
+                          />
                            </v-col>
-                            
+                              <v-col cols="12" sm="12">
+                               <v-textarea
+                              v-model="editprice"  label="Description"  color="secondary" variant="contained" placeholder="Placeholder"
+                          ></v-textarea>
+                           </v-col>
+                         
+                        
                            </v-row>
-                             
-                           <input type="submit" value="Ajouter">
-                          </v-col>
-                        </v-row>  
-                      </v-card-text>
-                    </v-col>
-                     
-                  </v-row>
-                  </form>
-                </v-window-item>
-                <v-window-item :value="2">
-                  
-                </v-window-item>
-              </v-window>
-            </v-card>
-          </v-col>
-      </v-row>
-  </v-container>
-
-
-     
-      </v-card>
-    </v-dialog>   
+ 
+                           </form>
+                           </v-window-item>
+                           </v-window>
+                           
+                      
+                          
+            <v-card-actions class="justify-center">
+              <v-btn
+                text
+                @click="isActive.value = false"
+              >Close</v-btn>
+                <v-btn
+              @click="editProduit(produit.id)"
+              >Update</v-btn>
+            </v-card-actions>
+          </v-card>
+        </template>
+      </v-dialog>  
                     </td>
                   
                   
@@ -730,7 +652,12 @@ export default {
                  price:"",
                  description:"",
                  image:"", 
-                 produits:{}
+                 produits:{},
+                 editname:"",
+                 editcategorie:"",
+                 editslug:"",
+                 editprice:"",
+                 editdescription:"",
         }
     },
   
@@ -801,6 +728,19 @@ export default {
                }
           });
      },
+          updateProduit(id){
+           axios.get('http://localhost:8000/api/auth/updateProduit/'+ id)
+        .then(response => {
+               console.log(response);
+               this.id = response.data.id;
+               this.editname = response.data.name;
+               this.editcategorie = response.data.categorieType;
+                   this.editslug = response.data.slug;
+                         this.editdescription = response.data.description;
+               this.editprice = response.data.price;
+            
+     }); 
+    },
     },
 }
 </script>

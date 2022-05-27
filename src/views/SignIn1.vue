@@ -31,7 +31,7 @@
            <p class="text-center">Or sign in with credentials</p>
            
            
-            <v-form>
+            <v-form >
                 <v-container>
                    <v-text-field
                   
@@ -40,6 +40,7 @@
             variant="contained"
             placeholder="Placeholder"
             v-model="email"
+        
           >
           
           </v-text-field>
@@ -83,15 +84,16 @@ export default {
   
   data() {
     return {
-      valid: true,
+       
       email: "",
-      emailrules: [(v) => !!v || "Email is required"],
+      
       password: "",
       error: "",
       isLoading: false,
     };
   },
   methods: {
+   
     performLogin() {
      
       this.$store

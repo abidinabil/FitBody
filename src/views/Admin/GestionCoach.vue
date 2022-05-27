@@ -128,6 +128,17 @@
                            class="mt-4"
                           />
                            </v-col>
+                           <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="adresse"
+                            label="adresse"
+                            outlined
+                            dense
+                            color="blue"
+                            autocomplete="false"
+                           class="mt-4"
+                          />
+                           </v-col>
                             <v-col cols="12" sm="6">
                               <v-textarea
                               v-model="subtext"
@@ -175,6 +186,7 @@
             <th scope="col">specialite</th>
             <th scope="col">age</th>
                 <th scope="col">subtext</th>
+                  <th scope="col">adresse</th>
                  <th scope="col">photo</th>
             <th> delete</th>
                <th> update</th>
@@ -191,6 +203,7 @@
             <td>{{coach.specialite}}</td>
              <td>{{coach.age}}</td>
               <td>{{coach.subtext}}</td>
+                <td>{{coach.adresse}}</td>
             <td><v-img v-bind:src="'../image/' + coach.photo" style="width:50px ; height: 50px"></v-img></td>
               <td>
                 
@@ -200,107 +213,71 @@
              </td>
               <td>      
              <v-dialog
-      v-model="dialog1"
-      fullscreen
-      :scrim="false"
-      transition="dialog-bottom-transition"
-    >
-      <template v-slot:activator="{ props }">
-      
-            <v-img type="button" v-bind="props"  @click="updateCoach(coach.id)"
+        transition="dialog-top-transition"
+      >
+        <template v-slot:activator="{ props }">
+          <v-img type="button" v-bind="props"  @click="updateCoach(coach.id)"
                          src="https://www.lenovo.com/_ui/desktop/common/images/lsb/lsb-loading.gif" style="color:red ; width: 70px;">
                         </v-img>
-       
-      </template>
-      <v-card>
-        <v-toolbar
-          dark
-          color="primary"
-        >
-          <v-btn
-            icon
-            dark
-            @click="dialog1 = false"
-          >
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        
-          <v-spacer></v-spacer>
-          
-        </v-toolbar>
-         <v-container style="margin-top:70px">
-     
-            
-      <v-row align="center" justify="center" >
-          <v-col cols="12" sm="10">
-            <v-card class="elevation-6 mt-10"  >
+        </template>
+        <template v-slot:default="{ isActive }">
+          <v-card style=" width: 900px ; margin-top:-130px ; margin-left:-150px" >
+            <v-toolbar
+              color="primary"
+            >Opening from the top</v-toolbar>
              <v-window v-model="step">
-                <v-window-item :value="1">
-                    
-                 <form action="" @submit.prevent="editCoach" novalidate>  
-               <v-row >
-                   
-                 
-                    <v-col cols="12" md="12">
-                      <v-card-text class="mt-12">
+                <v-window-item :value="1">               
+                 <form action="" >  
                         <h4
                           class="text-center" >Modifier Coach</h4>  
-                        <v-row align="center" justify="center">
-                          <v-col cols="12" sm="8">
-                           <v-row>
+                           <v-row class="mx-4">
                                <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="editname"  label="Name"  color="secondary" variant="contained" placeholder="Placeholder"
+                            v-model="editname"  label="name"  color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
                            <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="edittext"  label="Text"  color="secondary" variant="contained" placeholder="Placeholder"
+                            v-model="edittext"  label="Calorie"  color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
                              <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="editage"  label="Age"  color="secondary" variant="contained" placeholder="Placeholder"
+                            v-model="editspecialite"  label="Calorie"  color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
-                                <v-col cols="12" sm="6">
+                              <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="editspecialite"  label="specialite"  color="secondary" variant="contained" placeholder="Placeholder"
+                            v-model="editadresse"  label="Calorie"  color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
-                           <v-col>
-                              <v-textarea
+                              <v-col cols="12" sm="12">
+                               <v-textarea
                               v-model="editsubtext"  label="Description"  color="secondary" variant="contained" placeholder="Placeholder"
                           ></v-textarea>
                            </v-col>
-                              
-                          
-                           
-                            
+                         
+                        
                            </v-row>
-                             
-                           <input type="submit" value="Update">
-                          </v-col>
-                        </v-row>  
-                      </v-card-text>
-                    </v-col>
-                     
-                  </v-row>
-                  </form>
-                </v-window-item>
-                <v-window-item :value="2">
-                  
-                </v-window-item>
-              </v-window>
-            </v-card>
-          </v-col>
-      </v-row>
-  </v-container>
-
-
-     
-      </v-card>
-    </v-dialog>   
+ 
+                           </form>
+                           </v-window-item>
+                           </v-window>
+                           
+                      
+                          
+            <v-card-actions class="justify-center">
+              <v-btn
+                text
+                @click="isActive.value = false"
+              >Close</v-btn>
+                <v-btn
+              @click="editCoach(coach.id)"
+              >Update</v-btn>
+            </v-card-actions>
+          </v-card>
+        </template>
+      </v-dialog>  
                     </td>
              
           </tr> 
@@ -324,7 +301,7 @@ export default {
     data() {
         return{
            dialog:false,
-               dialog1:false,
+           dialog1:false,
            coaches:{},
            id:"",
            name:"",
@@ -332,12 +309,14 @@ export default {
            specialite:"",
            age:"",
            subtext:"",
+           adresse:"",
            photo:"",
            editname:"",
            edittext:"",
            editspecialite:"",
            editage:"",
            editsubtext:"",
+           editadresse:"",
            editphoto:"",
            errors:[],
           
@@ -366,7 +345,10 @@ export default {
                      this.errors.push("description is required")
                    }
                     if(!this.specialite){
-                     this.errors.push("description is required")
+                     this.errors.push("specialite is required")
+                   }
+                     if(!this.adresse){
+                     this.errors.push("adresse is required")
                    }
                     if(!this.photo){
                      this.errors.push("photo is required")
@@ -379,6 +361,7 @@ export default {
                fd.append('age', this.age);
                fd.append('text', this.text);
                fd.append('specialite', this.specialite); 
+                fd.append('adresse', this.adresse); 
                fd.append('subtext', this.subtext);
            axios.post("http://localhost:8000/api/auth/SaveCoach" ,fd , { 
            })
@@ -431,6 +414,7 @@ export default {
                this.id = response.data.id;
                this.editname = response.data.name;
                this.edittext = response.data.text;
+                   this.editadresse = response.data.adresse;
                this.editspecialite = response.data.specialite;
                this.editage = response.data.age;
                this.editsubtext = response.data.subtext;
@@ -462,6 +446,7 @@ export default {
                name : this.editname,
                text: this.edittext,
                 specialite: this.editspecialite,
+                  adresse: this.editadresse,
                age: this.editage,
                subtext: this.editsubtext,
                photo : this.editphoto,

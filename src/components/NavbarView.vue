@@ -17,7 +17,7 @@
              <v-menu>
       <template v-slot:activator="{ props }">
         <li v-bind="props"  >
-          <router-link to="">Blog</router-link>
+          <router-link to="">Annuiaire</router-link>
         </li>
       </template>
       <v-list>

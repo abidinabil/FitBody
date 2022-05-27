@@ -63,6 +63,13 @@
             <v-card class="elevation-6 mt-10"  >
              <v-window v-model="step">
                 <v-window-item :value="1">
+                           <div class="alert alert-danger mt-4" v-if="errors.length" > 
+              <ul class="mb-0">
+                <li v-for="(error, index) in errors" :key="index">
+                    {{error}}
+                </li>
+              </ul>
+                  </div>
                    <form action="" @submit.prevent="SaveExercice">  
                <v-row >
                    
@@ -173,8 +180,8 @@
                        </v-toolbar>
                        </v-col>
                        </v-row>
-                          <table class="table">
-        <thead>
+                          <v-table  fixed-header>
+        <thead style="color:lightsteelblue">
           <tr>
              <th scope="col">id</th>
             <th scope="col">title</th>
@@ -182,7 +189,8 @@
             <th scope="col">catégories</th>   
             <th scope="col">description</th>
             <th scope="col">photo</th>
-            <th> Action</th>
+            <th> Delete</th>
+            <th>Modifier</th>
            
           </tr>
         </thead>
@@ -199,18 +207,95 @@
             <v-img v-bind:src="'../image/Exercice/' + exercice.image"></v-img>
                  <v-img v-bind:src="'../image/Exercice/' + exercice.image1"></v-img>
              <td>
-               <v-btn type="button" @click="deleteExercice(exercice.id) " color="error"> delete</v-btn> 
-               
-              
-                 
-               
+              <v-img type="button" @click="deleteExercice(exercice.id) " 
+                         src="https://cdn.dribbble.com/users/1914549/screenshots/5346994/day21.gif" style="margin-left:-50px; width: 150px;">
+                        </v-img>  
+             </td>
+             <td>
+                   <v-dialog
+        transition="dialog-top-transition"
+      >
+        <template v-slot:activator="{ props }">
+          <v-img type="button" v-bind="props"  @click="updateExercice(exercice.id)"
+                         src="https://www.lenovo.com/_ui/desktop/common/images/lsb/lsb-loading.gif" style="color:red ; width: 70px;">
+                        </v-img>
+        </template>
+        <template v-slot:default="{ isActive }">
+          <v-card style=" width: 900px ; margin-top:-130px ; margin-left:-150px" >
+            <v-toolbar
+              color="primary"
+            >Opening from the top</v-toolbar>
+             <v-window v-model="step">
+                <v-window-item :value="1">               
+                 <form action="" >  
+                        <h4
+                          class="text-center" >Modifier Exercice</h4>  
+                           <v-row class="mx-4">
+                               <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="edittitle"  label="name"  color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                           <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="edittext"  label="Calorie"  color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                        
+                              <v-col cols="12" sm="6">
+                              <select
+                            
+                            class="form-select"
+                            required
+                           
+                            v-model="editcatégorie"
+                    >
+                            <option value="select-workout">Select Catégorie</option>
+                            <option value="pectoreaux">Pectoreaux</option>
+                            <option value="Dorseaux">Dorseaux</option>
+                           
+                             <option value="Biceps">Biceps</option>
+                             <option value="Triceps">Triceps</option>
+                             <option value="Jambe">Jambe</option>
+                              <option value="Abdominaux">Abdominaux</option>
+                              <option value="Epaule">Epaule</option>
+                              <option value="Mollets">Mollets</option>
+                 </select>
+                           </v-col>
+                              <v-col cols="12" sm="12">
+                               <v-textarea
+                              v-model="editsubtext"  label="Description"  color="secondary" variant="contained" placeholder="Placeholder"
+                          ></v-textarea>
+                           </v-col>
+                         
+                        
+                           </v-row>
+ 
+                           </form>
+                           </v-window-item>
+                           </v-window>
+                           
+                      
+                          
+            <v-card-actions class="justify-center">
+              <v-btn
+                text
+                @click="isActive.value = false"
+              >Close</v-btn>
+                <v-btn
+              @click="editExercice(exercice.id)"
+              >Update</v-btn>
+            </v-card-actions>
+          </v-card>
+        </template>
+      </v-dialog>  
              </td>
              
           </tr> 
               
         </tbody>
               
-        </table>
+        </v-table>
          
                        
                        </v-card>
@@ -231,7 +316,12 @@ export default {
            subtext :"",
            catégorie:"",
            image:"",
-           image1:""
+           image1:"",
+           edittitle:"",
+           edittext:"",
+           editsubtext:"",
+           editcatégorie:"",
+           errors:[],
            
            
         } 
@@ -250,6 +340,21 @@ export default {
            this.image1 = e.target.files[0]; 
          },
          SaveExercice(){
+           this.errors = [];
+                   if(!this.title){
+                     this.errors.push("Title is required")
+                   }
+                 
+                    if(!this.text){
+                     this.errors.push("text is required")
+                   }
+                    if(!this.subtext){
+                     this.errors.push("description is required")
+                   }
+                    if(!this.catégorie){
+                     this.errors.push("Catégorie is required")
+                   }
+                  if(!this.errors.lenght){
            let fd = new FormData();
            console.log(FormData)
      
@@ -287,6 +392,7 @@ export default {
          } 
          
        )
+                  }
          },
          //************************Fin Save Exercice ************************* */
          
@@ -316,6 +422,67 @@ export default {
                }
           });
      },
+       /******************************update Exercice******************** */
+            updateExercice(id){
+           axios.get('http://localhost:8000/api/auth/updateExercice/'+ id)
+        .then(response => {
+               console.log(response);
+                  this.id = response.data.id;
+               this.edittitle = response.data.title;
+               this.edittext = response.data.text;
+               this.editsubtext = response.data.subtext;
+               this.editcatégorie = response.data.catégorie;
+             
+     }); 
+    },
+    /****************************Fin Update Exercice */
+        editExercice(){
+           if(!this.edittitle){
+                     this.errors.push("Name is required")
+                   }
+                    if(!this.edittext){
+                     this.errors.push("text is required")
+                   }
+                 
+                   
+                    if(!this.editsubtext){
+                     this.errors.push("description is required")
+                   }
+                    if(!this.editcatégorie){
+                     this.errors.push("catégorie is required")
+                   }
+           axios.put('http://localhost:8000/api/auth/editExercice' ,{
+                id : this.id,
+               title : this.edittitle,
+               text: this.edittext,
+               subtext: this.editsubtext,
+               catégorie : this.editcatégorie,
+             
+                
+             })   .then(response => {
+               console.log(response);
+              
+               if(response.status == 200){
+                  
+                      this.$toast.success(" update Exercice succesfuly.", {
+                          position : "top-right"
+                  });
+                      this.getExercice();
+                   
+               }
+          }).catch(
+              error =>{
+                  this.$toast.error("  Exercice not update.", {
+                                position : "top-right"
+                                
+                        });      
+                console.log(error);
+              } 
+              
+            )
+       },
+        /*******************************Fin Edit Nutritionniste */
     }
+    
 }
 </script>

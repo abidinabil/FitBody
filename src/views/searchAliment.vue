@@ -27,11 +27,11 @@
               class="mx-auto"
               max-width="400"
               tile
-               @click.prevent="getAlimentById(index.id)"
+             
             >
              
 
-              <v-list-item lines="two">
+              <v-list-item lines="two"   @click.prevent="getAlimentById(index.id)">
                 <v-list-item-header>
                   <v-list-item-title >{{index.name}}</v-list-item-title>
                   <v-list-item-subtitle >{{index.name}}, {{index.grammage}},{{index.calorie}} calorie</v-list-item-subtitle>
@@ -43,8 +43,9 @@
          
          </v-row>
         <div>
-           <v-container >
-                <form action="" @submit.prevent="SaveRegime">
+           <v-container  >
+                <form action="" @submit.prevent="SaveRegime"  >
+              
                   <v-row>
                           <v-col cols="12" sm="12" >
                            <p>Name :</p>
@@ -154,6 +155,7 @@ export default {
             calorie:"",
             carbs:"",
             fat:"",
+            qty:"",
             proteine:"",
              id_user:"",
              categorieType:'',
@@ -189,6 +191,7 @@ export default {
              carbs:this.AlimentById.carbs * this.AlimentById.qty,
              fat:this.AlimentById.fat * this.AlimentById.qty,
              proteine:this.AlimentById.proteine * this.AlimentById.qty,
+               qty:this.AlimentById.qty ,
             categorieType:this.categorieType
            
           

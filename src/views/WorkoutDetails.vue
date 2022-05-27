@@ -20,8 +20,15 @@
          style=" background-color:lightgrey"
    
     ><br><br>
-    
-     <v-row class="mx-1">
+       <div class="alert alert-danger mt-4" v-if="errors.length" > 
+              <ul class="mb-0">
+                <li v-for="(error, index) in errors" :key="index">
+                    {{error}}
+                </li>
+              </ul>
+                  </div> 
+    <form action="">
+        <v-row class="mx-1">
             
               <v-col cols="12" md="6">
            
@@ -77,27 +84,98 @@
                 <v-btn  variant="outlined" class="mx-auto" style="color:cadetblue" @click.prevent="saveExerciceWorkout">  Record exercice </v-btn><br><br><br>
             
           </v-row>
+    </form>
+   
               <v-row v-for="exercice in exerciceWorkouts" :key="exercice.exercice" class="mx-2"> 
-                   
-          <v-col xs="12" md="6">
-                           <v-img 
+               <v-col sm="3" md="2">
+                   <v-img 
                            @click="deleteExerciceWorkout(exercice.id) " 
               src="../assets/images/trash-light-green.png"
-              width="20" height="20"
-           
-            />
+              width="30" height="30"/> 
+                     <v-dialog
+        transition="dialog-top-transition"
+      >
+        <template v-slot:activator="{ props }">
+          <v-img type="button" v-bind="props"  @click="updateExerciceWorkout(exercice.id)"  width="30" height="30"
+                         src="https://www.lenovo.com/_ui/desktop/common/images/lsb/lsb-loading.gif" >
+                        </v-img>
+        </template>
+        <template v-slot:default="{ isActive }">
+          <v-card style=" width: 900px ; margin-top:-150px ; margin-left:-150px" class="exercice">
+            <v-toolbar
+              color="primary"
+            >Opening from the top</v-toolbar>
+             <v-window v-model="step">
+                <v-window-item :value="1">  
+                     <div class="alert alert-danger mt-4" v-if="errors.length" > 
+              <ul class="mb-0">
+                <li v-for="(error, index) in errors" :key="index">
+                    {{error}}
+                </li>
+              </ul>
+                  </div>             
+                 <form action="" >  
+                        <h4
+                          class="text-center" >Modifier Exercice</h4>  
+                           <v-row class="mx-4">
+                               <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="editexercice"    color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                           <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="editsets"   color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                             <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="editreps"   color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                              <v-col cols="12" sm="6">
+                            <v-text-field
+                            v-model="editweight"    color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                           
+                         
+                        
+                           </v-row>
+ 
+                           </form>
+                           </v-window-item>
+                           </v-window>
+                           
+                      
+                          
+            <v-card-actions class="justify-center">
+              <v-btn
+                text
+                @click="isActive.value = false"
+              >Close</v-btn>
+                <v-btn
+              @click="editExerciceWorkout(exercice.id)"
+              >Update</v-btn>
+            </v-card-actions>
+          </v-card>
+        </template>
+      </v-dialog> 
+               </v-col>    
+          <v-col sm="3" md="2">
+                    
             <div >Exercice</div>
             <div>{{exercice.exercice}}</div>
           </v-col>
-          <v-col xs="6" sm="4" md="2">
+          <v-col xs="6" sm="3" md="2">
             <div class="caption grey--text">sets</div>
             <div>{{exercice.sets}}</div>
           </v-col>
-          <v-col xs="6" sm="4" md="2">
+          <v-col xs="6" sm="3" md="2">
             <div class="caption grey--text"> reps</div>
             <div>{{exercice.reps}}</div>
           </v-col>
-          <v-col xs="2" sm="4" md="2">
+          <v-col xs="2" sm="3" md="2">
                <div class="caption grey--text"> weight</div>
             <div>{{exercice.weight}}</div>
           </v-col>
@@ -126,6 +204,11 @@ export default {
             sets:"",
             reps:"",
             weight:"",
+            editexercice:"",
+           editsets:"",
+           editreps:"",
+           editweight:"",
+           errors:[]
         }
         
     },
@@ -135,7 +218,18 @@ export default {
     },
     methods:{
         saveExerciceWorkout(){
-           
+             if(!this.exercice){
+                     this.errors.push("Exercice is required")
+                   }
+                    if(!this.sets){
+                     this.errors.push("sets is required")
+                   }
+                    if(!this.reps){
+                     this.errors.push("reps is required")
+                   }
+                    if(!this.weight){
+                     this.errors.push("weight is required")
+                   }
            axios.post('http://localhost:8000/api/auth/saveExerciceWorkout' ,{
                id_workouts:this.workouts.id,
                 exercice : this.exercice,
@@ -169,6 +263,63 @@ export default {
          
        )
         },
+         updateExerciceWorkout(id){
+           axios.get('http://localhost:8000/api/auth/updateExerciceWorkout/'+ id)
+        .then(response => {
+               console.log(response);
+               this.id = response.data.id;
+               this.editexercice = response.data.exercice;
+               this.editsets = response.data.sets;
+                   this.editreps = response.data.reps;
+               this.editweight = response.data.weight;
+            
+     }); 
+    },
+      editExerciceWorkout(){
+          if(!this.editexercice){
+                     this.errors.push("Exercice is required")
+                   }
+                    if(!this.editsets){
+                     this.errors.push("sets is required")
+                   }
+                    if(!this.editreps){
+                     this.errors.push("reps is required")
+                   }
+                    if(!this.editweight){
+                     this.errors.push("weight is required")
+                   }
+                 
+           axios.put('http://localhost:8000/api/auth/editExerciceWorkout' ,{
+             
+                id : this.id,
+               exercice : this.editexercice,
+               sets: this.editsets,
+                reps: this.editreps,
+                 weight: this.editweight,
+             
+                
+             })   .then(response => {
+               console.log(response);
+              
+               if(response.status == 200){
+                  
+                        this.$toast.success(" update Coach succesfuly.", {
+                          position : "top-right"
+                  });
+                      this.getExerciceWorkout();
+                   
+               }
+          }).catch(
+              error =>{
+                  this.$toast.error(" error Coach not update.", {
+                                position : "top-right"
+                                
+                        });      
+                console.log(error);
+              } 
+              
+            )
+       },
            getWorkoutDetails(){
        axios.get('http://localhost:8000/api/auth/getWorkoutDetails/'+this.$route.params.id)
         .then (res => {
@@ -221,3 +372,12 @@ export default {
     }
 }
 </script>
+<style>
+@media only screen and (max-width: 768px) {
+  .exercice {
+    
+    width: 400px;
+    margin-left: -200px;
+  }
+}
+</style>

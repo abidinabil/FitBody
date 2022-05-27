@@ -69,8 +69,28 @@
     </v-container> <br><br><br>
 
       <div style="margin-top:100px">
+       <v-row class="mx-16">
+             <v-col cols="12" md="4">
+                <v-text-field 
+                   
+            color="secondary"
+            label="Rechercher Par adresse"
+            variant="contained"
+            placeholder="Rechercher Par Adresse"
+            v-model="search"
+          >
+          </v-text-field>
+          <v-btn style="color:green" @click.prevent="searchCoach">Search</v-btn>
+            <v-btn style="color:green" @click.prevent="getCoach">All Coaches</v-btn>
+            <div v-if="coaches == '' ">
+                   <h1 class="error">error</h1>
+             </div>
+             </v-col>
+            
+         </v-row>
          <v-row class="mx-4">
           <v-col cols="12" md="4" lg="4" v-for="coach in coaches" :key="coach.id">
+           
             <div class="cardNutritionniste">
          <div class="box">
             <div class="front-face" >
@@ -117,7 +137,8 @@ import axios from 'axios';
 export default {
     data(){
         return{
-             coaches:{}
+             coaches:{},
+             search:""
         }
     },
   components: { NavbarView },
@@ -137,6 +158,19 @@ export default {
          
        )
      },
+         searchCoach(){
+            axios.get('http://localhost:8000/api/auth/searchCoach/'+this.search)
+            .then (res => {
+         console.log(res.data);
+         this.coaches = res.data;
+       }).catch(
+         error =>{
+           console.log(error);
+         } 
+         
+       )
+
+        },
   }
     
 }
