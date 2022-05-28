@@ -180,6 +180,25 @@
                        </v-toolbar>
                        </v-col>
                        </v-row>
+                           <v-row class="mx-16">
+             <v-col cols="12" md="4">
+                <v-text-field 
+                   
+            color="secondary"
+            label="Rechercher Par Catégorie"
+            variant="contained"
+            placeholder="Rechercher Par Catégorie"
+            v-model="search"
+          >
+          </v-text-field>
+          <v-btn style="color:green" @click.prevent="searchExercice">Rechercher</v-btn>
+            <v-btn style="color:blue" @click.prevent="getExercice">Tous Les Exercices</v-btn>
+            <div v-if="Exercices == '' ">
+            <v-alert type="error">Dzl Aucune Donneés Pour Le Moment</v-alert>
+             </div>
+             </v-col>
+            
+         </v-row>
                           <v-table  fixed-header>
         <thead style="color:lightsteelblue">
           <tr>
@@ -374,6 +393,7 @@ export default {
            editsubtext:"",
            editcatégorie:"",
            errors:[],
+           search:""
            
            
         } 
@@ -562,6 +582,19 @@ export default {
         })
         .catch((err) => console.log(err));
     },
+           searchExercice(){
+            axios.get('http://localhost:8000/api/auth/searchExercice/'+this.search)
+            .then (res => {
+         console.log(res.data);
+         this.Exercices = res.data;
+       }).catch(
+         error =>{
+           console.log(error);
+         } 
+         
+       )
+
+        },
     }
     
 }

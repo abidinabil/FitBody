@@ -21,7 +21,7 @@
                      <v-toolbar extended color="transparent">
                 
 
-                <h1 style="font-size:20px; "> List Aliment</h1> <br>
+                <h1 style="font-size:20px; "> Listes des Aliments</h1> <br>
                 
                 
 
@@ -39,7 +39,7 @@
           dark
           v-bind="props"
         >
-          Ajout Aliment
+          Ajouter Aliments
         </v-btn>
       </template>
       <v-card>
@@ -161,6 +161,25 @@
                  
                  
             </v-row>
+                 <v-row class="mx-16">
+             <v-col cols="12" md="4">
+                <v-text-field 
+                   
+            color="secondary"
+            label="Rechercher Par Nom"
+            variant="contained"
+            placeholder="Rechercher Par Nom"
+            v-model="search"
+          >
+          </v-text-field>
+          <v-btn style="color:green" @click.prevent="searchAliment">Search</v-btn>
+            <v-btn style="color:green" @click.prevent="getAliment">Tous Les Aliments</v-btn>
+        <div v-if="Aliments == '' ">
+            <v-alert type="error">Dzl Aucune Donneés Pour Le Moment</v-alert>
+             </div>
+             </v-col>
+            
+         </v-row>
                   <v-table
     fixed-header
     height="400px"
@@ -384,6 +403,7 @@ export default {
                editproteine:"",
                editgrammage:"",
                errors:[],
+               search:""
            
         
         }
@@ -524,6 +544,19 @@ export default {
              this.editgrammage = response.data.grammage;
      }); 
     },
+           searchAliment(){
+            axios.get('http://localhost:8000/api/auth/searchAliment/'+this.search)
+            .then (res => {
+         console.log(res.data);
+         this.Aliments = res.data;
+       }).catch(
+         error =>{
+           console.log(error);
+         } 
+         
+       )
+
+        },
 
     }
 }

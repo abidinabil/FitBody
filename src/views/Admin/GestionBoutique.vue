@@ -486,6 +486,25 @@
                        </v-toolbar>
                        </v-col>
                        </v-row>
+                              <v-row class="mx-16">
+             <v-col cols="12" md="4">
+                <v-text-field 
+                   
+            color="secondary"
+            label="Rechercher Par Categorie"
+            variant="contained"
+            placeholder="Rechercher Par categorie"
+            v-model="search"
+          >
+          </v-text-field>
+          <v-btn style="color:green" @click.prevent="searchProduit">Rechercher</v-btn>
+            <v-btn style="color:blue" @click.prevent="getProduit">Tous Les Produits</v-btn>
+            <div v-if="produits == '' ">
+            <v-alert type="error">Dzl Aucune Donneés Pour Le Moment</v-alert>
+             </div>
+             </v-col>
+            
+         </v-row>
                    <v-table
     fixed-header
     height="800px">
@@ -683,6 +702,7 @@ export default {
                  editslug:"",
                  editprice:"",
                  editdescription:"",
+                 search:""
         }
     },
   
@@ -717,6 +737,7 @@ export default {
            this.$toast.success(" success Produit saved.", {
                           position : "top-right"
                   });
+                  this.getProduit()
                    
         
        }).catch(
@@ -780,6 +801,19 @@ export default {
         })
         .catch((err) => console.log(err));
     },
+           searchProduit(){
+            axios.get('http://localhost:8000/api/auth/searchProduit/'+this.search)
+            .then (res => {
+         console.log(res.data);
+         this.produits = res.data;
+       }).catch(
+         error =>{
+           console.log(error);
+         } 
+         
+       )
+
+        },
     },
 }
 </script>

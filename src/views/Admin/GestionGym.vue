@@ -155,6 +155,25 @@
                        </v-toolbar>
                        </v-col>
                        </v-row>
+                              <v-row class="mx-16">
+             <v-col cols="12" md="4">
+                <v-text-field 
+                   
+            color="secondary"
+            label="Rechercher Par Adresse"
+            variant="contained"
+            placeholder="Rechercher Par Adresse"
+            v-model="search"
+          >
+          </v-text-field>
+          <v-btn style="color:green" @click.prevent="searchGym">Rechercher</v-btn>
+            <v-btn style="color:blue" @click.prevent="getGym">Tous Les Salles</v-btn>
+            <div v-if="nutritionnistes == '' ">
+            <v-alert type="error">Dzl Aucune Donneés Pour Le Moment</v-alert>
+             </div>
+             </v-col>
+            
+         </v-row>
 
                         <v-table  fixed-header>
         <thead style="color:lightsteelblue">
@@ -302,6 +321,7 @@ export default {
                editadresse:"",
                editphoto:"",
                errors:[],
+               search:""
         } 
     },
         created(){
@@ -475,6 +495,19 @@ export default {
         })
         .catch((err) => console.log(err));
     },
+           searchGym(){
+            axios.get('http://localhost:8000/api/auth/searchGym/'+this.search)
+            .then (res => {
+         console.log(res.data);
+         this.gym = res.data;
+       }).catch(
+         error =>{
+           console.log(error);
+         } 
+         
+       )
+
+        },
        mounted() {
        console.log('Gym ')
      },

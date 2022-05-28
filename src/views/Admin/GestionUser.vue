@@ -149,6 +149,26 @@
                        </v-toolbar>
                        </v-col>
                        </v-row>
+                        <v-row class="mx-16">
+             <v-col cols="12" md="4">
+                <v-text-field 
+                   
+            color="secondary"
+            label="Rechercher Par Role"
+            variant="contained"
+            placeholder="Rechercher Par Role"
+            v-model="search"
+          >
+          </v-text-field>
+          <v-btn style="color:green" @click.prevent="searchUser">Rechercher</v-btn>
+            <v-btn style="color:blue" @click.prevent="getAllUser">Tous Les Uutilisateurs</v-btn>
+            <div v-if="users == '' ">
+            <v-alert type="error">Dzl Aucune Donneés Pour Le Moment</v-alert>
+             </div>
+             </v-col>
+            
+         </v-row>
+                       
                             <v-table fixed-header>
         <thead style="color:lightsteelblue">
           <tr>
@@ -275,6 +295,7 @@ export default {
            editname:"",
            editemail:"",
            editpassword:"",
+           search:"",
        
            errors:[],
           
@@ -402,6 +423,19 @@ export default {
               
             )
        },
+              searchUser(){
+            axios.get('http://localhost:8000/api/auth/searchUser/'+this.search)
+            .then (res => {
+         console.log(res.data);
+         this.users = res.data;
+       }).catch(
+         error =>{
+           console.log(error);
+         } 
+         
+       )
+
+        },
     }
    
 }

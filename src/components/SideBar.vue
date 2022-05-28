@@ -58,7 +58,7 @@ export default {
              items: [
         { text: 'Dashboard', icon: 'mdi-view-dashboard' , route:'/DashbordView' },
         { text: 'Exercice', icon: 'mdi-dumbbell' , route:'/GestionExercice' },
-            { text: 'Nutrition', icon: 'mdi-nutrition' , route:'/GestionNutrition' },
+            { text: 'Article de Nutrition', icon: 'mdi-nutrition' , route:'/GestionNutrition' },
             { text: 'Nutritionniste', icon: 'mdi-account' , route:'/GestionNutritionniste' },
                   { text: 'User', icon: 'mdi-account' , route:'/GestionUser' },
              { text: 'Coach', icon: 'mdi-account' , route:'/GestionCoach' },
