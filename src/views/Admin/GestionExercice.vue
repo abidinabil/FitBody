@@ -219,7 +219,7 @@
                 <v-icon style="margin-left: 200px" size="50">
                   mdi-check-outline
                 </v-icon>
-                <form @submit.prevent="submit">
+                <form @submit.prevent="ModifierImage1(exercice.id)">
                   <input type="file" @change="onChange" />
                   <v-card-actions class="justify-end">
                     <v-btn text rounded @click="isActive.value = false"
@@ -244,7 +244,7 @@
               <v-card style="width:500px">
                 <v-toolbar color="primary">Télécharger votre photo</v-toolbar>
                
-                <form @submit.prevent="submit">
+                <form @submit.prevent="ModifierImage2(exercice.id)">
                   <input type="file" @change="onChange" />
                   <v-card-actions class="justify-end">
                     <v-btn text rounded @click="isActive.value = false"
@@ -533,7 +533,35 @@ export default {
               
             )
        },
-        /*******************************Fin Edit Nutritionniste */
+        /*******************************Fin Edit Exercice */
+          ModifierImage1($id) {
+      let fd = new FormData();
+      fd.append("image", this.image);
+      axios
+        .post("http://localhost:8000/api/auth/ModifierImage/" + $id, fd)
+        .then((res) => {
+          console.log("response", res.data);
+          this.$toast.success(" image updated.", {
+            position: "top-right",
+          });
+          this.getExercice();
+        })
+        .catch((err) => console.log(err));
+    },
+         ModifierImage2($id) {
+      let fd = new FormData();
+      fd.append("image1", this.image);
+      axios
+        .post("http://localhost:8000/api/auth/ModifierImage2/" + $id, fd)
+        .then((res) => {
+          console.log("response", res.data);
+          this.$toast.success(" image updated.", {
+            position: "top-right",
+          });
+          this.getExercice();
+        })
+        .catch((err) => console.log(err));
+    },
     }
     
 }

@@ -156,7 +156,32 @@
             <td>{{nutrition.title}}</td>
             <td>{{nutrition.text}}</td>
             <td>{{nutrition.subtext}}</td>
-            <td>  <v-img v-bind:src="'../image/Nutrition/' + nutrition.image" style="width:50px ; height: 50px"></v-img></td>
+            <td>  <v-img v-bind:src="'../image/Nutrition/' + nutrition.image" style="width:50px ; height: 50px"></v-img>
+                   <v-dialog transition="dialog-top-transition">
+            <template v-slot:activator="{ props }">
+              <v-btn flat rounded v-bind="props"
+                ><v-icon>mdi-image-edit</v-icon></v-btn
+              >
+            </template>
+            <template v-slot:default="{ isActive }">
+              <v-card>
+                <v-toolbar color="primary">Télécharger votre photo</v-toolbar>
+                <v-icon style="margin-left: 200px" size="50">
+                  mdi-check-outline
+                </v-icon>
+                <form @submit.prevent="ModifierImage(nutrition.id)">
+                  <input type="file" @change="onChange" />
+                  <v-card-actions class="justify-end">
+                    <v-btn text rounded @click="isActive.value = false"
+                      >Annuler</v-btn
+                    >
+                    <v-btn text rounded type="submit">ENregistrer</v-btn>
+                  </v-card-actions>
+                </form>
+              </v-card>
+            </template>
+          </v-dialog>
+            </td>
              <td>
                 
                  <v-img type="button" @click="deleteNutrition(nutrition.id) " 
@@ -443,6 +468,20 @@ export default {
               
             )
        },
+           ModifierImage($id) {
+      let fd = new FormData();
+      fd.append("image", this.image);
+      axios
+        .post("http://localhost:8000/api/auth/ModifierImageNutrition/" + $id, fd)
+        .then((res) => {
+          console.log("response", res.data);
+          this.$toast.success(" image updated.", {
+            position: "top-right",
+          });
+          this.getNutrition();
+        })
+        .catch((err) => console.log(err));
+    },
        imagechange(){
          for(let i = 0 ;i<this.$refs.files.files.length; i++){
            this.image.push(this.$refs.files.files[i]);

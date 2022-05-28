@@ -223,7 +223,32 @@
              <td>{{coach.age}}</td>
               <td>{{coach.subtext}}</td>
                 <td>{{coach.adresse}}</td>
-            <td><v-img v-bind:src="'../image/' + coach.photo" style="width:50px ; height: 50px"></v-img></td>
+            <td><v-img v-bind:src="'../image/Coach/' + coach.photo" style="width:150px ; height: 150px"></v-img>
+               <v-dialog transition="dialog-top-transition">
+            <template v-slot:activator="{ props }">
+              <v-btn flat rounded v-bind="props"
+                ><v-icon>mdi-image-edit</v-icon></v-btn
+              >
+            </template>
+            <template v-slot:default="{ isActive }">
+              <v-card>
+                <v-toolbar color="primary">Télécharger votre photo</v-toolbar>
+                <v-icon style="margin-left: 200px" size="50">
+                  mdi-check-outline
+                </v-icon>
+                <form @submit.prevent="ModifierImage(coach.id)">
+                  <input type="file" @change="onChange" />
+                  <v-card-actions class="justify-end">
+                    <v-btn text rounded @click="isActive.value = false"
+                      >Annuler</v-btn
+                    >
+                    <v-btn text rounded type="submit">ENregistrer</v-btn>
+                  </v-card-actions>
+                </form>
+              </v-card>
+            </template>
+          </v-dialog>
+            </td>
               <td>
                 
                  <v-img type="button" @click="deleteCoach(coach.id) " 
@@ -507,6 +532,20 @@ export default {
        )
 
         },
+            ModifierImage($id) {
+      let fd = new FormData();
+      fd.append("photo", this.photo);
+      axios
+        .post("http://localhost:8000/api/auth/ModifierImageCoach/" + $id, fd)
+        .then((res) => {
+          console.log("response", res.data);
+          this.$toast.success(" image updated.", {
+            position: "top-right",
+          });
+          this.getCoach();
+        })
+        .catch((err) => console.log(err));
+    },
     }
    
 }
