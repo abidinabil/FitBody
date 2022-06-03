@@ -285,7 +285,7 @@
                     <v-col cols="12" md="12">
                       <v-card-text class="mt-12">
                         <h4
-                          class="text-center" >Modifier Aliment</h4>  
+                          class="text-center" style="color:black">Modifier Aliment</h4>  <br><br>
                         <v-row align="center" justify="center">
                           <v-col cols="12" sm="8">
                            <v-row>
@@ -335,7 +335,7 @@
                             
                            </v-row>
                              
-                           <input type="submit" value="Update">
+                           <input type="submit" value="Modifier">
                           </v-col>
                         </v-row>  
                       </v-card-text>

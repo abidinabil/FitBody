@@ -110,7 +110,7 @@
         transition="dialog-top-transition"
       >
         <template v-slot:activator="{ props }">
-          <v-img type="button" v-bind="props"  @click="updateRegime(regime.id)"
+          <v-img type="button" v-bind="props"  @click="updateAlimentUser(regime.name)"
                          src="https://www.lenovo.com/_ui/desktop/common/images/lsb/lsb-loading.gif" style="color:red ; width: 70px;">
                         </v-img>
         </template>
@@ -127,28 +127,33 @@
                            <v-row class="mx-4">
                                <v-col cols="12" sm="6">
                                  <v-text-field
-                            v-model="editqty"  label="qty"  color="secondary" variant="contained" placeholder="Placeholder"
+                            v-model="AlimentUser.qty"  label="qty"  color="secondary" variant="contained" type="number" placeholder="Placeholder"
                           />
                           
                            </v-col>
                            <v-col cols="12" sm="6">
                             <v-text-field
-                           v-bind:label="editqty * editCalorie "   color="secondary" variant="contained" 
+                           v-bind:label="AlimentUser.calorie * AlimentUser.qty"  disabled="disabled"  color="secondary" variant="contained" 
                           />
                            </v-col>
                              <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="editCarbs"  label="carbs"  color="secondary" variant="contained" placeholder="Placeholder"
+                              v-bind:label="AlimentUser.carbs * AlimentUser.qty"   disabled="disabled"   color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                             <v-col cols="12" sm="6">
+                            <v-text-field
+                              v-bind:label="AlimentUser.grammage * AlimentUser.qty"  disabled="disabled"   color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
                               <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="editFat"  label="fat"  color="secondary" variant="contained" placeholder="Placeholder"
+                              v-bind:label="AlimentUser.fat * AlimentUser.qty"  disabled="disabled"   color="secondary" variant="contained" placeholder="Placeholder"
                           />
                            </v-col>
                               <v-col cols="12" sm="12">
                                <v-text-field
-                              v-model="editProteine"  label="proteine"  color="secondary" variant="contained" placeholder="Placeholder"
+                               v-bind:label="AlimentUser.proteine * AlimentUser.qty" disabled="disabled"  color="secondary" variant="contained" placeholder="Placeholder"
                           ></v-text-field>
                            </v-col>
                          
@@ -167,7 +172,7 @@
                 @click="isActive.value = false"
               >Close</v-btn>
                 <v-btn
-              @click="editRegime(regime.id)"
+              @click="editRegimeUser(regime.id)"
               >Update</v-btn>
             </v-card-actions>
           </v-card>
@@ -208,12 +213,16 @@ export default {
             Dejuner:{},
                  Dinner:{},
                  Snack:{},
-                 editCalorie:"",
-                 editCarbs:"",
-                 editqty:"",
-                 editFat:"",
-                 editProteine:"",
-                 quantiter:1
+               
+                 
+                 AlimentUser:{},
+                 
+            grammage:"",
+            calorie:"",
+            carbs:"",
+            fat:"",
+            qty:"",
+            proteine:"",
     
         
            
@@ -327,18 +336,18 @@ export default {
          
        )
      },
-        updateRegime(id){
-           axios.get('http://localhost:8000/api/auth/updateRegime/'+ id)
-        .then(response => {
-               console.log(response);
-               this.id = response.data.id;
-                this.editqty = response.data.qty;
-               this.editCalorie = response.data.calorie;
-               this.editCarbs = response.data.carbs;
-                   this.editFat = response.data.fat;
-               this.editProteine = response.data.proteine;
-             
-     }); 
+        
+      updateAlimentUser($name){
+           axios.get('http://localhost:8000/api/auth/updateAlimentUser/'+ $name)
+         .then (res => {
+         console.log(res.data);
+         this.AlimentUser = res.data;
+       }).catch(
+         error =>{
+           console.log(error);
+         } 
+         
+       )
     },
     
          deleteRegime(id){
@@ -355,6 +364,44 @@ export default {
                }
           });
      },
+      editRegimeUser($id){
+       
+           axios.post('http://localhost:8000/api/auth/editRegimeUser/'+ $id ,{
+              
+        
+             grammage:this.AlimentUser.grammage * this.AlimentUser.qty,
+             calorie:this.AlimentUser.calorie * this.AlimentUser.qty,
+             carbs:this.AlimentUser.carbs * this.AlimentUser.qty,
+             fat:this.AlimentUser.fat * this.AlimentUser.qty,
+             proteine:this.AlimentUser.proteine * this.AlimentUser.qty,
+               qty:this.AlimentUser.qty ,
+          
+           
+          
+                
+             } ).then(response => {
+               console.log(response);
+              
+               if(response.status == 200){
+                      this.$toast.success(" success aliment saved.", {
+                          position : "top-right"
+
+                  });
+            
+                  
+               }
+          }).catch(
+         error =>{
+             this.$toast.error(" error aliment not saved.", {
+                          position : "top-right"
+                          
+                  });
+                  
+           console.log(error);
+         } 
+         
+       )
+        },
     }
     
 }

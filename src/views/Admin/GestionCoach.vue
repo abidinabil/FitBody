@@ -9,7 +9,7 @@
       tile
       flat
       class="mx-10"
-      style="background:url(https://images.pexels.com/photos/5646011/pexels-photo-5646011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940); margin-top:80px"
+      style="background:url(https://images.pexels.com/photos/6455775/pexels-photo-6455775.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1); margin-top:80px"
       dark
     >
      
@@ -139,12 +139,12 @@
                            class="mt-4"
                           />
                            </v-col>
-                            <v-col cols="12" sm="6">
+                            <v-col cols="12" sm="12">
                               <v-textarea
                               v-model="subtext"
                             background-color="grey lighten-2"
                             color="cyan"
-                            label="Label"
+                            label="Description"
                           ></v-textarea>
                            </v-col>
       
@@ -268,12 +268,12 @@
           <v-card style=" width: 900px ; margin-top:-130px ; margin-left:-150px" >
             <v-toolbar
               color="primary"
-            >Opening from the top</v-toolbar>
+            >Modifier Coach</v-toolbar>
              <v-window v-model="step">
                 <v-window-item :value="1">               
                  <form action="" >  
                         <h4
-                          class="text-center" >Modifier Coach</h4>  
+                          class="text-center" style="color:black" >Modifier Coach</h4>  <br><br>
                            <v-row class="mx-4">
                                <v-col cols="12" sm="6">
                             <v-text-field
@@ -318,7 +318,7 @@
               >Close</v-btn>
                 <v-btn
               @click="editCoach(coach.id)"
-              >Update</v-btn>
+              >Modifier</v-btn>
             </v-card-actions>
           </v-card>
         </template>

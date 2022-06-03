@@ -52,7 +52,7 @@
         </v-btn>
       </v-btn-toggle><br><br><br>
              <v-btn @click.prevent="addTocart(products.id)" class="mx-16" justify-center style="background-color: rgb(0, 125, 181); ; color:White ; border-radius:15px" >
-               <v-icon>mdi-shopping</v-icon> Achetez Maintenant</v-btn><br><br>
+               <v-icon>mdi-shopping</v-icon> Ajouter au Panier</v-btn><br><br>
                     <div style="  background: rgb(245, 245, 245); padding:2rem "><br><br>
                     <p style="color:black"><v-icon  style="padding: 0% 1.5rem">mdi-refresh</v-icon> Free Returns On All Orders</p>
                      <p style="color:black"><v-icon style="padding: 0% 1.5rem">  mdi-signature-freehand</v-icon>    Free Standard Over $75</p>
@@ -111,21 +111,18 @@ export default {
         qty:1
         
       
-      }) .then (res => {
+      }) .then (response => {
           
-            console.log(res.data)
-                     this.$toast.success(" product saved in baskets.", {
+            console.log(response)
+                     this.$toast.success(" Produit Ajouter au panier avec succès.", {
                           position : "top-right"
                   });     
-               
-        
        }).catch(
-         res =>{
-              if(res.status == 100){
-                     this.$toast.error(" product not saved in baskets.", {
+         err =>{
+                     this.$toast.error(" Produit deja existe", {
                           position : "top-right"
                   });     
-               }
+               console.log(err)
           
          } 
          

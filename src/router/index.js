@@ -50,6 +50,8 @@ import searchAliment from '../views/searchAliment.vue'
 import posteView from '../views/posteView.vue'
 import EnregistrementView from '@/views/EnregistrementView.vue'
 import GestionUser from '@/views/Admin/GestionUser.vue'
+import PosteUser from '@/views/PosteUser.vue'
+import GestionPoste from '../views/Admin/GestionPoste.vue'
 
 const routes = [
   {
@@ -65,6 +67,12 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
    // component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+  },
+  {
+    path: '/GestionPoste',
+    name: 'GestionPoste',
+    component:GestionPoste
+    
   },
 
   {
@@ -326,6 +334,11 @@ const routes = [
     path: '/posteView',
     name: 'posteView',
     component:posteView,
+  },
+  {
+    path: '/PosteUser',
+    name: 'PosteUser',
+    component:PosteUser,
   },
   {
     path: '/EnregistrementView',

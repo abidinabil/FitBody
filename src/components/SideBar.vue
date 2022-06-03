@@ -9,24 +9,31 @@
     </v-toolbar-title>
  
     <v-spacer></v-spacer>
-    <v-btn flat class="font-weight-light">
-      <span  @click.prevent="performLogout">Logout</span>
-      <v-icon>exit_to_app</v-icon>
-    </v-btn>
-    <br>
-    <v-text-field
-            
-            label="Search"
-            prepend-inner-icon="mdi-account-search"
-            variant="outlined"
-            width="250"
-          ></v-text-field>
-        <v-avatar>
-      <img
-        src="https://cdn.vuetifyjs.com/images/john.jpg"
-        alt="John"
-      >
+       <v-menu>
+      <template v-slot:activator="{ props }">
+           <v-avatar   >
+    <v-img v-bind:src="'../image/ProfileUser/' + user.photo" style="width:150px ; height: 150px"></v-img>
     </v-avatar>
+        <v-btn
+         v-if="loggedIn"
+          color="primary"
+          v-bind="props"
+        >
+          {{this.user.name}}
+        </v-btn>
+      </template>
+      <v-list>
+      
+          <v-list-item-title  v-if="loggedIn" ><router-link :to="{name:'ProfileView' }" >Profile</router-link></v-list-item-title>
+  
+              <v-list-item-title  v-if="loggedIn" ><v-btn @click.prevent="performLogout" >Logout</v-btn></v-list-item-title>
+     
+      </v-list>
+    </v-menu>
+    <br>
+   
+        
+   
     
    </v-app-bar> 
    <v-navigation-drawer style="margin-top:55px ; background-color:white ;" flat app v-model="drawer"  >
@@ -49,28 +56,43 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
 import PopupView from "./PopupView.vue"
 export default {
     component:{PopupView},
     data() {
         return {
+            users: {},
             drawer: true,
              items: [
         { text: 'Dashboard', icon: 'mdi-view-dashboard' , route:'/DashbordView' },
         { text: 'Exercice', icon: 'mdi-dumbbell' , route:'/GestionExercice' },
             { text: 'Article de Nutrition', icon: 'mdi-nutrition' , route:'/GestionNutrition' },
             { text: 'Nutritionniste', icon: 'mdi-account' , route:'/GestionNutritionniste' },
-                  { text: 'User', icon: 'mdi-account' , route:'/GestionUser' },
+                  { text: 'Utilisateur', icon: 'mdi-account' , route:'/GestionUser' },
              { text: 'Coach', icon: 'mdi-account' , route:'/GestionCoach' },
-                 { text: 'Gym', icon: 'mdi-dumbbell' , route:'/GestionGym' },
+                 { text: 'Salle de Sport', icon: 'mdi-dumbbell' , route:'/GestionGym' },
               { text: 'Boutique', icon: 'mdi-shopping' , route:'/GestionBoutique' },
                    { text: 'Aliment', icon: 'mdi-nutrition' , route:'/GestionAliment' },
+                     { text: 'Poste Adhérant', icon: 'mdi-nutrition' , route:'/GestionPoste' },
            
         
       ],
         }
     },
      methods: {
+             getUser(){
+       axios.get('http://localhost:8000/api/auth/getUser/'+this.user.id)
+        .then (res => {
+         console.log(res.data);
+         this.users = res.data;
+       }).catch(
+         error =>{
+           console.log(error);
+         } 
+         
+       )
+     },
    
    performLogout() {
       this.$store
@@ -87,7 +109,10 @@ export default {
     computed: {
     loggedIn() {
       return this.$store.getters.get_loggedIn;
-    }
+    },
+      user() {
+      return this.$store.getters.get_user;
+    },
     }
 }
 </script>

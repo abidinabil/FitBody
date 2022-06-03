@@ -10,7 +10,7 @@
       tile
       flat
       class="mx-10"
-      style="background:url(https://images.pexels.com/photos/257816/pexels-photo-257816.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940); margin-top:80px"
+      style="background:url(https://images.contentstack.io/v3/assets/blt45c082eaf9747747/blt24c38c91be162c7e/5de0b81b9ea65b64fac04644/Meal_Prep_Header_Cut.jpg?format=pjpg&auto=webp&quality=76&width=1232); margin-top:80px"
       dark
     >
      
@@ -21,7 +21,7 @@
                      <v-toolbar extended color="transparent">
                 
 
-                <h1 style="font-size:20px; "> List Nutrition</h1> <br>
+                <h1 style="font-size:20px; "> Listes des Articles du Nutrition</h1> <br>
                 
                 
 
@@ -39,7 +39,7 @@
           dark
           v-bind="props"
         >
-          Ajout Nutrition
+          Ajouter Article
         </v-btn>
       </template>
       <v-card>
@@ -80,33 +80,34 @@
                     <v-col cols="12" md="12">
                       <v-card-text class="mt-12">
                         <h4
-                          class="text-center" >Ajouter Nutrition</h4>  
+                          class="text-center" style="color:black">Ajouter Article</h4> <br><br> 
                         <v-row align="center" justify="center">
                           <v-col cols="12" sm="8">
                            <v-row>
                                <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="name"  label="name" outline  dense   color="blue"  autocomplete="false"  class="mt-4"
+                            v-model="name"  label="name"  color="secondary"     variant="contained"  required
                           />
                            </v-col>
                            <v-col cols="12" sm="6">
                             <v-text-field
-                            v-model="title"  label="title" outline  dense   color="blue"  autocomplete="false"  class="mt-4"
+                            v-model="title"   color="secondary"  label="Title" variant="contained"  required
                           />
                            </v-col>
-                           <v-col cols="12" sm="6">
+                           <v-col cols="12" sm="12">
                             <v-text-field
-                            v-model="text" label="text" outlined  dense color="blue" autocomplete="false" class="mt-4"  />
+                            v-model="text"  color="secondary"        label="Slug"    variant="contained" required  />
                            </v-col>
-                            <v-col cols="12" sm="6">
+                            <v-col cols="12" sm="12">
                               <v-textarea
-                              v-model="subtext"  background-color="grey lighten-2" color="cyan"  label="Label"
+                              v-model="subtext"   color="secondary"  label="Description"  variant="contained" required
                           ></v-textarea>
                            </v-col>
                            </v-row>
                             <v-file-input
-                          accept="image/*" label="File input"    @change="onChange" ></v-file-input>     
-                           <input type="submit" value="Ajouter">
+                          accept="image/*"  color="secondary"  label="Image" variant="contained"
+                         required   @change="onChange" ></v-file-input>     
+                           <input type="submit" value="Ajouter" >
                           </v-col>
                         </v-row>  
                       </v-card-text>
@@ -155,8 +156,18 @@
               <td>{{nutrition.id}}</td>
             <td>{{nutrition.title}}</td>
             <td>{{nutrition.text}}</td>
-            <td>{{nutrition.subtext}}</td>
-            <td>  <v-img v-bind:src="'../image/Nutrition/' + nutrition.image" style="width:50px ; height: 50px"></v-img>
+            <td><p v-if="nutrition.subtext.length > 100">
+                {{
+                  showAll ? nutrition.subtext : nutrition.subtext.slice(0, 120)
+                }}
+                <a  ><span @click="showAll = true" style="color: blue"
+                    >Lire la Suite</span ></a >
+                  
+
+              </p>
+             
+              </td>
+            <td>  <v-img v-bind:src="'../image/Nutrition/' + nutrition.image" style="width:150px ; height: 150px"></v-img>
                    <v-dialog transition="dialog-top-transition">
             <template v-slot:activator="{ props }">
               <v-btn flat rounded v-bind="props"
@@ -185,7 +196,7 @@
              <td>
                 
                  <v-img type="button" @click="deleteNutrition(nutrition.id) " 
-                         src="https://cdn.dribbble.com/users/1914549/screenshots/5346994/day21.gif" style="margin-left:-50px; width: 150px;">
+                         src="https://cdn.dribbble.com/users/1914549/screenshots/5346994/day21.gif" style="margin-left:-30px; width: 150px;">
                         </v-img>
              </td>
                    <td>      
@@ -234,7 +245,7 @@
                     <v-col cols="12" md="12">
                       <v-card-text class="mt-12">
                         <h4
-                          class="text-center" >Modifier Nutrition</h4>  
+                          class="text-center" style="color:black" >Modifier Article de Nutrition</h4> <br><br> 
                         <v-row align="center" justify="center">
                           <v-col cols="12" sm="8">
                            <v-row>
@@ -257,7 +268,7 @@
                             
                            </v-row>
                              
-                           <input type="submit" value="Update">
+                           <input type="submit" value="Modifier">
                           </v-col>
                         </v-row>  
                       </v-card-text>
@@ -318,6 +329,8 @@ export default {
                editsubtext:"",
                editimage:"",
                errors:[],
+               showAll:false,
+               showAll1:false,
            
         
         }

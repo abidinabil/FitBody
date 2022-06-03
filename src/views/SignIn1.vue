@@ -1,8 +1,9 @@
 <template>
+<navbar-view style=" background: linear-gradient(87deg,#2dce89,#2dcecc)!important;"> </navbar-view>
     <div class="si">
          <v-container style="padding:7rem">
-             <h1 style="color:white" class="text-center">Welcome</h1>
-             <p style="color:white" class="text-center">Use these awesome forms to login or create new account in <br> your project for free.</p>
+             <h1 style="color:white" class="text-center">FitBody</h1>
+             <p style="color:white" class="text-center">Ravis de vous <br> revoir</p>
              <br>
              <br>
                <v-card
@@ -14,21 +15,10 @@
   <br>
   
 
-        <div class="text-center">
-          Sign in with
-        </div>
-        <br>
-        
-        <v-row class="text-center">
-        <v-col cols="12" md="12" >
-             <v-btn  style="  width:130px ; border-radius:5px" color="white " ><v-icon color="blue">mdi-facebook</v-icon > Facebook</v-btn> 
-             <v-btn  style="  width:130px ; border-radius:5px" color="white "><v-icon color="red">mdi-google</v-icon>Google</v-btn>    
-        </v-col>
-        <br>
-        <v-divider></v-divider> <br>         
-        </v-row>
+        <v-img src="https://us.v-cdn.net/6032561/uploads/365P6BBB46LC/bienvenue-lettres.gif"></v-img>
+       <v-divider></v-divider>
         <br><br>
-           <p class="text-center">Or sign in with credentials</p>
+           <p class="text-center"> Connexion</p>
            
            
             <v-form >
@@ -54,7 +44,7 @@
           ></v-text-field>
            <div style="color:red" v-if="error">{{error}}</div>
           <div class="text-center">
-          <v-btn flat color="#5e72e4" @click.prevent="performLogin" > Sign in </v-btn> </div>
+          <v-btn flat color="#5e72e4" @click.prevent="performLogin" > Connexion</v-btn> </div>
                 </v-container>
                   
             </v-form>
@@ -69,18 +59,19 @@
          <v-container style="margin-top:-130px">
              <v-row class="text-center">
                  <v-col cols="12" md="6">
-                <p style="color:white">Forgot password?</p>
+               
                  </v-col>
                   <v-col cols="12" md="6">
-                <p style="color:white">Create new account</p>
+             <router-link :to="{name:'UserView' }"> <p style="color:white" >Créer un nouveau compte</p></router-link>  
                  </v-col>
              </v-row>
          </v-container>
     </div>
 </template>
 <script>
+import NavbarView from '@/components/NavbarView.vue'
 export default {
-  
+     components: { NavbarView },
   
   data() {
     return {
@@ -128,7 +119,7 @@ export default {
 </script>
 <style>
 .si{
-    height:250vh;
+  
     background: linear-gradient(-3deg,#172b4d 50%,#2dcecc 50%, #2dce89);
 }
 </style>

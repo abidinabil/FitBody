@@ -7,7 +7,7 @@
             <h2 class="test" style="color:white">L’IA se charge de la préparation, et vous, de la transpiration</h2>
             
             <p style="color:aliceblue">D’innombrables combinaisons possibles avec plus de 350 exercices pour que vous gardiez la motivation et la forme.</p>
-           <v-btn style="background-color: white ; color:black" >Commencer dés maintenant</v-btn>    
+           <v-btn style="background-color: white ; color:black"  :to="{name:'ExerciceView' }">Commencer dés maintenant</v-btn>    
       </v-col>
       <v-col cols="12" xs="12" sm="6" md="6" lg="6">
         <v-img  src="https://images.contentstack.io/v3/assets/blt45c082eaf9747747/blt3a8efbd6d1fa12ec/61c9aa323d2b1760404ede29/1104_x_1264_female_(2).jpg?auto=webp&quality=85&format=pjpg&width=878" style="height:550px ; "  ></v-img>
@@ -55,7 +55,7 @@
                     <p style="color:white">
                         Votre Coach analyse votre forme physique et vos objectifs. Et, plus vous vous entraînez, plus il s'adapte à vous.
                     </p>
-                     <v-btn style="margin-left:50px" depressed color="white">  learn about training <v-icon>mdi-arrow-right</v-icon> </v-btn>
+                     <v-btn style="margin-left:50px" depressed color="white"  :to="{name:'ExerciceView' }">  learn about training <v-icon>mdi-arrow-right</v-icon> </v-btn>
                 
                 </v-col>
                   <v-col cols="12" xs="12" md="3" lg="3">
@@ -175,7 +175,7 @@
         
     </v-row>
     <br>
-    <v-btn style="background-color: black ; color:white ; padding:2rem" class="text-center" >Devenir un Athlète Libre <v-icon>mdi-arrow-right</v-icon></v-btn> 
+    <v-btn style="background-color: black ; color:white ; padding:2rem" class="text-center"  :to="{name:'ExerciceView' }" >Devenir un Athlète Libre <v-icon>mdi-arrow-right</v-icon></v-btn> 
     </v-container>
 </p>
   </div>

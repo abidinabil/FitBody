@@ -9,7 +9,7 @@
       tile
       flat
       class="mx-10"
-      style="background:url(https://images.pexels.com/photos/1552252/pexels-photo-1552252.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500); margin-top:80px"
+      style="background:url(https://images.contentstack.io/v3/assets/blt45c082eaf9747747/blt765385b1e3088c56/627286744d9f89297128f6b2/training-and-injury-header.jpg?format=pjpg&auto=webp&quality=76&width=1232); margin-top:80px"
       dark
     >
      
@@ -18,7 +18,7 @@
              <v-row>
                  <v-col cols="12" md="12">
                      <v-toolbar extended color="lightgray">
-                <h1 style="font-size:20px; "> List Exercice</h1> <br>
+                <h1 style="font-size:20px; "> Liste des Exercices</h1> <br>
                 
                 
 
@@ -37,7 +37,7 @@
       color="primary"
       v-bind="props"
     >
-      Ajout Exercice
+      Ajouter Exercice
     </v-btn>
 
       </template>
@@ -77,7 +77,7 @@
                     <v-col cols="12" md="12">
                       <v-card-text class="mt-12">
                         <h4
-                          class="text-center"
+                          class="text-center" style="color:black"
                         >Ajouter Exercice</h4> <br><br>
                         
                         <v-row align="center" justify="center">
@@ -223,9 +223,19 @@
             <td>{{exercice.text}}</td>
             <td>{{exercice.catégorie}}</td>
 
-              <td>{{exercice.subtext}}</td>
+              <td><p v-if="exercice.subtext.length > 100">
+                {{
+                  showAll ? exercice.subtext : exercice.subtext.slice(0, 120)
+                }}
+                <a  ><span @click="showAll = true" style="color: blue"
+                    >Lire la Suite</span ></a >
+                  
+
+              </p>
+             
+              </td>
               <td>
-                    <v-img v-bind:src="'../image/Exercice/' + exercice.image"> </v-img>
+                    <v-img v-bind:src="'../image/Exercice/' + exercice.image" style="width:150px; height:150px"> </v-img>
                       <v-dialog transition="dialog-top-transition">
             <template v-slot:activator="{ props }">
               <v-btn flat rounded v-bind="props"
@@ -295,12 +305,12 @@
           <v-card style=" width: 900px ; margin-top:-130px ; margin-left:-150px" >
             <v-toolbar
               color="primary"
-            >Opening from the top</v-toolbar>
+            >Modifier Exercice</v-toolbar>
              <v-window v-model="step">
                 <v-window-item :value="1">               
                  <form action="" >  
                         <h4
-                          class="text-center" >Modifier Exercice</h4>  
+                          class="text-center" style="color:black">Modifier Exercice</h4>  <br><br>
                            <v-row class="mx-4">
                                <v-col cols="12" sm="6">
                             <v-text-field
@@ -351,11 +361,12 @@
             <v-card-actions class="justify-center">
               <v-btn
                 text
+                class="mx-auto"
                 @click="isActive.value = false"
               >Close</v-btn>
-                <v-btn
+                <v-btn class="mx-auto"
               @click="editExercice(exercice.id)"
-              >Update</v-btn>
+              >Modifier</v-btn>
             </v-card-actions>
           </v-card>
         </template>
@@ -393,7 +404,8 @@ export default {
            editsubtext:"",
            editcatégorie:"",
            errors:[],
-           search:""
+           search:"",
+           showAll:false,
            
            
         } 

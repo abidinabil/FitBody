@@ -28,7 +28,12 @@
          </div><br><br>
            <v-breadcrumbs :items="items" class="mx-16"></v-breadcrumbs><br><br>
           <v-row class="mx-16">
+                      <v-container v-if=" ProduitUser == '' ">
+                  
+                      <v-alert type="error">  Désolé, nous ne pouvons pas publier ceci ici, c'est hors contenu </v-alert>
+                      </v-container>
                           <v-col cols="12" sm="8" v-for="produit in ProduitUser" :key="produit.id">
+                   
                              <v-divider></v-divider>
                            <v-row>
                            <v-col cols="12" sm="4">
@@ -43,7 +48,7 @@
                            
                         </v-toolbar>
                          <p style="color: black; font-weight: bold;">{{produit.slug}}</p> 
-                        <p style="color: black; font-weight: bold;">{{produit.name}}</p> 
+                        <p style="color: black; font-weight: bold;">{{produit.categorie}}</p> 
                               <v-col cols="12" md="12">
                 
                         <v-text-field
@@ -56,13 +61,31 @@
                   
                     ></v-text-field>
               </v-col>
+              <v-col cols="12" sm="12">
+                   <select
+                          
+                        class="form-select"
+                            required
+                         
+                           
+                    >
+                            <option value="select-catégorie">Taille</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                               <option value="L">L</option>
+                                  <option value="XL">XL</option>
+                                  <option value="XXL">XXL</option>
+                 </select>
+              </v-col>
               
-                   <v-btn @click.prevent="addTocart" class="mx-16" justify-center style="background-color: red; ; color:White ; border-radius:15px" >
+                   <v-btn @click.prevent="deleteProduitPanier(produit.id)" class="mx-16" justify-center style="background-color: red; ; color:White ; border-radius:15px" >
                <v-icon>mdi-delete</v-icon>Supprimer Produit</v-btn><br><br>
                            </v-col>
                            </v-row>
+                            
                            </v-col>
-                           <v-col cols="12" sm="4" md="4"  >
+                           
+                           <v-col cols="12" sm="4" md="4" v-if=" ProduitUser != '' " >
                              <div style=" min-height: 25; background: lightgray ; border-radius:15px;  padding:2rem"><br><br>
                      
                         <h2  style="color:black ; font-family:'Courier New', Courier, monospace">Panier  </h2>
@@ -82,14 +105,12 @@
                          </v-col>
                        {{subTotal}} <br><br><br>
 
-                         <v-btn @click.prevent="AddCommande(produit.id)" class="btn btn-danger btn-block" >
-                        Valider Commande
-                      </v-btn>
+                       
                       </div>
                              
                              
                            </v-col>
-                            
+                          <v-btn @click.prevent="storeCart" v-if=" ProduitUser != '' ">Commender</v-btn>
                            </v-row>
          
             
@@ -147,17 +168,67 @@ export default {
     
     },
     methods:{
+                    storeCart(){
+            
+            
+                   let fd = new FormData();
+           
+         
+           console.log(FormData)
+            
+                              fd.append('cartItems', this.ProduitUser);
+                               fd.append('id_user', this.user.id);
+
+     axios.post("http://localhost:8000/api/auth/storeCart" ,fd , { 
+           
+           })
+        .then (res => {
+         console.log(res);
+           this.$toast.success(" success Produit saved.", {
+                          position : "top-right"
+                  });
+                 
+                   
+        
+       }).catch(
+         error =>{
+             this.$toast.error(" error Produit not saved.", {
+                          position : "top-right"
+                          
+                  });
+                  
+           console.log(error);
+         } 
+         
+       )
+                
+     },
               getProduitUser(){
        axios.get('http://localhost:8000/api/auth/getProduitUser/'+this.user.id)
         .then (res => {
          console.log(res.data);
          this.ProduitUser = res.data;
+         console.log(this.ProduitUser)
        }).catch(
          error =>{
            console.log(error);
          } 
          
        )
+     },
+       deleteProduitPanier($id){
+        axios.delete('http://localhost:8000/api/auth/deleteProduitPanier/'+ $id)
+        .then(response => {
+               console.log(response);
+              
+               if(response.status == 200){
+                  this.getProduitUser();
+                      this.$swal('deleted succefuly');
+                   
+               }else{
+                 alert('error')
+               }
+          });
      },
      
    

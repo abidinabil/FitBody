@@ -89,7 +89,7 @@
     </div> <br><br><br>
     <v-row class="mx-4">
       <v-col cols="12" xs="12" sm="6" md="4" lg="3" v-for="women in ProduitWomens" :key="women.name">
-          <v-card 	>
+          <v-card  :to="{name: 'ProductDetails' , params:{id:women.id}}"	>
         <div class="ui-card">
             <v-img   :aspect-ratio="1"   v-bind:src="'../image/boutique/' + women.image" 
                    cover    > </v-img>

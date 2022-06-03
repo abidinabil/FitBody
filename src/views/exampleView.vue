@@ -4,7 +4,7 @@
           <v-container >
     <v-row class="r1">
       <v-col  cols="12" xs="12" sm="6" md="6" lg="6">
-            <h2 class="test" style="color:white">Welcome to FitBodt</h2>
+            <h2 class="test" style="color:white">Bienvenue chez FitBody</h2>
             
             <p style="color:aliceblue">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti voluptatem animi eveniet voluptate beatae, facilis vitae 
               rerum perspiciatis blanditiis porro, unde, sunt optio similique quidem ab. Veniam laudantium tempore dolore.</p>
@@ -22,18 +22,18 @@
             <v-row >
                 <v-col cols="12" xs="12" md="8" lg="4">
                  <h1 class="stroke">01</h1>
-                 <h3 style="color:black ; margin-top:-60px; margin-left:60px"> Motivate</h3>
-                 <p >It’s one of the best methods of combining the independence and initiative of individual ownership.</p>
+                 <h3 style="color:black ; margin-top:-60px; margin-left:60px"> Motiver</h3>
+                 <p >C'est l'un des meilleurs moyens d'allier l'indépendance et l'initiative de la propriété individuelle.</p>
                 </v-col>
                     <v-col cols="12" xs="12" md="8" lg="4">
                  <h1 class="stroke">02</h1>
-                 <h3 style="color:black ; margin-top:-60px; margin-left:60px"> Workout</h3>
-                 <p >It’s one of the best methods of combining the independence and initiative of individual ownership.</p>
+                 <h3 style="color:black ; margin-top:-60px; margin-left:60px"> Entrainement</h3>
+                 <p >C'est l'un des meilleurs moyens d'allier l'indépendance et l'initiative de la propriété individuelle.</p>
                 </v-col>
                     <v-col cols="12" xs="12" md="8" lg="4">
                  <h1 class="stroke">03</h1>
                  <h3 style="color:black ; margin-top:-60px; margin-left:60px"> Resultat</h3>
-                 <p >It’s one of the best methods of combining the independence and initiative of individual ownership.</p>
+                 <p >C'est l'un des meilleurs moyens d'allier l'indépendance et l'initiative de la propriété individuelle.</p>
                 </v-col>
                   
                
@@ -51,8 +51,8 @@
           </v-col>
           <v-col cols="12" xs="12" md="6" sm="12" lg="6">
             <div class="a">
-          <p style="color:white">OUR BENEFITS</p>
-          <h2   style="color:white" class="text">Unlimited group & <br> personal trainings <br> anywhere.</h2> </div>
+          <p style="color:white">NOS AVANTAGES</p>
+          <h2   style="color:white" class="text">Groupe illimité  & <br> formations personnelles <br> partout..</h2> </div>
           </v-col>
         </v-row>  
         </div>
@@ -98,7 +98,7 @@
                     <p>
                        Obtenez des programmes de repas personnalisés et idéals <br> pour votre corps et vos objectifs. Pas de calcul de calories nécessaire.
                     </p>
-                     <v-btn style="margin-left:50px" depressed color="black">  learn about training <v-icon>mdi-arrow-right</v-icon> </v-btn>
+                     <v-btn style="margin-left:50px" depressed color="black">  Se Renseigner Sur l'alimentation <v-icon>mdi-arrow-right</v-icon> </v-btn>
                 
                 </v-col>
 
@@ -138,10 +138,10 @@
          
             <br>
             <br>
-               <span style="background-color: cadetblue; color:white; font-size:20px ;" class="text-center"> We take care of everything</span> <br>
+               <span style="background-color: cadetblue; color:white; font-size:20px ;" class="text-center"> Nous  occupons de tout</span> <br>
                <br>
                <br>
-               <h1 style="color:white ; font-size:80px" class="text-center">The Best Standards <br> Anywhere.</h1>
+               <h1 style="color:white ; font-size:80px" class="text-center">Les meilleures normes <br> partout.</h1>
                <h1 style=" margin-left:-80px; margin-top:-180px; text-transform:uppercase;letter-spacing:2px;-webkit-text-fill-color:transparent;-webkit-text-stroke-width:2px; font-size:600px; ">sport
                  
 
@@ -174,8 +174,8 @@
                    </v-img>
           </v-col>
           <v-col cols="12" md="6" lg="6" style="padding:5rem">
-               <span style="background-color: black; color:white; font-size:20px ; text-transform:uppercase"> OUR PHILOSOPHY</span> <br>
-               <h1 style="  color: #181818 ;">We make real results <br> happen.</h1><br><br><br>
+               <span style="background-color: black; color:white; font-size:20px ; text-transform:uppercase"> Notre Philosophie</span> <br>
+               <h1 style="  color: #181818 ;">Nous produisons de vrais <br> résultats.</h1><br><br><br>
                   <v-expansion-panels
       v-model="panel"
       :disabled="disabled"
@@ -272,7 +272,7 @@
       <a class="gotopbtn" href="#"> <v-icon>mdi-arrow-up</v-icon> </a>
 
    
-     
+     <footer-view />
 
 
     
@@ -281,6 +281,7 @@
 
 <script>
 import NavbarView from "@/components/NavbarView.vue"
+import FooterView from '@/components/FooterView.vue';
 
 
 export default {
@@ -312,7 +313,7 @@ export default {
             ]
         };
     },
-    components: { NavbarView }
+    components: { NavbarView, FooterView }
 }
 
 </script>

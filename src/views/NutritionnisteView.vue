@@ -82,7 +82,7 @@
          <div class="box">
             <div class="front-face" >
                <div class="icon">
-                    <v-img  class="bg-white"   height="380px" :aspect-ratio="1" v-bind:src="'../image/Nutritionniste/' + nutritionniste.photo" 
+                    <v-img  class="bg-white"   style="width:600px ; height: 450px" :aspect-ratio="1" v-bind:src="'../image/Nutritionniste/' + nutritionniste.photo" 
                    cover   > </v-img>
                </div>
              
@@ -93,7 +93,7 @@
                  {{nutritionniste.subtext}}
                </p>
                
-            </div>
+            </div><br><br><br>
                <span style="color:dodgerblue">Nutritionniste</span>
                <h5>{{nutritionniste.nom}}</h5>
                <p><v-icon style="color:dodgerblue">mdi-map-marker</v-icon> {{nutritionniste.adresse}}</p>
@@ -183,7 +183,7 @@ export default {
   top: 0;
   left: 0;
   z-index: 1;
-  height: 500px;
+  height: 550px;
   width: 100%;
   padding: 30px;
   color: #fff;

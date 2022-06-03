@@ -4,11 +4,11 @@
    <div class="Nutrition">
        <v-row >
       <v-col  cols="12" xs="12" sm="6" md="12" lg="12" class="text-align:center">
-            <h2 class="text-align:center" style="color:white">Welcome to FitBodt</h2>
+            <h2 class="text-align:center" style="color:white">Bienvenue chez FitBody</h2>
             
             <p style="color:aliceblue ; font-size:20px"  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti voluptatem animi eveniet voluptate beatae, facilis vitae 
               rerum perspiciatis blanditiis porro, unde, sunt optio similique quidem ab. Veniam laudantium tempore dolore.</p>
-           <v-btn to="ArticleNutrition" style="background-color: white ; color:black" >Commencer dés maintenant</v-btn>    
+           <v-btn  :to="{name:'ArticleNutrition' }" style="background-color: white ; color:black" >Commencer dés maintenant</v-btn>    
       </v-col>
       </v-row>
  
@@ -58,7 +58,7 @@
   </div>
   <div class="success">
         <div class="text-center">
-           <h2 class="text-align:center" style="color:white">Success stories</h2>
+           <h2 class="text-align:center" style="color:white">Réussites</h2>
             
             <p style="color:aliceblue ; "  >D’autres sont déjà sur le chemin de l'excellence. Vous n’êtes  qu’à un pas de votre propre success story. Franchissez-le.</p>
               <v-row>
@@ -74,7 +74,7 @@
               </v-row>
               <br>
               <p style="color:aliceblue ; "  >Les résultats peuvent varier en fonction de votre niveau sportif, votre entraînement et votre alimentation.</p><br>
-                <v-btn to="ArticleNutrition" style="background-color: white ; color:black">Commencer a manger sainement</v-btn>      
+                <v-btn  :to="{name:'ArticleNutrition' }" style="background-color: white ; color:black">Commencer a manger sainement</v-btn>      
         </div>
   </div>
 

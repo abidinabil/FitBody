@@ -5,6 +5,8 @@ import axios from "axios";
 const store = createStore({
   state: {
     loggedIn: false,
+    loggedUser: false,
+    loggedAdmin:false,
  
     user: null,
     token: null,
@@ -19,6 +21,12 @@ const store = createStore({
     },
     SET_loggedIn(state, payload) {
       state.loggedIn = payload;
+    },
+    SET_loggedAdmin(state, payload) {
+      state.loggedAdmin = payload;
+    },
+    SET_loggedUser(state, payload) {
+      state.loggedUser = payload;
     },
   
     SET_cv(state, payload) {
@@ -37,6 +45,15 @@ const store = createStore({
             commit("SET_token", res.data.access_token);
             commit("SET_user", res.data.user);
             commit("SET_loggedIn", true);
+            if(res.data.user.role == 'user'){
+             
+              commit("SET_loggedUser",true);
+              commit("SET_loggedAdmin", false);
+            }else if(res.data.user.role == 'admin'){
+              
+              commit("SET_loggedUser",false);
+              commit("SET_loggedAdmin", true);
+            }
            
            
             resolve(res);
@@ -96,9 +113,11 @@ const store = createStore({
 
           .then((res) => {
             commit("SET_token", null);
-
-            commit("SET_loggedIn", false);
             commit("SET_user", null);
+            commit("SET_loggedIn", false);
+            commit("SET_loggedAdmin", false);
+               commit("SET_loggedUser", false);
+          
          
             resolve(res);
           })
@@ -113,6 +132,12 @@ const store = createStore({
   getters: {
     get_loggedIn(state) {
       return state.loggedIn;
+    },
+    get_loggedAdmin(state) {
+      return state.loggedAdmin;
+    },
+    get_loggedUser(state) {
+      return state.loggedUser;
     },
   
     get_user(state) {

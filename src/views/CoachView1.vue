@@ -5,7 +5,7 @@
     <v-row class="mx-4">
         <v-col cols="12" md="6">
                  <h1 style="  text-transform:uppercase;letter-spacing:2px;-webkit-text-fill-color:transparent;-webkit-text-stroke-width:0.3px; font-size:300px; "> Fit <br> Body  </h1>
-                 <h2 style="color:#21212 ; margin-top:-550px  ;letter-spacing:2px ; ; font-size:90px">Your skilled personal gym trainer</h2>
+                 <h2 style="color:#21212 ; margin-top:-550px  ;letter-spacing:2px ; ; font-size:90px"> Votre entraîneur de gym personnel qualifié</h2>
 
         </v-col>
         <v-col cols="12" md="6">
@@ -20,8 +20,8 @@
             
         <v-col cols="12" md="6" lg="6">
             <br><br><br>
-            <span style="background-color: black; color:white; font-size:20px ;" > HOW IT WORKS</span> <br>
-            <h1  style="color:#212121">Reach new heights <br> with my trainings <br> right now...</h1>
+            <span style="background-color: black; color:white; font-size:20px ;" >COMMENT ÇA FONCTIONNE</span> <br>
+            <h1  style="color:#212121">RAtteignez de nouveaux sommets <br> avec mes formations <br> en ce moment...</h1>
         </v-col>
         <v-col cols="12" md="6" lg="6">
               <v-img  class="bg-white" width="600px"  height="500px"  :aspect-ratio="1"  src="https://wgl-demo.net/zium/wp-content/uploads/elementor/thumbs/home4_image2-pi9s5fthedo361ryqa69pyer4axsgu2om40p9pr6tc.jpg" 
@@ -35,7 +35,7 @@
         <v-col cols="12" md="6" lg="6">
             <h1 class="stroke">01 </h1> <h6 style="margin-left:60px">step</h6>   
             <div style="margin-left:250px ; margin-top:-200px">    
-             <p>Choose your Training</p>
+             <p>Choisissez votre entraîneur</p>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea reiciendis quasi enim perspiciatis <br> molestias nulla non. Molestias magnam dolores, repellendus hic esse <br> fugiat dolor eos doloremque est aperiam. Deserunt, quisquam?</p>
             </div>   
             <v-divider></v-divider>
@@ -43,7 +43,7 @@
         <v-col cols="12" md="6" lg="6">
              <h1 class="stroke">02 </h1> <h6 style="margin-left:60px">step</h6>   
             <div style="margin-left:250px ; margin-top:-270px" >    
-             <p>Start The Work Anywhere</p>
+             <p>Commencez le travail n'importe où</p>
             <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea reiciendis quasi enim perspiciatis <br> molestias nulla non. Molestias magnam dolores, repellendus hic esse <br> fugiat dolor eos doloremque est aperiam. Deserunt, quisquam?</span>
             </div>   
             <v-divider></v-divider>
@@ -54,13 +54,13 @@
         </v-col>
         <v-col cols="12" md="6" lg="6">
             <div style="margin-top:-180px">
-               <h3 style="color:black ; font-size:50px">... and transform <br> your body, feel, and <br> recharge yourself.</h3> </div> 
+               <h3 style="color:black ; font-size:50px">...et transformer <br> votre corps, ressentir et <br> vous ressourcer..</h3> </div> 
             
         </v-col>
         <v-col cols="12" md="6" lg="6">
              <h1 class="stroke">03 </h1> <h6 style="margin-left:60px">step</h6>   
             <div style="margin-left:250px ; margin-top:-300px" >    
-             <p>    Make Real Result Happen</p>
+             <p> Renre le resultat Vrai</p>
             <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea reiciendis quasi enim perspiciatis <br> molestias nulla non. Molestias magnam dolores, repellendus hic esse <br> fugiat dolor eos doloremque est aperiam. Deserunt, quisquam?</span>
             </div>   
             <v-divider></v-divider>
@@ -95,11 +95,11 @@
          <div class="box">
             <div class="front-face" >
                <div class="icon">
-                     <v-img  class="bg-white"   height="380px"  cover v-bind:src="'../image/' + coach.photo"></v-img>
+                   <v-img v-bind:src="'../image/Coach/' + coach.photo" style="width:600px ; height: 450px"></v-img>
                </div>
              
             </div>
-            <div class="back-face">
+            <div class="back-face " >
                <span>{{coach.text}}</span>
                <p>
                  {{coach.subtext}}
@@ -108,10 +108,13 @@
                  {{coach.age}}
                </p>
                
-            </div>
-               <span style="color:dodgerblue">Coach </span>
+            </div><br><br><br>
+            <div class="text-center">
+                 <span style="color:dodgerblue">Coach </span>
                 <h5>{{coach.name}}</h5>
                <h5>{{coach.specialite}}</h5>
+            </div>
+            
             
          </div>
              
@@ -125,8 +128,8 @@
     </div><br><br><br>
 
     <v-container>
-          <span style="background-color: black; color:white; font-size:20px ;" > WATCH THE GALLERY</span> <br><br>
-           <h1  style="color:#212121">Unlimited group & personal <br> trainings anywhere.</h1><br><br><br><br>
+          <span style="background-color: black; color:white; font-size:20px ;" >VOIR LA GALERIE</span> <br><br>
+           <h1  style="color:#212121">Formations de groupe et personnelles <br> illimitées partout.</h1><br><br><br><br>
            
     </v-container>
   

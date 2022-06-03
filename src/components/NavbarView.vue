@@ -1,7 +1,7 @@
 <template>
   <nav>
       <v-toolbar-title class="text-uppercase " style="color:white">
-        <li><router-link to="exampleView">FitBody</router-link></li>
+        <li><router-link :to="{name:'exampleView' }">FitBody</router-link></li>
    
     </v-toolbar-title>
        
@@ -11,8 +11,75 @@
     </label>
  
     <ul>
-      <li><router-link to="EntrainementView">Entrainement</router-link></li>
-      <li><router-link to="NutritionView">Nutrition</router-link></li>
+      <li v-if="loggedIn">
+         <v-menu
+      v-model="menu"
+      :close-on-content-click="false"
+      location="end"
+    >
+      <template v-slot:activator="{ props }">
+        <v-btn
+          color="indigo"
+          v-bind="props"
+        >
+          {{this.user.name}}
+        </v-btn>
+      </template>
+
+      <v-card min-width="300">
+        <v-list>
+
+          <v-list-item
+        
+            v-bind:title="this.user.name"
+            v-bind:subtitle="this.user.email"
+          >
+          
+          </v-list-item>
+        </v-list>
+
+        <v-divider></v-divider>
+
+        <v-list v-if="loggedIn" style="margin-left:-20px">
+          <v-list-item router-link :to="{name:'ProfileView' }" style="padding:0rem 25%" >
+           <v-img v-bind:src="'../image/ProfileUser/' + user.photo"   width="30px" height="30px"> </v-img>
+           Profile
+          </v-list-item>
+            <v-list-item router-link :to="{name:'PosteUser' }" style="padding:0rem 20%">
+             <v-img src="https://cdn-icons-png.flaticon.com/512/1055/1055661.png" width="30px" height="30px"></v-img>
+           Mes Postes
+          </v-list-item>
+            <v-list-item router-link :to="{name:'CreateWorkout' }" style="padding:0rem 20%">
+             <v-img src="https://cdn-icons-png.flaticon.com/512/3703/3703446.png" width="30px" height="30px"></v-img>
+           Create Workout
+          </v-list-item>
+            <v-list-item router-link :to="{name:'CreateRegime' }" style="padding:0rem 20%" >
+            <v-img src="https://cdn-icons-png.flaticon.com/512/1410/1410596.png" width="30px" height="30px"></v-img>
+           CreateRegime
+          </v-list-item>
+            <v-list-item router-link :to="{name:'PanierView' }"  style="padding:0rem 20%" >
+             <v-img src="https://cdn-icons-png.flaticon.com/512/420/420012.png" width="30px" height="30px"></v-img>
+           Votre Panier
+          </v-list-item>
+           <v-list-item @click.prevent="performLogout" style="padding:0rem 20%"  >
+             <v-img src="https://cdn-icons.flaticon.com/png/512/4210/premium/4210146.png?token=exp=1654179646~hmac=db1d43e53c97118a8022e519a30787c8" width="30px" height="30px"></v-img>
+           Logout
+          </v-list-item>
+
+        </v-list>
+
+       
+      </v-card>
+    </v-menu>
+      </li>
+      <li><router-link :to="{name:'EntrainementView' }">Entrainement</router-link></li>
+      <li><router-link :to="{name:'NutritionView' }">Nutrition</router-link></li>
+      <li>
+        
+      </li>
+        <li v-bind="props"  >
+          <router-link to="ArticleNutrition">Blog</router-link>
+        </li>
       <li>
              <v-menu>
       <template v-slot:activator="{ props }">
@@ -21,38 +88,22 @@
         </li>
       </template>
       <v-list>
-               <li><router-link to="">Actualité</router-link></li>
-                <li><router-link to="NutritionnisteView">Nutritionniste</router-link></li>
-                <li><router-link to="CoachView1">Coach</router-link></li>
-                 <li><router-link to="GymView">Gym</router-link></li>
+              
+                <li><router-link :to="{name:'NutritionnisteView' }" >Nutritionniste</router-link></li>
+                <li><router-link :to="{name:'CoachView1' }" >Coach</router-link></li>
+                 <li><router-link :to="{name:'GymView' }" >Gym</router-link></li>
+                
       </v-list>
     </v-menu>
+    
       </li>
-       <li><router-link to="BoutiqueView">Boutique</router-link></li>
+       <li><router-link :to="{name:'posteView' }" >Poste</router-link></li> 
+       <li><router-link :to="{name:'BoutiqueView' }" >Boutique</router-link></li>
 
-      <li>  <v-btn v-if="!loggedIn" to="/SignIn1">Se Connecter</v-btn></li>
-       <li>  <v-btn v-if="!loggedIn" to="/SignUp">Commencer dés maintenant</v-btn></li>  
-            <li><router-link to="posteView">Poste</router-link></li>  
-              <v-menu>
-      <template v-slot:activator="{ props }">
-        <v-btn
-         v-if="loggedIn"
-          color="primary"
-          v-bind="props"
-        >
-          {{this.user.name}}
-        </v-btn>
-      </template>
-      <v-list>
-      
-          <v-list-item-title  v-if="loggedIn" ><router-link to="ProfileView">Profile</router-link></v-list-item-title>
-            <v-list-item-title  v-if="loggedIn" ><router-link to="CreateWorkout">Create Workout</router-link></v-list-item-title>
-            <v-list-item-title  v-if="loggedIn" ><router-link to="CreateRegime">Create Regime</router-link></v-list-item-title>
-              <v-list-item-title  v-if="loggedIn" ><router-link to="PanierView">Votre Panier</router-link></v-list-item-title>
-              <v-list-item-title  v-if="loggedIn" ><v-btn @click.prevent="performLogout" >Logout</v-btn></v-list-item-title>
-     
-      </v-list>
-    </v-menu>
+      <li>  <v-btn v-if="!loggedIn" :to="{name:'SignIn1' }" >Se Connecter</v-btn></li>
+       <li>  <v-btn v-if="!loggedIn" :to="{name:'SignUp' }" >Commencer dés maintenant</v-btn></li>  
+             
+         
           
     </ul>
   </nav>
@@ -166,7 +217,11 @@ input[type="checkbox"]{
 export default {
   data() {
     return{
-      token:null
+      token:null,
+        fav: true,
+      menu: false,
+      message: false,
+      hints: true,
     }
     
   },

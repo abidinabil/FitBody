@@ -66,7 +66,7 @@
     >
       <template v-slot:activator="{ props }">
         <v-btn
-          v-if="post1.id_user == user.id"
+       
           color="indigo"
           v-bind="props"
         >
@@ -75,21 +75,12 @@
       </template>
 
       <v-card min-width="300" >
-         <v-avatar size="50px" >
-              <v-img
-               v-bind:src="'../image/ProfileUser/' + post1.photo"
-                style="border-radius:30px"
-              ></v-img>
-            </v-avatar>
-
-        <v-divider></v-divider>
+         
 
         <v-list class="mx-4" >
-          <v-list-item   >
-           Modifier
-          </v-list-item>
+        
 
-          <v-list-item  @click="deletePost(post1.id) ">
+          <v-list-item  @click="deleteEnregistrement(post1.id) ">
           Supprrimer
           </v-list-item>
         </v-list>
@@ -129,7 +120,7 @@
                    </v-img>
              
             </v-avatar>
-               <strong @click.prevent="SaveEnregistrement(post1.id)"  >Enregistrer</strong> <br>
+             
              </v-col>
            </v-row><br>
           
@@ -195,6 +186,30 @@ export default {
          } 
          
        )
+     },
+      deleteEnregistrement(id){
+        axios.delete('http://localhost:8000/api/auth/deleteEnregistrement/'+ id)
+        .then(response => {
+               console.log(response);
+              
+               if(response.status == 200){
+                
+                             this.$toast.success(" Deleted Enregistrement succesfuly.", {
+                          position : "top-right"
+                  });
+                   this.getEnregistrementUser();
+                   
+               }
+          }).catch(
+              error =>{
+                  this.$toast.error(" Error Enregistrement Not Delete.", {
+                                position : "top-right"
+                                
+                        });      
+                console.log(error);
+              } 
+              
+            )
      },
     }
 }

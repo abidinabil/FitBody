@@ -14,9 +14,8 @@
       flat   
       class="d-flex align-center " >
       <v-container>
-          <h1>Hello</h1> <br>
-     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, sit architecto. Consequuntur, 
-         <br> voluptatum nihil maxime veritatis fuga voluptate molestias dignissimos sunt at aliquam vitae atque est ipsam cupiditate. Quam, perferendis.</p>
+          <h1>Bienvenue</h1> <br>
+     
     </v-container>
    
     </v-card>
@@ -24,11 +23,11 @@
         <v-col cols="12" md="8">
              <v-card tile class="mx-5 mt-n10 card1" color="white">
                  <v-toolbar extended color="lightgray">
-                <h1 style="font-size:20px; "> MyAccount</h1> <br>
+                <h1 style="font-size:20px; "> Mon Compte</h1> <br>
                 </v-toolbar>
                 <v-divider></v-divider>
                 <v-container>
-                    <p>User Information</p><br>
+                    <p>Utilisateur Information</p><br>
                         <v-col cols="auto">
           <v-dialog transition="dialog-top-transition">
             <template v-slot:activator="{ props }">
@@ -56,7 +55,7 @@
                     <v-btn text rounded @click="isActive.value = false"
                       >Annuler</v-btn
                     >
-                    <v-btn text rounded type="submit">ENregistrer</v-btn>
+                    <v-btn text rounded type="submit">Enregistrer</v-btn>
                   </v-card-actions>
                 </form>
               </v-card>
@@ -120,9 +119,9 @@
 
                          
                            </v-row>
-                             <p>ABOUT ME</p>
+                            
                                
-                            <v-btn color="black" dark tile  type="submit" @click="updateProfil" > Update</v-btn>
+                            <v-btn color="black" dark tile  type="submit" @click="updateProfil" > Modifier</v-btn>
                     </v-form>
                 </v-container>
               </v-card>
@@ -159,16 +158,13 @@
              </v-img>
           
              <br>
-             <v-row  >
-                    <v-col cols="12" md="4" class="text-center">
+             <v-row class="mx-16" >
+                    <v-col cols="12" md="6" class="text-center"      v-if="user.role == 'user'">
                      <p>{{users.weight}}</p> 
                    <p class="text-center">  <v-img src="https://cdn-icons-png.flaticon.com/128/4813/4813685.png" style="width:50px ; margin-left:60px"></v-img>Weight(Kg)</p> 
                     </v-col>
-                 <v-col cols="12" md="4" class="text-center">
-                     <p>3330</p> 
-                   <p class="text-center">  <v-img src="https://cdn-icons.flaticon.com/png/512/2058/premium/2058065.png?token=exp=1650203625~hmac=bf0b4eb93c902b72a3ed52a885591448" style="width:50px ; margin-left:60px"></v-img>Calorie</p> 
-                    </v-col>
-                    <v-col cols="12" md="4" class="text-center">
+               
+                    <v-col cols="12" md="6" class="text-center"      v-if="user.role == 'user'">
                      <p>{{users.taille}}</p> 
                    <p class="text-center">  <v-img src="https://cdn-icons-png.flaticon.com/128/349/349410.png" style="width:50px ; margin-left:60px"></v-img>Taille(Cm)</p> 
                     </v-col>
@@ -176,11 +172,8 @@
              <div class="text-center">
                <h3>{{users.name}}</h3>
                <p>{{users.email}}</p>
-               <p>Coach de Fitness</p>
-               <p>University of Computer Science</p>
-               <v-divider></v-divider>
-               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur dolore et est voluptates libero,
-                   <br> eum reiciendis itaque molestias necessitatibus beatae nulla laboriosam ex accusamus provident ratione qui harum, quos dolorem?</p>
+               
+                   <br> 
              </div>
               </v-card>
         </v-col>

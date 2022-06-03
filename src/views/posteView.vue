@@ -116,7 +116,8 @@
          </v-card><br><br><br>
         
   <v-card width="600"  class="postUser" cols="12" sm="6" v-for="post in Posts" :key="post.id" style="padding: 1em 2em 5em;">
-    <v-toolbar style="background-color:white">
+    
+    <v-toolbar style="background-color:white" >
       <template v-slot:title>
          <v-avatar size="50px" >
               <v-img
@@ -175,12 +176,12 @@
             >
               <v-img
              
-                v-bind:src="'../image/ProfileUser/' + users.photo"
+                v-bind:src="'../image/ProfileUser/' + post.photo"
                 style="border-radius:30px"
               ></v-img>
              
             </v-avatar>
-               <strong v-html="users.name"></strong> <br>
+               <strong v-html="post.name"></strong> <br>
                <v-textarea
        color="secondary"
           v-model="editPost"
@@ -223,7 +224,7 @@
                  <v-col cols="auto">
           <v-dialog transition="dialog-top-transition">
             <template v-slot:activator="{ props }">
-              <v-btn flat rounded v-bind="props"
+              <v-btn flat rounded v-bind="props"  v-if="post.id_user == user.id"
                 >  <v-img  class="bg-white" src="https://cdn-icons-png.flaticon.com/512/2659/2659360.png" 
                    cover    >
                        
@@ -464,13 +465,13 @@ export default {
            })
                .then (res => {
          console.log(res);
-           this.$toast.success(" success Post saved.", {
+           this.$toast.success(" merci pour votre publication ! Elle a été envoyée aux admins  pour approbation", {
                           position : "top-right"
                   });
                
             }).catch(
               error =>{
-                  this.$toast.error(" error Post not saved.", {
+                  this.$toast.error(" erreur publication n'est pas publier ", {
                                 position : "top-right"
                                 
                         });      
@@ -660,7 +661,7 @@ export default {
       axios .post("http://localhost:8000/api/auth/SaveEnregistrement/" +this.user.id +"/" +$id,
           {
             id_post: $id,
-            id_user: this.user.id,
+            id_users: this.user.id,
           }
         )
         .then((response) => {

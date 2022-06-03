@@ -9,7 +9,7 @@
       tile
       flat
       class="mx-10"
-      style="background:url(https://images.pexels.com/photos/5646011/pexels-photo-5646011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940); margin-top:80px"
+      style="background:url(https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2021/10/1314762-The-best-apps-for-dieting-and-weight-loss-732x549-Feature-732x549.jpg); margin-top:80px"
       dark
     >
      
@@ -177,8 +177,7 @@
             <th scope="col">name</th>
             <th scope="col">email</th>
             <th scope="col">role</th>
-            <th scope="col">taille</th>
-                <th scope="col">weight</th>
+            
                 <th>Photo Profile</th>
                 
             <th> delete</th>
@@ -194,10 +193,9 @@
             <td>{{user.name}}</td>
             <td>{{user.email}}</td>
             <td>{{user.role}}</td>
-             <td>{{user.taille}}</td>
-              <td>{{user.weight}}</td>
+       
                
-            <td><v-img v-bind:src="'../image/ProfileUser/' + user.photo" style="width:50px ; height: 50px"></v-img></td>
+            <td><v-img v-bind:src="'../image/ProfileUser/' + user.photo" style="width:150px ; height: 150px"></v-img></td>
               <td>
                 
                  <v-img type="button" @click="deleteUser(user.id) " 
