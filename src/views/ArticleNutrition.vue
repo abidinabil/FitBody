@@ -29,9 +29,9 @@
 </div> <br><br>
 <p class="mx-16">Voici Nos Article à Consulter : </p>
 <div>
-     <v-container>
-  <v-row >
-    <v-col cols="12" md="4"  lg="4" v-for="nutrition in nutritions" :key="nutrition.title" >
+    
+  <v-row class="mx-16">
+    <v-col cols="12" md="3"  lg="3" v-for="nutrition in nutritions" :key="nutrition.title" >
    <v-hover v-slot="{ isHovering, props }">
     <v-card
       class="mx-auto"
@@ -60,8 +60,9 @@
   </v-col>
  
   </v-row>
-  </v-container>
+
 </div>
+    
 
 
 

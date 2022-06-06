@@ -56,7 +56,7 @@
            <v-col cols="12" md="6">
                   <v-table
     fixed-header
-    height="400px"
+   
     style="margin-top:100px"
   >
 

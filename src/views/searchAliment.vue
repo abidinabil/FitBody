@@ -123,11 +123,11 @@
                                   <option value="Snack">Snack</option>
                  </select>
                            </v-col>
-                           <v-col cols="12" sm="2" md="2">
+                           <v-col cols="12" sm="6 " md="6">
                                <v-btn  
                           color="primary"
                           type="submit"
-                          depressed>Add Aliment to Jornal</v-btn>
+                          depressed>Ajouter un élément au journal</v-btn>
                            </v-col>
                            
                            </v-row>

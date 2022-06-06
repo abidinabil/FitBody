@@ -1,7 +1,12 @@
 <template>
   <nav>
-      <v-toolbar-title class="text-uppercase " style="color:white">
-        <li><router-link :to="{name:'exampleView' }">FitBody</router-link></li>
+      <v-toolbar-title >
+        
+           <v-img  class="bg-white" style="width:100px ; height:75px" cover src="../assets/logo.png ">
+        <router-link :to="{name:'exampleView' }"></router-link>
+        </v-img>
+      
+       
    
     </v-toolbar-title>
        

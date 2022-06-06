@@ -4,7 +4,7 @@
    
         <v-card    
          class="mx-auto"
-         max-width="700"
+         max-width="1200"
          style=" background-color:lightgrey"
    
     ><br><br>
@@ -16,7 +16,7 @@
       </v-card><br><br>
        <v-card    
          class="mx-auto"
-         max-width="700"
+         max-width="1200"
          style=" background-color:lightgrey"
    
     ><br><br>
@@ -81,12 +81,12 @@
                     ></v-text-field>
               </v-col>
               <button type="submit" ></button><br>
-                <v-btn  variant="outlined" class="mx-auto" style="color:cadetblue" @click.prevent="saveExerciceWorkout">  Record exercice </v-btn><br><br><br>
+                <v-btn  variant="outlined" class="mx-auto" style="color:cadetblue" @click.prevent="saveExerciceWorkout">  Enregistrer exercice </v-btn><br><br><br>
             
           </v-row>
     </form>
    
-              <v-row v-for="exercice in exerciceWorkouts" :key="exercice.exercice" class="mx-2"> 
+              <v-row v-for="exercice in exerciceWorkouts" :key="exercice.exercice" class="mx-16"> 
                <v-col sm="3" md="2">
                    <v-img 
                            @click="deleteExerciceWorkout(exercice.id) " 
@@ -179,6 +179,7 @@
                <div class="caption grey--text"> weight</div>
             <div>{{exercice.weight}}</div>
           </v-col>
+          <v-divider></v-divider>
       </v-row>
      
           

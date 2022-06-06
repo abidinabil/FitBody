@@ -37,7 +37,7 @@
           </v-row><br>
           <v-card tile class="mx-4 " color="white">
                  <v-toolbar extended color="lightgray">
-                <h1 style="font-size:20px; "> Record Workout</h1> <br>
+                <h1 style="font-size:20px; "> Créer Workout</h1> <br>
                 </v-toolbar>
                   
                     
@@ -46,11 +46,11 @@
                                 <!-- Workout Name -->
                     <div class="flex flex-col">
                     <label for="workout-name" class=" text-sm text-at-light-green"
-                        >Workout Name</label
+                        >Nom de Workout</label
                     >
                         <v-text-field
                         color="secondary"
-                        label="Workout Name"
+                        label="Nom de Workout"
                         variant="contained"
                          required
                         id="workout-name"
@@ -66,7 +66,7 @@
                       
                       
                         >
-                          Complete Your Workout
+                          Completer  Workout
                         </v-btn>
                   
                                 

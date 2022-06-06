@@ -7,8 +7,10 @@
                 <v-col >
                         <h2 class="text-center font-italic" style="color:crimson ; font-family:'Courier New', Courier, monospace">  {{nutritionsDetails.title}}</h2><br><br>
                             <v-img  class="bg-white" height="750px" cover v-bind:src="'../image/Nutrition/' + nutritionsDetails.image"></v-img>
+                              <p style="color: black; font-size: 20px;">{{nutritionsDetails.text}}</p>  <br>
                               <p style="color:crimson; font-size: 30px;">Description de L'Exercice</p> <br>
-                                <p style="color: black; font-size: 20px;">{{nutritionsDetails.text}}</p> <br><br>
+                                <p style="color: black; font-size: 20px;">{{nutritionsDetails.subtext}}</p> <br><br>
+
                                
 
 

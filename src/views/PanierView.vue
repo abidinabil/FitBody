@@ -30,7 +30,7 @@
           <v-row class="mx-16">
                       <v-container v-if=" ProduitUser == '' ">
                   
-                      <v-alert type="error">  Désolé, nous ne pouvons pas publier ceci ici, c'est hors contenu </v-alert>
+                      <v-alert type="error">  Désolé, produit not found </v-alert>
                       </v-container>
                           <v-col cols="12" sm="8" v-for="produit in ProduitUser" :key="produit.id">
                    
@@ -57,8 +57,7 @@
                         variant="contained"
                         type="number"
                          required
-                         v-model="produit.qty"
-                  
+                         v-model="toggle"
                     ></v-text-field>
               </v-col>
               <v-col cols="12" sm="12">
@@ -82,7 +81,7 @@
                <v-icon>mdi-delete</v-icon>Supprimer Produit</v-btn><br><br>
                            </v-col>
                            </v-row>
-                            
+                      
                            </v-col>
                            
                            <v-col cols="12" sm="4" md="4" v-if=" ProduitUser != '' " >
@@ -107,11 +106,51 @@
 
                        
                       </div>
+                                                     
+             
+                      <v-card-text class="mt-12">
+                        <h4
+                          class="text-center" style="color:black">Passer La Commande</h4>  <br><br>
+                      
+                        
+                           <v-row>
+                               <v-col cols="12" sm="12">
+                            <v-text-field
+                            v-model="name"  label="Name"  color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                           <v-col cols="12" sm="12">
+                            <v-text-field
+                            v-model="adresse"  label="Adresse"  color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                           <v-col cols="12" sm="12">
+                            <v-text-field
+                            v-model="Ntlfn"  label="Numéro de Télephone"  color="secondary" variant="contained" placeholder="Placeholder"
+                          />
+                           </v-col>
+                           <v-col cols="12" sm="12">
+                            <v-text-field
+                            v-model="CodePostal" label="Code Postal"  color="secondary" variant="contained" placeholder="Placeholder" />
+                           </v-col>
+                           
+                                  <v-btn @click.prevent="storeCart" v-if=" ProduitUser != '' ">Commender</v-btn>
+                            
+                           </v-row>
                              
+                      
+                         
+                    
+                      </v-card-text>
+                 
+      
                              
                            </v-col>
-                          <v-btn @click.prevent="storeCart" v-if=" ProduitUser != '' ">Commender</v-btn>
+                  
+                    
                            </v-row>
+                  
+                          
          
             
 </template>
@@ -124,10 +163,17 @@ export default {
   components: { NavbarView },
     data() {
       return{
+     
+      qty:"",
+      name:"",
+      adresse:"",
+      Ntlfn:"",
+      CodePostal:"",
         ProduitUser:{},
          number: 1,
          calcPayment:"",
-         Total:0,
+         
+         total:"",
         
           items: [
         {
@@ -168,31 +214,33 @@ export default {
     
     },
     methods:{
-                    storeCart(){
-            
-            
-                   let fd = new FormData();
-           
-         
-           console.log(FormData)
-            
-                              fd.append('cartItems', this.ProduitUser);
-                               fd.append('id_user', this.user.id);
-
-     axios.post("http://localhost:8000/api/auth/storeCart" ,fd , { 
-           
-           })
-        .then (res => {
-         console.log(res);
-           this.$toast.success(" success Produit saved.", {
+          storeCart(){
+          
+           axios.post('http://localhost:8000/api/auth/commande/'  +this.user.id  ,{
+             id_produits : this.ProduitUser,
+                qty : this.toggle,
+                name:this.name,
+                adresse:this.adresse,
+                Ntlfn:this.Ntlfn,
+                CodePostal:this.CodePostal,
+                id_user: this.user.id,
+                total:this.subTotal,
+          
+                
+             } ).then(response => {
+               console.log(response);
+              
+               if(response.status == 200){
+                      this.$toast.success(" success commande saved.", {
                           position : "top-right"
+
                   });
-                 
-                   
-        
-       }).catch(
+             
+                  
+               }
+          }).catch(
          error =>{
-             this.$toast.error(" error Produit not saved.", {
+             this.$toast.error(" error commande not saved.", {
                           position : "top-right"
                           
                   });
@@ -201,8 +249,7 @@ export default {
          } 
          
        )
-                
-     },
+        },
               getProduitUser(){
        axios.get('http://localhost:8000/api/auth/getProduitUser/'+this.user.id)
         .then (res => {

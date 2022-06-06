@@ -4,10 +4,9 @@
           <v-container >
     <v-row class="r1">
       <v-col  cols="12" xs="12" sm="6" md="6" lg="6">
-            <h2 class="test" style="color:white">Bienvenue chez FitBody</h2>
+            <h2 class="test" style="color:white">Bienvenue chez FitUP</h2>
             
-            <p style="color:aliceblue">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti voluptatem animi eveniet voluptate beatae, facilis vitae 
-              rerum perspiciatis blanditiis porro, unde, sunt optio similique quidem ab. Veniam laudantium tempore dolore.</p>
+            <p style="color:aliceblue">FitUp est certainement l’application de sport la plus complète. Avec elle, vous pouvez à la fois récupérer vos statistiques d’entraînement ( altitude, calories…), créer de nouveaux parcours et défier d’autres sportifs. </p>
            <v-btn style="background-color: white ; color:black" >Commencer dés maintenant</v-btn>    
       </v-col>
       <v-col cols="12" xs="12" sm="6" md="6" lg="6">
